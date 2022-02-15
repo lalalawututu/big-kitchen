@@ -1,0 +1,25 @@
+{
+  "Employee":{
+    "employeeId":"XXXXXXX",
+    "name":"XXXXXXX",
+    "IDNumber":"XXXXXXX",
+    "sex":"男",
+    "age":26 ,
+    "address":"XXXXXXX",
+    "education":"本科" ,
+    "graduationSchool":"四川大学" ,
+    "major":"XXX" ,
+    "specialty":"XXX" ,
+    "positionalTitles":"XXX" ,
+    "department":"XXXXXXX",
+    "team":"XXXXXXX",
+    "employeePosition":"XXXXXXX",
+    "mobilePhone":"XXXXXXX",
+    "tel":"XXXXXXX",
+    "entryDate":"2022/01/01 00:00",
+    "workingYears":5,
+    "contractStatus":"有效",
+    "status":"XXXXXXX",
+    "workStatus":"XXXXXXX"
+  }
+}
