@@ -3,6 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import Mine from './component/mine';
+import WorkMange from './component/workmange';
+import PeopleMange from './component/peoplemange';
 import './App.less';
 
 class App extends PureComponent {
@@ -11,6 +13,8 @@ class App extends PureComponent {
       <BrowserRouter>
         <div>
           <Route path="/" exact component={Mine}></Route>
+          <Route path="/workmange" component={WorkMange}></Route>
+          <Route path="/peoplemange" component={PeopleMange}></Route>
         </div>
       </BrowserRouter>
     );
