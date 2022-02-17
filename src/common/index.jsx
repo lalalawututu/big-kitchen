@@ -32,25 +32,23 @@ class Header extends PureComponent {
       <div className="header">
         <div className="headerBox" style={{left: this.state.left}}>
           <Row>
-            <Col span={1}>
+            <Col span={7}>
               <Link to="/">
-                <img src={headPicture} alt="" />
+                <img src={headPicture} alt="" className='logo' />
               </Link>
-            </Col>
-            <Col span={4}>
               成都天府智慧大厨房智能管控
             </Col>
-            <Col span={2}>
+            <Col span={3} offset={3}>
               <Link to="/">
                 人员看板
               </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/workmange">
                 工艺管理
-              </Link>  
+              </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/peoplemange">
                 人员管理
               </Link>
