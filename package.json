@@ -73,7 +73,7 @@
     "start": "craco start",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "json-server": "json-server __json_server_mock__/db.json --watch --port 3002"
+    "open-server": "json-server __json_server_mock__/db.json --watch --port 3002"
   },
   "eslintConfig": {
     "extends": [

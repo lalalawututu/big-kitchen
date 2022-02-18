@@ -38,7 +38,7 @@ class Header extends PureComponent {
               </Link>
               成都天府智慧大厨房智能管控
             </Col>
-            <Col span={3} offset={3}>
+            <Col span={3}>
               <Link to="/">
                 人员看板
               </Link>
@@ -64,8 +64,5 @@ const mapStateToProps = (state) => ({
   headPicture: state.getIn(['header', 'headPicture']),
 });
 
-const mapDispatchToProps = (dispatch) => {
 
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

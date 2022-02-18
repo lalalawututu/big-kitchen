@@ -1,8 +1,271 @@
-.example{
-    width: .74rem;
-    height: 1rem;
-    // // font-family: HelveticaNeue-Medium, PingFangSC-Medium;
-    font-size: .18rem;
-    color: #d63f3f;
-   
+.bulletin-board-container{
+    padding: 0 .24rem;
+    .commit-title{
+        font-size: 0.18rem;
+        font-weight: 600;
+        color: #333951;
+        margin-bottom: .22rem;
+    }
+    .ant-progress-show-info .ant-progress-outer{
+        margin-right: calc(-2em - 18px);
+        padding-right: calc(2em + 18px);
+    }
+    .ant-progress-bg{
+        height: 0.16rem!important;
+    }
+    .ant-progress-text{
+        font-size: 0.18rem;
+        font-weight: 600;
+        color: #6C6CE5;
+    }
+
+    .employee-info{
+        //height: 2.62rem;
+        background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.3) 100%);
+        border-radius: 0.5rem;
+        padding: .28rem .3rem .3rem .24rem;
+        .date{
+            font-size: 0.18rem;
+            font-weight: 600;
+            color: #333951;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: .2rem;
+            span{
+                font-size: 0.16rem;
+                color: #8A8F9E;
+            }
+        }
+        .header-url{
+            width: 1.68rem;
+            height: 1.96rem;
+        }
+        .data{
+            //margin: .2rem 0 .2rem .2rem;
+            margin-left: .2rem;
+            display: flex;
+            flex-direction: column;
+            h6{
+                font-size: 0.27rem;
+                line-height: 100%;
+                font-weight: 600;
+                color: #191D32;
+                margin-bottom: .3rem;
+            }
+            p{
+                font-size: 0.18rem;
+                font-weight: 600;
+                color: #333951;
+                margin-bottom: .1rem;
+            }
+            .leave-btn{
+                width: 1.12rem;
+                height: 0.49rem;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 0.2rem;
+                font-size: 0.18rem;
+                font-weight: 600;
+                color: #6C6CE5;
+                margin-top: .12rem;
+            }
+        }
+        .quit-btn{
+            margin-top: .2rem;
+            width: 100%;
+            height: 0.49rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 0.2rem;
+            font-size: 0.18rem;
+            font-weight: 600;
+            color: #FF4B4B;
+        }
+    }
+    .work-progress{
+        margin: .3rem;
+    }
+    .task-container{
+        margin-left: .2rem;
+        position: relative;
+        .commit-title{
+            margin-bottom: 0;
+            line-height: .4rem;
+        }
+        .icon-arrow{
+            position: absolute;
+            svg{
+                width: 0.4rem;
+                height: 0.4rem;
+                background: #FFFFFF;
+                border-radius: 0.2rem;
+            }
+        }
+        .task-list-box{
+            display: flex;
+            justify-content: space-between;
+            .ant-collapse-header{
+                background-color: transparent;
+                border-bottom: none!important;
+                border-radius: 0!important;
+                border-bottom: 0.01rem dashed #DEE3ED;
+            }
+            .task-list{
+                display: flex;
+                align-items: center;
+                background: #F2F4F8;
+                border-radius: 0.2rem;
+                .collapse-list,.ant-collapse-content{
+                    background: transparent;
+                    border: none;
+                    line-height: .40rem;
+                    .ant-collapse-content-box{
+                        display: flex;
+                        align-items: center;
+                        padding: 0;
+                    }
+                    .ant-collapse-item{
+                        display: flex;
+                        align-items: center;
+                        border: none;
+                        p{
+                            font-size: 0.15rem;
+                            font-weight: 600;
+                            color: #9598A8;
+                            cursor: pointer;
+                            margin: 0 .1rem 0;
+                        }
+                        p:first-of-type{
+                            margin-left: .88rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .lists{
+            background: transparent;
+            border: none;
+            margin-top: .2rem;
+            .ant-collapse-item{
+                margin-bottom: .2rem;
+                border-bottom: none;
+                padding: 0 .25rem 0 .3rem;
+                background: #fff;
+                border-radius: 0.5rem;
+                .ant-collapse-header{
+                    padding: .28rem 0 .05rem 0;
+                }
+            }
+            .ant-collapse-content{
+                background: transparent;
+                border-top: none;
+                border-top: .01px dashed #DEE3ED;
+                padding: .24rem 0 .2rem;
+                .ant-collapse-content-box{
+                    padding: 0;
+                    p{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .product-progress{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 0.18rem;
+                font-weight: 600;
+                color: #333951;
+                margin-bottom: .3rem;
+                .ant-progress-line{
+                    width: 92%;
+                }
+                .ant-progress-text{
+                    color: #FF4B4B;
+                }
+            }
+
+            .des-box{
+                .ant-descriptions-item{
+                    padding-bottom: .14rem;
+                }
+                .ant-descriptions-item-label{
+                    font-size: 0.15rem;
+                    font-weight: 600;
+                    color: #9598A8;
+                    display: block;
+                    line-height: 0.32rem;
+                }
+                .ant-descriptions-item-container{
+                    align-items: center;
+                }
+                .ant-descriptions-item-content{
+                    font-size: 0.19rem;
+                    font-weight: 600;
+                    color: #333951;
+                    line-height: 0.32rem;
+                }
+                .batch-number{
+                    width: 62%;
+                    border: none;
+                    background: rgba(210, 213, 229, 0.47);
+                    border-radius: 0.1rem;
+                    .ant-input{
+                        background: transparent;
+                        font-size: 0.15rem;
+                        font-weight: 600;
+                    }
+                }
+                .unqualified-number{
+                  border: none;
+                  background: rgba(210, 213, 229, 0.47);
+                  border-radius: 0.1rem;
+                  height: 0.32rem;
+                }
+            }
+            .unqualified-list{
+              padding: .25rem 0 .14rem;
+              h4{
+                font-size: 0.15rem;
+                font-weight: 600;
+                color: #9598A8;
+                line-height: 100%;
+                margin-bottom: 0;
+              }
+              button{
+                height: 0.41rem;
+                border-radius: 0.21rem;
+                border: 0.01rem solid rgba(0, 0, 0, 0.1);
+                margin-right: .3rem;
+                font-size: 0.15rem;
+                font-weight: 600;
+                color: #333951;
+                margin-top: .3rem;
+              }
+              .active{
+                color: #FFFFFF;
+                background: #333951;
+                box-shadow: 0 0 0.15rem 0 rgba(0, 0, 0, 0.05);
+              }
+            }
+
+            .submit-btn{
+                height: 0.49rem;
+                background: #6C6CE5;
+                border-radius: 0.16rem;
+                padding: 0 .33rem;
+                display: flex;
+                align-items: center;
+                margin: .15rem auto .2rem;
+                span{
+                    font-size: 0.18rem;
+                    font-weight: 600;
+                    color: #FFFFFF;
+                }
+                .anticon{
+                    font-size: .2rem;
+                }
+            }
+        }
+    }
 }

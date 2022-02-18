@@ -5,23 +5,50 @@ import { SearchOutlined } from '@ant-design/icons';
 import './index.less';
 
 const { Search } = Input;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 class PeopleMange extends PureComponent {
-  render() {
-    return (
-        <div className="container">
-            <div className="search-container">
-                <Search placeholder="人员姓名"
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []
+        }
+    }
+
+    componentDidMount(){
+        fetch(`${apiUrl}/Employee`).then(async (response) => {
+            if (response.ok) {
+                let workData = await response.json();
+                let data = [];
+                workData.forEach((item, index) => {
+                    let peopleInfo = {
+                        key: index,
+                        Name: item.Name,
+                        Sex: item.Sex,
+                        Team: item.Team,
+                        EmployeePosition: item.EmployeePosition,
+                    }
+                    data.push(peopleInfo)
+                })
+                this.setState({data: data})
+            }
+        });
+    }
+    render() {
+        return (
+            <div className="container">
+                <div className="search-container">
+                    <Search placeholder="人员姓名"
                         prefix={<SearchOutlined />}
                         allowClear
                         enterButton="搜索" size="default" />
+                </div>
+                <div className="common-long-table">
+                    <Table columns={columns} dataSource={this.state.data} />
+                </div>
             </div>
-            <div className="common-long-table">
-                <Table columns={columns} dataSource={data} />
-            </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 const columns = [
     {
@@ -59,29 +86,6 @@ const columns = [
                 {/*<button>删除</button>*/}
             </Space>
         ),
-    },
-];
-const data = [
-    {
-        key: '1',
-        Name: '张三',
-        Sex: '男',
-        Team: '早班组',
-        EmployeePosition: '分拣#切割#清洗#炖煮#放置',
-    },
-    {
-        key: '2',
-        Name: '李四',
-        Sex: '女',
-        Team: '晚班组',
-        EmployeePosition: '分拣#切割#清洗#炖煮#放置',
-    },
-    {
-        key: '3',
-        Name: '赵五',
-        Sex: '男',
-        Team: '晚班组',
-        EmployeePosition: '分拣#切割#清洗#炖煮#放置',
     },
 ];
 export default connect()(PeopleMange);

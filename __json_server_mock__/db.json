@@ -1,25 +1,128 @@
 {
-  "Employee":{
-    "employeeId":"XXXXXXX",
-    "name":"XXXXXXX",
-    "IDNumber":"XXXXXXX",
-    "sex":"男",
-    "age":26 ,
-    "address":"XXXXXXX",
-    "education":"本科" ,
-    "graduationSchool":"四川大学" ,
-    "major":"XXX" ,
-    "specialty":"XXX" ,
-    "positionalTitles":"XXX" ,
-    "department":"XXXXXXX",
-    "team":"XXXXXXX",
-    "employeePosition":"XXXXXXX",
-    "mobilePhone":"XXXXXXX",
-    "tel":"XXXXXXX",
-    "entryDate":"2022/01/01 00:00",
-    "workingYears":5,
-    "contractStatus":"有效",
-    "status":"XXXXXXX",
-    "workStatus":"XXXXXXX"
-  }
+  "Employee": [
+    {
+    "EmployeeId": "1",
+    "Name": "张三",
+    "IDNumber": "4527",
+    "Sex": "男",
+    "Age": 26,
+    "Address": "员工住址",
+    "Aducation": "",
+    "GraduationSchool": "四川大学",
+    "Major": "专业",
+    "Specialty": "特长",
+    "PositionalTitles": "职称",
+    "Department": "员工部门",
+    "Team": "员工班组",
+    "EmployeePosition": "包装#烹饪#凉拌#配送",
+    "MobilePhone": "13548745896",
+    "Tel": "2548965",
+    "EntryDate": "2022/01/01 00:00",
+    "WorkingYears": 5,
+    "ContractStatus": "有效",
+    "Status": "在职",
+    "WorkStatus": "工作"
+    },
+    {
+    "EmployeeId": "2",
+    "Name": "张艳",
+    "IDNumber": "3879",
+    "Sex": "女",
+    "Age": 32,
+    "Address": "员工住址",
+    "Aducation": "",
+    "GraduationSchool": "四川大学",
+    "Major": "专业",
+    "Specialty": "特长",
+    "PositionalTitles": "职称",
+    "Department": "员工部门",
+    "Team": "管理层",
+    "EmployeePosition": "包装#烹饪#凉拌#配送",
+    "MobilePhone": "13548745896",
+    "Tel": "2548965",
+    "EntryDate": "2022/01/01 00:00",
+    "WorkingYears": 5,
+    "ContractStatus": "有效",
+    "Status": "在职",
+    "WorkStatus": "工作"
+    }
+  ],
+  "Workmanship": [
+    {
+      "WorkmanshipId": "GY01-0001",
+      "WorkmanshipName": "凉拌土豆丝工艺",
+      "ProductionLineId": "SCX01-0002",
+      "ProductionLineName": "凉拌菜生产线",
+      "FinishedProduct": "凉拌土豆丝",
+      "FinishedProductSpecification": "G23654-1",
+      "FinishedProductRatio": 0.8,
+      "workerNumber": 4,
+      "WorkerQuantity": 4,
+      "WorkingTotalHours": 2,
+      "WorkingProcedure": {
+        "list": [
+          {
+            "Order": 1,
+            "WorkingProcedureId": "GX01-11111",
+            "WorkingProcedureName": "土豆分拣",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          },
+          {
+            "Order": 2,
+            "WorkingProcedureId": "GX01-11122",
+            "WorkingProcedureName": "清洗",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          },
+          {
+            "Order": 3,
+            "WorkingProcedureId": "GX01-11133",
+            "WorkingProcedureName": "削皮",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          }
+        ]
+      },
+      "WorkmanshipContent": "将选好的原料送入。。。"
+    },
+    {
+      "WorkmanshipId": "GY01-0002",
+      "WorkmanshipName": "凉拌黄瓜丝工艺",
+      "ProductionLineId": "SCX01-0002",
+      "ProductionLineName": "凉拌菜生产线",
+      "FinishedProduct": "凉拌黄瓜丝",
+      "FinishedProductSpecification": "G23654-1",
+      "FinishedProductRatio": 0.8,
+      "workerNumber": 4,
+      "WorkerQuantity": 4,
+      "WorkingTotalHours": 2,
+      "WorkingProcedure": {
+        "list": [
+          {
+            "Order": 1,
+            "WorkingProcedureId": "GX01-11111",
+            "WorkingProcedureName": "黄瓜分拣",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          },
+          {
+            "Order": 2,
+            "WorkingProcedureId": "GX01-11122",
+            "WorkingProcedureName": "清洗",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          },
+          {
+            "Order": 3,
+            "WorkingProcedureId": "GX01-11133",
+            "WorkingProcedureName": "削皮",
+            "WorkingHours": 2,
+            "WorkerQuantity": 4
+          }
+        ]
+      },
+      "WorkmanshipContent": "将选好的原料送入。。。"
+    }
+  ]
 }
