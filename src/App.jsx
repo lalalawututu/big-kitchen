@@ -6,6 +6,7 @@ import Header from './common/index'
 import Mine from './component/mine';
 import WorkMange from './component/workmange';
 import PeopleMange from './component/peoplemange';
+import WorkInfo from './component/workinformation';
 import './App.less';
 
 class App extends PureComponent {
@@ -17,6 +18,7 @@ class App extends PureComponent {
           <Route path="/" exact component={Mine}></Route>
           <Route path="/workmange" component={WorkMange}></Route>
           <Route path="/peoplemange" component={PeopleMange}></Route>
+          <Route path="/workinformation" component={WorkInfo}></Route>
         </div>
       </BrowserRouter>
     );
