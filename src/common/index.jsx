@@ -58,6 +58,11 @@ class Header extends PureComponent {
                 工艺详情
               </Link>
             </Col>
+            <Col span={3}>
+              <Link to="/workcreate">
+                工艺创建
+              </Link>
+            </Col>
           </Row>
         </div>
       </div>
