@@ -46,7 +46,6 @@ const genExtra = (TaskType,TaskContent,Unit,Quantity,PlanStartTime,PlanEndTime,T
 );
 
 function callback(key) {
-
 }
 
 class Mine extends PureComponent {
