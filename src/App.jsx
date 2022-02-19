@@ -7,6 +7,7 @@ import Mine from './component/mine';
 import WorkMange from './component/workmange';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
+import WorkCreate from './component/workcreate';
 import history from './history';
 import './App.less';
 
@@ -20,6 +21,7 @@ class App extends PureComponent {
           <Route path="/workmange" component={WorkMange}></Route>
           <Route path="/peoplemange" component={PeopleMange}></Route>
           <Route path="/workinformation" component={WorkInfo}></Route>
+          <Route path="/workcreate" component={WorkCreate}></Route>
         </div>
       </Router>
     );
