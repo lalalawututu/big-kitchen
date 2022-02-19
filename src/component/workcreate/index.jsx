@@ -7,7 +7,8 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 const dataDevice = [];
 const dataStep = [];
-for (let i = 0; i < 100; i++) {
+const dataStaff = [];
+for (let i = 0; i < 10; i++) {
     dataDevice.push({
         key: i,
         number: i+1,
@@ -21,6 +22,12 @@ for (let i = 0; i < 100; i++) {
         specs: `整筐 ${i}`,
         unit: `吨 ${i}`,
         number: 1.2,
+    });
+    dataStaff.push({
+        key: i,
+        name: `名字${i}`,
+        class: `部门${i}`,
+        number: 4,
     });
 }
 
@@ -53,7 +60,7 @@ class WorkCreate extends PureComponent {
         const { panes } = this.state;
         const activeKey = `newTab${this.newTabIndex++}`;
         const newPanes = [...panes];
-        newPanes.push({ title: 'New Tab', content: 'Content of new Tab', key: activeKey });
+        newPanes.push({ title: 'New Tab', content: '', key: activeKey });
         this.setState({
             panes: newPanes,
             activeKey,
@@ -152,23 +159,21 @@ class WorkCreate extends PureComponent {
                         <Button className="common-btn-bg" icon={<CheckSquareOutlined />} htmlType="submit">保存</Button>
                     </div>
                 </Form>
-
-                <div className="process-container">
-                    <h2 className="common-title">工艺流程</h2>
-                    <Tabs defaultActiveKey="1" type="editable-card" onChange={this.onChange} onEdit={this.onEdit} className="tabs-list">
-                        {panes.map(pane => (
-                            <TabPane key={pane.key} closable={pane.closable}
-                                tab={
-                                    <span>{pane.title}</span>
-                                }
-                            >
-                                {pane.content}
-                                <Form
-                                    name="basic"
-                                    initialValues={{ remember: true }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
+                <Form
+                    name="basic"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <div className="process-container">
+                        <h2 className="common-title">工艺流程</h2>
+                        <Tabs defaultActiveKey="1" type="editable-card" onChange={this.onChange} onEdit={this.onEdit} className="tabs-list">
+                            {panes.map(pane => (
+                                <TabPane key={pane.key} closable={pane.closable}
+                                    tab={
+                                        <span>{pane.title}</span>
+                                    }
                                 >
                                     <Row gutter={24}>
                                         <Col span={6}>
@@ -274,41 +279,43 @@ class WorkCreate extends PureComponent {
                                         <Col span={12} className="device">
                                             <h3 className="common-two-title">
                                                 设备：
-                                                <Button icon={<PlusCircleFilled />} className="add-btn">添加设备</Button>
+                                                {/*<Button icon={<PlusCircleFilled />} className="add-btn">添加设备</Button>*/}
                                             </h3>
                                             <Table columns={columnsDevice} dataSource={dataDevice} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
                                         </Col>
                                     </Row>
-                                </Form>
-                                <Row className="step-list-box">
-                                    <Col span={6} className="device">
-                                        <h3 className="common-two-title">原料</h3>
-                                        <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                    </Col>
-                                    <Col span={6} className="device">
-                                        <h3 className="common-two-title">调料</h3>
-                                        <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                    </Col>
-                                    <Col span={6} className="device">
-                                        <h3 className="common-two-title">包材</h3>
-                                        <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                    </Col>
-                                    <Col span={6} className="device">
-                                        <h3 className="common-two-title">
-                                            人员：
-                                            <Button icon={<PlusCircleFilled />} className="add-btn">添加</Button>
-                                        </h3>
-                                        <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                    </Col>
-                                </Row>
-                            </TabPane>
-                        ))}
-                    </Tabs>
-                </div>
 
-                <div className="keep-container">
-                    <Button className="common-btn-bg" icon={<CheckSquareOutlined />} htmlType="submit">保存</Button>
-                </div>
+                                    <Row className="step-list-box">
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">原料</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">调料</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">包材</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">
+                                                人员：
+                                                <Button icon={<PlusCircleFilled />} className="add-btn">添加</Button>
+                                            </h3>
+                                            <Table columns={columnsStaff} dataSource={dataStaff} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                    </Row>
+
+                                </TabPane>
+                            ))}
+                        </Tabs>
+                    </div>
+
+                    <div className="keep-container">
+                        <Button className="common-btn-bg" icon={<CheckSquareOutlined />} htmlType="submit">保存</Button>
+                    </div>
+                </Form>
             </div>
         );
     }
@@ -341,16 +348,16 @@ const columnsDevice = [
         title: '品牌',
         dataIndex: 'brand',
     },
-    {
-        align: 'center',
-        title: '操作',
-        dataIndex: 'operation',
-        render: (text, React) => (
-            <Space size="middle">
-                <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
-            </Space>
-        ),
-    }
+    // {
+    //     align: 'center',
+    //     title: '操作',
+    //     dataIndex: 'operation',
+    //     render: (text, React) => (
+    //         <Space size="middle">
+    //             <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
+    //         </Space>
+    //     ),
+    // }
 ];
 const columnsStep = [
     {
@@ -369,6 +376,35 @@ const columnsStep = [
         align: 'center',
         title: '单位',
         dataIndex: 'unit',
+    },
+    {
+        align: 'center',
+        title: '数量',
+        dataIndex: 'number',
+    },
+    // {
+    //     align: 'center',
+    //     title: '操作',
+    //     dataIndex: 'operation',
+    //     render: (text, React) => (
+    //         <Space size="middle">
+    //             <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
+    //         </Space>
+    //     ),
+    // }
+];
+const columnsStaff = [
+    {
+        align: 'center',
+        title: '岗位',
+        dataIndex: 'name',
+        // width: 150,
+    },
+    {
+        align: 'center',
+        title: '部门',
+        dataIndex: 'class',
+        // width: 150,
     },
     {
         align: 'center',
