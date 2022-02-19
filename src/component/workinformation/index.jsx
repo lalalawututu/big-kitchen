@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Row, Col, Space, Button, Descriptions, Table, Tabs } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import './index.less';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 const { TabPane } = Tabs;
 const dataSource = [
     {
@@ -41,19 +43,60 @@ function callback(key) {
 }
 
 class WorkInfo extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            WorkmanshipName: '',
+            ProductionLineName: '',
+            FinishedProduct: '',
+            FinishedProductSpecification: '',
+            worklength: ''
+        }
+    }
+
+    componentDidMount() {
+        fetch(`${apiUrl}/GetWorkmanshipList`).then(async (response) => {
+            if (response.ok) {
+                let dataJson = await response.json();
+                let workData = dataJson.workmanship;
+                let param = window.location.search;
+                let param2 = param.split('=');
+                let param3 = param2[1];
+                workData.forEach((item, index) => {
+                    if(item.WorkmanshipId == param3) {
+                        this.setState({WorkmanshipName: item.WorkmanshipName});
+                        this.setState({ProductionLineName: item.ProductionLineName});
+                        this.setState({FinishedProduct: item.FinishedProduct});
+                        this.setState({FinishedProductSpecification: item.FinishedProductSpecification});
+                        this.setState({worklength: item.WorkingProcedure.length});
+                        let WorkerQuantity = 0;
+                        let WorkingHours = 0;
+                        item.WorkingProcedure.forEach((item, index) => {
+                            WorkingHours += item.WorkingHours
+                            WorkerQuantity += item.WorkerQuantity
+                        })
+                        this.setState({WorkerQuantity: WorkerQuantity})
+                        this.setState({WorkingHours: WorkingHours})
+                    }
+                })
+            }
+        });
+    }
+
     render() {
         return (
             <div className="work-information">
                 <div className="basic-info bg-fff">
                     <h2 className="common-title">基本信息</h2>
                     <Descriptions size={'default'} column={4} className="descriptions-basic">
-                        <Descriptions.Item label="工艺名称">凉拌土豆丝工艺</Descriptions.Item>
-                        <Descriptions.Item label="对应生产线">凉拌菜生产线</Descriptions.Item>
-                        <Descriptions.Item label="产成品">凉拌土豆丝</Descriptions.Item>
-                        <Descriptions.Item label="产成品规格">G23654-1</Descriptions.Item>
-                        <Descriptions.Item label="工序步骤">7道工序</Descriptions.Item>
-                        <Descriptions.Item label="工人数量">4</Descriptions.Item>
-                        <Descriptions.Item label="总工时">8</Descriptions.Item>
+                        <Descriptions.Item label="工艺名称">{this.state.WorkmanshipName}</Descriptions.Item>
+                        <Descriptions.Item label="对应生产线">{this.state.ProductionLineName}</Descriptions.Item>
+                        <Descriptions.Item label="产成品">{this.state.FinishedProduct}</Descriptions.Item>
+                        <Descriptions.Item label="产成品规格">{this.state.FinishedProductSpecification}</Descriptions.Item>
+                        <Descriptions.Item label="工序步骤">{this.state.worklength}道工序</Descriptions.Item>
+                        <Descriptions.Item label="工人数量">{this.state.WorkerQuantity}</Descriptions.Item>
+                        <Descriptions.Item label="总工时">{this.state.WorkingHours}</Descriptions.Item>
                     </Descriptions>
                 </div>
 

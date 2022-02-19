@@ -1,149 +1,330 @@
 {
   "Employee": [
     {
-    "EmployeeId": "1",
-    "Name": "张三",
-    "IDNumber": "4527",
-    "Sex": "男",
-    "Age": 26,
-    "Address": "员工住址",
-    "Aducation": "",
-    "GraduationSchool": "四川大学",
-    "Major": "专业",
-    "Specialty": "特长",
-    "PositionalTitles": "职称",
-    "Department": "员工部门",
-    "Team": "员工班组",
-    "EmployeePosition": "包装#烹饪#凉拌#配送",
-    "MobilePhone": "13548745896",
-    "Tel": "2548965",
-    "EntryDate": "2022/01/01 00:00",
-    "WorkingYears": 5,
-    "ContractStatus": "有效",
-    "Status": "在职",
-    "WorkStatus": "工作"
+      "EmployeeId": "1",
+      "Name": "张三",
+      "IDNumber": "4527",
+      "Sex": "男",
+      "Age": 26,
+      "Address": "员工住址",
+      "Aducation": "",
+      "GraduationSchool": "四川大学",
+      "Major": "专业",
+      "Specialty": "特长",
+      "PositionalTitles": "职称",
+      "Department": "员工部门",
+      "Team": "员工班组",
+      "EmployeePosition": "包装#烹饪#凉拌#配送",
+      "MobilePhone": "13548745896",
+      "Tel": "2548965",
+      "EntryDate": "2022/01/01 00:00",
+      "WorkingYears": 5,
+      "ContractStatus": "有效",
+      "Status": "在职",
+      "WorkStatus": "工作"
     },
     {
-    "EmployeeId": "2",
-    "Name": "张艳",
-    "IDNumber": "3879",
-    "Sex": "女",
-    "Age": 32,
-    "Address": "员工住址",
-    "Aducation": "",
-    "GraduationSchool": "四川大学",
-    "Major": "专业",
-    "Specialty": "特长",
-    "PositionalTitles": "职称",
-    "Department": "员工部门",
-    "Team": "管理层",
-    "EmployeePosition": "包装#烹饪#凉拌#配送",
-    "MobilePhone": "13548745896",
-    "Tel": "2548965",
-    "EntryDate": "2022/01/01 00:00",
-    "WorkingYears": 5,
-    "ContractStatus": "有效",
-    "Status": "在职",
-    "WorkStatus": "工作"
+      "EmployeeId": "2",
+      "Name": "张艳",
+      "IDNumber": "3879",
+      "Sex": "女",
+      "Age": 32,
+      "Address": "员工住址",
+      "Aducation": "",
+      "GraduationSchool": "四川大学",
+      "Major": "专业",
+      "Specialty": "特长",
+      "PositionalTitles": "职称",
+      "Department": "员工部门",
+      "Team": "管理层",
+      "EmployeePosition": "包装#烹饪#凉拌#配送",
+      "MobilePhone": "13548745896",
+      "Tel": "2548965",
+      "EntryDate": "2022/01/01 00:00",
+      "WorkingYears": 5,
+      "ContractStatus": "有效",
+      "Status": "在职",
+      "WorkStatus": "工作"
     }
   ],
-  "Workmanship": [
-    {
-      "WorkmanshipId": "GY01-0001",
-      "WorkmanshipName": "凉拌土豆丝工艺",
-      "ProductionLineId": "SCX01-0002",
-      "ProductionLineName": "凉拌菜生产线",
-      "FinishedProduct": "凉拌土豆丝",
-      "FinishedProductSpecification": "G23654-1",
-      "FinishedProductRatio": 0.8,
-      "workerNumber": 4,
-      "WorkerQuantity": 4,
-      "WorkingTotalHours": 2,
-      "WorkingProcedure": {
-        "list": [
+  "GetWorkmanshipList": {
+    "error_code": "",
+    "error_msg": "",
+    "workmanship": [
+      {
+        "WorkmanshipId": "GY01-0002",
+        "WorkmanshipName": "红烧牛肉工艺",
+        "ProductionLineId": "SCX01-0003",
+        "ProductionLineName": "红烧牛肉生产线",
+        "FinishedProduct": "红烧牛肉",
+        "FinishedProductSpecification": "G23654-1",
+        "FinishedProductRatio": 0,
+        "WorkmanshipContent": "将选好的原料送入。。。",
+        "WorkingProcedure": [
+          {
+            "Order": 1,
+            "Belongto": "GY01-0001",
+            "WorkingProcedureId": "GX01-11111",
+            "WorkingProcedureName": "分拣土豆",
+            "Produce": "标准土豆",
+            "WorkingProcedureType": "分拣",
+            "WorkingHours": 2,
+            "ProductionMode": "人工",
+            "WorkReportMethod": "人工报工",
+            "SchedulingMode": "自动排工",
+            "QualityInspectionStandard": "ZJ10011",
+            "Description": "本工序完成对土豆大小的分拣，剔除不合格品",
+            "WorkerQuantity": 4,
+            "Equipment": [
+              {
+                "EquipmentId": "SB_FJ_001",
+                "EquipmentName": "土豆分拣机",
+                "EquipmentCategory": "分拣设备",
+                "Brand": "圣铭"
+              },
+              {
+                "EquipmentId": "SB_FJ_001",
+                "EquipmentName": "土豆分拣机",
+                "EquipmentCategory": "分拣设备",
+                "Brand": "圣铭"
+              }
+            ],
+            "Material": [
+              {
+                "MaterialId": "YL_00001",
+                "MaterialName": "土豆",
+                "Specification": "整筐",
+                "Unit": "吨",
+                "Quantity": 1.2
+              },
+              {
+                "MaterialId": "YL_00001",
+                "MaterialName": "土豆",
+                "Specification": "整筐",
+                "Unit": "吨",
+                "Quantity": 1.2
+              }
+            ],
+            "Seasoning": [
+              {
+                "SeasoningId": "TL_00002",
+                "SeasoningName": "盐",
+                "Specification": "粗盐",
+                "Unit": "吨",
+                "Quantity": 0.01
+              },
+              {
+                "SeasoningId": "TL_00003",
+                "SeasoningName": "蒜",
+                "Specification": "整包",
+                "Unit": "吨",
+                "Quantity": 0.2
+              }
+            ],
+            "Packaging": [
+              {
+                "PackagingId": "BC_0001",
+                "PackagingName": "分拣器",
+                "Specification": "10*10",
+                "Unit": "份",
+                "Quantity": 400
+              },
+              {
+                "PackagingId": "BC_0001",
+                "PackagingName": "分拣器",
+                "Specification": "10*10",
+                "Unit": "份",
+                "Quantity": 400
+              }
+            ],
+            "Worker": [
+              {
+                "WorkerPosition": "分拣工",
+                "Department": "生产中心",
+                "Quantity": 4
+              },
+              {
+                "WorkerPosition": "分拣工",
+                "Department": "生产中心",
+                "Quantity": 4
+              }
+            ]
+          },
+          {
+            "Order": 2,
+            "Belongto": "GY01-0001",
+            "WorkingProcedureId": "GX01-22222",
+            "WorkingProcedureName": "清洗土豆",
+            "Produce": "标准土豆",
+            "WorkingProcedureType": "清洗",
+            "WorkingHours": 1,
+            "ProductionMode": "人工",
+            "WorkReportMethod": "人工报工",
+            "SchedulingMode": "自动排工",
+            "QualityInspectionStandard": "ZJ10011",
+            "Description": "清洗土豆",
+            "WorkerQuantity": 4,
+            "Equipment": [
+              {
+                "EquipmentId": "SB_QX_001",
+                "EquipmentName": "土豆清洗机",
+                "EquipmentCategory": "清洗设备",
+                "Brand": "圣铭"
+              },
+              {
+                "EquipmentId": "SB_QX_001",
+                "EquipmentName": "土豆清洗机",
+                "EquipmentCategory": "清洗设备",
+                "Brand": "圣铭"
+              }
+            ],
+            "Material": [
+              {
+                "MaterialId": "YL_00001",
+                "MaterialName": "土豆",
+                "Specification": "整筐",
+                "Unit": "吨",
+                "Quantity": 1.2
+              },
+              {
+                "MaterialId": "YL_00001",
+                "MaterialName": "土豆",
+                "Specification": "整筐",
+                "Unit": "吨",
+                "Quantity": 1.2
+              }
+            ],
+            "Seasoning": [
+              {
+                "SeasoningId": "TL_00002",
+                "SeasoningName": "盐",
+                "Specification": "粗盐",
+                "Unit": "吨",
+                "Quantity": 0.01
+              },
+              {
+                "SeasoningId": "TL_00003",
+                "SeasoningName": "蒜",
+                "Specification": "整包",
+                "Unit": "吨",
+                "Quantity": 0.2
+              }
+            ],
+            "Packaging": [
+              {
+                "PackagingId": "BC_0001",
+                "PackagingName": "分拣器",
+                "Specification": "10*10",
+                "Unit": "份",
+                "Quantity": 400
+              },
+              {
+                "PackagingId": "BC_0001",
+                "PackagingName": "分拣器",
+                "Specification": "10*10",
+                "Unit": "份",
+                "Quantity": 400
+              }
+            ],
+            "Worker": [
+              {
+                "WorkerPosition": "清洗工",
+                "Department": "生产中心",
+                "Quantity": 2
+              },
+              {
+                "WorkerPosition": "清洗工",
+                "Department": "生产中心",
+                "Quantity": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "WorkmanshipId": "GY01-0003",
+        "WorkmanshipName": "水煮肉片工艺",
+        "ProductionLineId": "SCX01-0004",
+        "ProductionLineName": "水煮肉片生产线",
+        "FinishedProduct": "水煮肉片",
+        "FinishedProductSpecification": "G23654-1",
+        "FinishedProductRatio": 0,
+        "WorkmanshipContent": "",
+        "WorkingProcedure": [
           {
             "Order": 1,
             "WorkingProcedureId": "GX01-11111",
-            "WorkingProcedureName": "土豆分拣",
+            "WorkingProcedureName": "分拣土豆",
             "WorkingHours": 2,
             "WorkerQuantity": 4
           },
           {
             "Order": 2,
-            "WorkingProcedureId": "GX01-11122",
-            "WorkingProcedureName": "清洗",
-            "WorkingHours": 2,
-            "WorkerQuantity": 4
-          },
-          {
-            "Order": 3,
-            "WorkingProcedureId": "GX01-11133",
-            "WorkingProcedureName": "削皮",
+            "WorkingProcedureId": "GX01-22222",
+            "WorkingProcedureName": "清洗土豆",
             "WorkingHours": 2,
             "WorkerQuantity": 4
           }
         ]
       },
-      "WorkmanshipContent": "将选好的原料送入。。。"
-    },
-    {
-      "WorkmanshipId": "GY01-0002",
-      "WorkmanshipName": "凉拌黄瓜丝工艺",
-      "ProductionLineId": "SCX01-0002",
-      "ProductionLineName": "凉拌菜生产线",
-      "FinishedProduct": "凉拌黄瓜丝",
-      "FinishedProductSpecification": "G23654-1",
-      "FinishedProductRatio": 0.8,
-      "workerNumber": 4,
-      "WorkerQuantity": 4,
-      "WorkingTotalHours": 2,
-      "WorkingProcedure": {
-        "list": [
+      {
+        "WorkmanshipId": "GY01-0003",
+        "WorkmanshipName": "凉拌土豆丝工艺",
+        "ProductionLineId": "SCX01-0002",
+        "ProductionLineName": "凉拌菜生产线",
+        "FinishedProduct": "凉拌土豆丝",
+        "FinishedProductSpecification": "G23654-1",
+        "FinishedProductRatio": 0,
+        "WorkmanshipContent": "将选好的原料送入。。。",
+        "WorkingProcedure": [
           {
             "Order": 1,
             "WorkingProcedureId": "GX01-11111",
-            "WorkingProcedureName": "黄瓜分拣",
+            "WorkingProcedureName": "分拣土豆",
             "WorkingHours": 2,
-            "WorkerQuantity": 4
+            "WorkerQuantity": 6
           },
           {
             "Order": 2,
-            "WorkingProcedureId": "GX01-11122",
-            "WorkingProcedureName": "清洗",
-            "WorkingHours": 2,
-            "WorkerQuantity": 4
-          },
-          {
-            "Order": 3,
-            "WorkingProcedureId": "GX01-11133",
-            "WorkingProcedureName": "削皮",
-            "WorkingHours": 2,
-            "WorkerQuantity": 4
+            "WorkingProcedureId": "GX01-22222",
+            "WorkingProcedureName": "清洗土豆",
+            "WorkingHours": 1,
+            "WorkerQuantity": 2
           }
         ]
       },
-      "WorkmanshipContent": "将选好的原料送入。。。"
-    }
-  ],
-  "ProductTask":{
-    "TaskId":"GD_20220111001111",
+      {
+        "WorkmanshipId": "c87gfka15opkj27d9vt0",
+        "WorkmanshipName": "鱼香肉丝工艺",
+        "ProductionLineId": "SCX01-0005",
+        "ProductionLineName": "鱼香肉丝生产线",
+        "FinishedProduct": "鱼香肉丝",
+        "FinishedProductSpecification": "G23654-2",
+        "FinishedProductRatio": 0,
+        "WorkmanshipContent": "将选好的原料送入。。。",
+        "WorkingProcedure": null
+      }
+    ]
+  },
+  "ProductTask": {
+    "TaskId": "GD_20220111001111",
     "BatchNumber": "20220111001",
-    "TaskContent":"搬运土豆",
-    "TaskType":"生产任务",
-    "TaskStatus":"执行中",
+    "TaskContent": "搬运土豆",
+    "TaskType": "生产任务",
+    "TaskStatus": "执行中",
     "TaskPending": 60,
-    "WorkingProcedureName":"分拣土豆",
-    "Produce":"标准土豆",
-    "Unit":"吨",
-    "Quantity":26,
-    "Station":"A1土豆分拣机",
-    "EmployeeId":"YG_01010001",
-    "EmployeeName":"张三",
-    "CompletedQuantity":20,
-    "PlanStartTime":"06:00",
-    "PlanEndTime":"07:00",
-    "ActualStartTime":"06:00",
-    "ActualEndTime":"07:00",
+    "WorkingProcedureName": "分拣土豆",
+    "Produce": "标准土豆",
+    "Unit": "吨",
+    "Quantity": 26,
+    "Station": "A1土豆分拣机",
+    "EmployeeId": "YG_01010001",
+    "EmployeeName": "张三",
+    "CompletedQuantity": 20,
+    "PlanStartTime": "06:00",
+    "PlanEndTime": "07:00",
+    "ActualStartTime": "06:00",
+    "ActualEndTime": "07:00",
     "lastTime": "1小时"
   }
 }
