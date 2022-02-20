@@ -300,642 +300,647 @@ class Mine extends PureComponent {
         })
     }
 
-//任务提交事件
-TaskStartClick = (item, index, flag) => {
-    const ReceivingTaskList = [...this.state.ReceivingTaskList];  //接货
-    const WarehousingTaskList = [...this.state.WarehousingTaskList]; //入库
-    const PickingTaskList = [...this.state.PickingTaskList]; //领料
-    const ProductTaskList = [...this.state.ProductTaskList]; //生产
-    const SampleRetentionTaskList = [...this.state.SampleRetentionTaskList];//留样
-    const PackingTaskList = [...this.state.PackingTaskList]; //包装
-    const QualityInspectionTaskList = [...this.state.QualityInspectionTaskList]; //质检
-    const LoadingTaskList = [...this.state.LoadingTaskList]; //配送
+    //任务提交事件
+    TaskStartClick = (item, index, flag) => {
+        const ReceivingTaskList = [...this.state.ReceivingTaskList];  //接货
+        const WarehousingTaskList = [...this.state.WarehousingTaskList]; //入库
+        const PickingTaskList = [...this.state.PickingTaskList]; //领料
+        const ProductTaskList = [...this.state.ProductTaskList]; //生产
+        const SampleRetentionTaskList = [...this.state.SampleRetentionTaskList];//留样
+        const PackingTaskList = [...this.state.PackingTaskList]; //包装
+        const QualityInspectionTaskList = [...this.state.QualityInspectionTaskList]; //质检
+        const LoadingTaskList = [...this.state.LoadingTaskList]; //配送
 
-    var TaskType = '';
-    if (flag == 1) {
-        TaskType = '接货任务'
-    } else if (flag == 2) {
-        TaskType = '入库任务'
-    } else if (flag == 3) {
-        TaskType = '领料任务'
-    } else if (flag == 4) {
-        TaskType = '生产任务'
-    } else if (flag == 5) {
-        TaskType = '留样任务'
-    } else if (flag == 6) {
-        TaskType = '包装任务'
-    } else if (flag == 7) {
-        TaskType = '质检任务'
-    } else if (flag == 8) {
-        TaskType = '配送任务'
-    }
-
-    // this.setState({'btnDisabled':true})
-    //各类型按钮开始
-    if (item.btn.flag == 0) {
-        var postData = { 'TaskId': item.TaskId, 'TaskType': TaskType }
-        fetch('TaskStart', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(postData)
-        }).then(async (response) => {
-            if (response.ok) {
-                let res = await response.json();
-                //接货任务
-                if (flag == '1') {
-                    this.setState({
-                        ReceivingTaskList: ReceivingTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '接货结束', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //入库任务
-                if (flag == '2') {
-                    this.setState({
-                        WarehousingTaskList: WarehousingTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '入库结束', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //领料任务
-                if (flag == '3') {
-                    this.setState({
-                        PickingTaskList: PickingTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '领料结束', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //生产任务
-                if (flag == '4') {
-                    this.setState({
-                        ProductTaskList: ProductTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '生产结束', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //留样任务
-                if (flag == '5') {
-                    this.setState({
-                        SampleRetentionTaskList: SampleRetentionTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '确定留样', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //包装任务
-                if (flag == '6') {
-                    this.setState({
-                        PackingTaskList: PackingTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '确定并提交', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //质检任务
-                if (flag == '7') {
-                    this.setState({
-                        QualityInspectionTaskList: QualityInspectionTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '确定并提交', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-                //配送任务
-                if (flag == '8') {
-                    this.setState({
-                        LoadingTaskList: LoadingTaskList.map((item, i) =>
-                            i === index ? { ...item, btn: { content: '完成配送', flag: 1 } } : item
-                        ),
-                    })
-                }
-
-            }
-        });
-    }
-    //各类型按钮结束
-    if (item.btn.flag == 1) {
-        //接货任务
+        var TaskType = '';
         if (flag == 1) {
-            var data = { 'TaskId': item.TaskId }
-            fetch('ReceivingTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(data)
-            }).then(async (response) => {
-                let res = await response.json();
-            })
+            TaskType = '接货任务'
+        } else if (flag == 2) {
+            TaskType = '入库任务'
+        } else if (flag == 3) {
+            TaskType = '领料任务'
+        } else if (flag == 4) {
+            TaskType = '生产任务'
+        } else if (flag == 5) {
+            TaskType = '留样任务'
+        } else if (flag == 6) {
+            TaskType = '包装任务'
+        } else if (flag == 7) {
+            TaskType = '质检任务'
+        } else if (flag == 8) {
+            TaskType = '配送任务'
         }
 
-        //入库
-        if (flag == '2') {
-            fetch('WarehousingTaskSubmit', {
+        // this.setState({'btnDisabled':true})
+        //各类型按钮开始
+        if (item.btn.flag == 0) {
+            var postData = { 'TaskId': item.TaskId, 'TaskType': TaskType }
+            fetch('TaskStart', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
+                body: JSON.stringify(postData)
             }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                if (response.ok) {
+                    let res = await response.json();
+                    //接货任务
+                    if (flag == '1') {
+                        this.setState({
+                            ReceivingTaskList: ReceivingTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '接货结束', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //领料
-        if (flag == '3') {
-            fetch('PickingTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                    //入库任务
+                    if (flag == '2') {
+                        this.setState({
+                            WarehousingTaskList: WarehousingTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '入库结束', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //生产
-        if (flag == '4') {
-            fetch('ProductTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                    //领料任务
+                    if (flag == '3') {
+                        this.setState({
+                            PickingTaskList: PickingTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '领料结束', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //留样
-        if (flag == '5') {
-            fetch('SampleRetentionTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                    //生产任务
+                    if (flag == '4') {
+                        this.setState({
+                            ProductTaskList: ProductTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '生产结束', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //包装
-        if (flag == '6') {
-            fetch('PackingTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                    //留样任务
+                    if (flag == '5') {
+                        this.setState({
+                            SampleRetentionTaskList: SampleRetentionTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '确定留样', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //质检
-        if (flag == '7') {
-            fetch('QualityInspectionTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId, 'UnqualifiedNumber': item.UnqualifiedNumber })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
-        }
+                    //包装任务
+                    if (flag == '6') {
+                        this.setState({
+                            PackingTaskList: PackingTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '确定并提交', flag: 1 } } : item
+                            ),
+                        })
+                    }
 
-        //配送
-        if (flag == '8') {
-            fetch('LoadingTaskSubmit', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({ 'TaskId': item.TaskId })
-            }).then(async (response) => {
-                let res = await response.json();
-            })
+                    //质检任务
+                    if (flag == '7') {
+                        this.setState({
+                            QualityInspectionTaskList: QualityInspectionTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '确定并提交', flag: 1 } } : item
+                            ),
+                        })
+                    }
+
+                    //配送任务
+                    if (flag == '8') {
+                        this.setState({
+                            LoadingTaskList: LoadingTaskList.map((item, i) =>
+                                i === index ? { ...item, btn: { content: '完成配送', flag: 1 } } : item
+                            ),
+                        })
+                    }
+
+                }
+            });
+        }
+        //各类型按钮结束
+        if (item.btn.flag == 1) {
+            //接货任务
+            if (flag == 1) {
+                var data = { 'TaskId': item.TaskId }
+                fetch('ReceivingTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(data)
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //入库
+            if (flag == '2') {
+                fetch('WarehousingTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //领料
+            if (flag == '3') {
+                fetch('PickingTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //生产
+            if (flag == '4') {
+                fetch('ProductTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //留样
+            if (flag == '5') {
+                fetch('SampleRetentionTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //包装
+            if (flag == '6') {
+                fetch('PackingTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //质检
+            if (flag == '7') {
+                fetch('QualityInspectionTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId, 'UnqualifiedNumber': item.UnqualifiedNumber })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
+
+            //配送
+            if (flag == '8') {
+                fetch('LoadingTaskSubmit', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'TaskId': item.TaskId })
+                }).then(async (response) => {
+                    let res = await response.json();
+                })
+            }
         }
     }
-}
 
-render() {
-    const { peopleInfo, ReceivingTaskList, WarehousingTaskList, PickingTaskList, PackingTaskList, SampleRetentionTaskList, QualityInspectionTaskList, ProductTaskList, LoadingTaskList } = this.state;
-    return (
-        <div className="bulletin-board-container">
-            <Row>
-                <Col span={6} className="bulletin-board-left">
-                    <div className="employee-info">
-                        <div className="date">{this.state.time.split(' ')[0]}<span>{this.state.time.split(' ')[1]}</span></div>
-                        <Space align="start">
-                            <img className="header-url" src="https://avatars.githubusercontent.com/u/22983816?s=40&v=4" alt="" />
-                            <div className="data">
-                                <h6>{peopleInfo.Name || ''}</h6>
-                                <p>{peopleInfo.EmployeeId || ''}</p>
+    render() {
+        const { peopleInfo, ReceivingTaskList, WarehousingTaskList, PickingTaskList, PackingTaskList, SampleRetentionTaskList, QualityInspectionTaskList, ProductTaskList, LoadingTaskList } = this.state;
+        return (
+            <div className="bulletin-board-container">
+                <Row>
+                    <Col span={6} className="bulletin-board-left">
+                        <div className="employee-info">
+                            <div className="date">{this.state.time.split(' ')[0]}<span>{this.state.time.split(' ')[1]}</span></div>
+                            <Space align="start">
+                                <img className="header-url" src="https://avatars.githubusercontent.com/u/22983816?s=40&v=4" alt="" />
+                                <div className="data">
+                                    <h6>{peopleInfo.Name || ''}</h6>
+                                    <p>{peopleInfo.EmployeeId || ''}</p>
+                                </div>
+                            </Space>
+                            <div className="btn">
+                                <Button className="leave-btn"><b className="icon-leave"></b>请假</Button>
+                                <Button className="quit-btn"><PoweroffOutlined />退出</Button>
                             </div>
-                        </Space>
-                        <div className="btn">
-                            <Button className="leave-btn"><b className="icon-leave"></b>请假</Button>
-                            <Button className="quit-btn"><PoweroffOutlined />退出</Button>
                         </div>
-                    </div>
-                    <div className="work-progress">
-                        <h3 className="commit-title">
-                            <b className="icon-progress"></b> 工作进度</h3>
-                        <Progress percent={20}
-                            trailColor={"#F7F7FF"}
-                            strokeColor={{
-                                '0%': '#7071DB',
-                                '100%': '#6364D9',
-                            }} />
-                    </div>
-                    <div className="news-container">
-                        <img src={require('../../style/img/icon/news.png')} />
-                    </div>
-                </Col>
-                <Col span={18} className="bulletin-board-right">
-                    <div className="task-container">
-                        <Space align="center" className="task-list-box">
-                            <h3 className="commit-title"><b className="icon-task"></b></h3>
-
-                            <div className="task-list">
-                                <LeftCircleOutlined className="icon-arrow" style={{ color: '#4C515D' }} />
-                                <Collapse accordion className="collapse-list">
-                                    <Panel header="" key={1} showArrow={false}>
-                                        {
-                                            lists.map((item, index) => {
-                                                return (
-                                                    <p onClick={callback}>{item.title}（{item.number}）</p>
-                                                )
-                                            })
-                                        }
-                                    </Panel>
-                                </Collapse>
+                        <div className="work-progress">
+                            <h3 className="commit-title">
+                                <b className="icon-progress"></b> 工作进度</h3>
+                            <Progress percent={20}
+                                trailColor={"#F7F7FF"}
+                                strokeColor={{
+                                    '0%': '#7071DB',
+                                    '100%': '#6364D9',
+                                }} />
+                            <div className="legend-box">
+                                <span><b></b>总工作量</span>
+                                <span><b></b>已完成</span>
                             </div>
-                        </Space>
-                        {/* 列表 */}
-                        <Collapse defaultActiveKey={['1']} className="lists" showArrow={false} onChange={callback}>
-                            {/* 接货 */}
-                            {
-                                ReceivingTaskList && ReceivingTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index + 1} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际起止时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                                                </Descriptions>
+                        </div>
+                        <div className="news-container">
+                            <img src={require('../../style/img/icon/news.png')} />
+                        </div>
+                    </Col>
+                    <Col span={18} className="bulletin-board-right">
+                        <div className="task-container">
+                            <Space align="center" className="task-list-box">
+                                <h3 className="commit-title"><b className="icon-task"></b></h3>
 
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        <p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-
-                                                        <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 1) }}><b className="icon-submit"></b>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
+                                <div className="task-list">
+                                    <b className="icon-nav-arrow"></b>
+                                    {/*<LeftCircleOutlined className="icon-arrow" style={{ color: '#4C515D' }} />*/}
+                                    <Collapse accordion className="collapse-list">
+                                        <Panel header="" key={1} showArrow={false}>
+                                            {
+                                                lists.map((item, index) => {
+                                                    return (
+                                                        <p onClick={callback}>{item.title}（{item.number}）</p>
+                                                    )
+                                                })
+                                            }
                                         </Panel>
-                                    )
-                                })
-                            }
+                                    </Collapse>
+                                </div>
+                            </Space>
+                            {/* 列表 */}
+                            <Collapse defaultActiveKey={['1']} className="lists" showArrow={false} onChange={callback}>
+                                {/* 接货 */}
+                                {
+                                    ReceivingTaskList && ReceivingTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index + 1} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际起止时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
+                                                    </Descriptions>
 
-                            {/* 入库 */}
-                            {
-                                WarehousingTaskList && WarehousingTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '11'} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际起止时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                                                </Descriptions>
-
-                                                <Row className="">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-
-                                                        <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 2) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-
-                            {/* 领料 */}
-                            {
-                                PickingTaskList && PickingTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '2'} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际起止时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                                                </Descriptions>
-
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-
-                                                        <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 3) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-
-                            {/* 生产 */}
-                            {
-                                ProductTaskList && ProductTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.TaskId + '3'} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际起止时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">{item.BatchNumber}</Descriptions.Item>
-                                                    <Descriptions.Item label="产成品">{item.Produce}</Descriptions.Item>
-                                                    <Descriptions.Item label="执行人">{item.EmployeeName}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际完成">{item.CompletedQuantity + item.Unit}</Descriptions.Item>
-                                                    <Descriptions.Item label="完成比例">{((item.CompletedQuantity / item.Quantity).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                                                </Descriptions>
-
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-
-                                                        {<Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 4) }} icon={<BarsOutlined />}>{item.btn.content}</Button>}
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-
-                            {/* 留样 */}
-                            {
-                                SampleRetentionTaskList && SampleRetentionTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId + '5'} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="计划时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="实际时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="留样内容要求">{item.TaskContent || ''}</Descriptions.Item>
-                                                </Descriptions>
-
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-                                                        <Button className="submit-btn" onClick={(e) => { this.TaskStartClick(item, index, 5) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-
-                            {/* 装箱（包装） */}
-                            {
-                                PackingTaskList && PackingTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="计划开始时间">{item.PlanStartTime ? item.PlanStartTime.split(' ')[1] : '--'}</Descriptions.Item>
-                                                    <Descriptions.Item label="计划结束时间">{item.PlanEndTime ? item.PlanEndTime.split(' ')[1] : '--'}</Descriptions.Item>
-                                                    <Descriptions.Item label="计划用时">{this.residueTime2(item.PlanStartTime, item.PlanEndTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : '--'}</Descriptions.Item>
-                                                    <Descriptions.Item label="计划结束时间">{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际用时">{this.residueTime2(item.ActualStartTime, item.ActualEndTime)}</Descriptions.Item>
-                                                </Descriptions>
-
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-                                                        <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 6) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-
-
-                            {/* 质检 */}
-                            {
-                                QualityInspectionTaskList && QualityInspectionTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
-                                                    <Descriptions.Item label="开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">
-                                                        <Input placeholder="扫描批次号条码" value={item.BatchNumber} allowClear className="batch-number" />
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="索证索票">{item.TicketInspection}</Descriptions.Item>
-                                                    <Descriptions.Item label="索证索票附件">{item.AnnexName}</Descriptions.Item>
-                                                    <Descriptions.Item label="检验数量">{item.InspectionQuantity}</Descriptions.Item>
-                                                    <Descriptions.Item label="规格">{item.Unit}</Descriptions.Item>
-                                                    <Descriptions.Item label="合格数量">{item.InspectionQuantity - item.UnqualifiedNumber}</Descriptions.Item>
-                                                    {/* <Descriptions.Item label="不合格数量">
-                                                            <InputNumber min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber}
-                                                                onChange={e => this.UnqualifiedNumber(e, item, index)} className="unqualified-number" />
-                                                        </Descriptions.Item> */}
-                                                </Descriptions>
-
-                                                <Row className="">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container submit-zj-container">
-                                                        <div className="mt unqualified-InputNumber">
-                                                            <h4 className="common-submit-title">不合格数量</h4>
-                                                            <InputNumber controls={false} min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber} value={item.UnqualifiedNumber}/>
-                                                            <div className="icon-group">
-                                                                <b className="icon-subtract" onClick={ item.UnqualifiedNumber > 0 ? () => this.sbutractNumber(item) : null}></b>
-                                                                <b className="icon-add" onClick={ item.UnqualifiedNumber < 10 ? () => this.addNumber(item) : null }></b>
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
                                                             </div>
-                                                        </div>
-                                                        <div className="mt unqualified-list">
-                                                            <h4 className="common-submit-title">选择不合格原因</h4>
-                                                            <Button className="active">尺寸不达标</Button>
-                                                            <Button>变质</Button>
-                                                            <Button>新鲜度不达标</Button>
-                                                            <Button>有泥土</Button>
-                                                            <Button>发芽</Button>
-                                                            <Button>发霉</Button>
-                                                            <Button>破损</Button>
-                                                            <Button>其他</Button>
-                                                        </div>
-                                                        <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 7) }}><b class="icon-submit"></b>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
 
-                            {/* 配送 */}
-                            {
-                                LoadingTaskList && LoadingTaskList.map((item, index) => {
-                                    return (
-                                        <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId + '88'} showArrow={false}>
-                                            <div className="product-info">
-                                                <Descriptions size={'default'} column={3} className="des-box">
-                                                    <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际起止时间">
-                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                    </Descriptions.Item>
-                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                    <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="客户名称">{item.CustomerName || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="客户地址">{item.CustomerAddress || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="物流公司">{item.CompanyName || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="配送员">{item.EmployeeName || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="配送员ID">{item.EmployeeId || ''}</Descriptions.Item>
-                                                    <Descriptions.Item label="实际出货">{item.Quantity + item.Specifications}</Descriptions.Item>
-                                                    <Descriptions.Item label="完成比例">{item.BatchNumber || ''}</Descriptions.Item>
-                                                </Descriptions>
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 1) }}><b className="icon-submit"></b>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
 
-                                                <Row className="submit-top">
-                                                    <Col span={6} className="product-progress-box">
-                                                        <div className="product-progress">
-                                                            <Progress percent={20 + index}
-                                                                showInfo={false}
-                                                                type="circle"
-                                                                trailColor={"#E7E1E2"}
-                                                                strokeColor={"#FF4B4B"} />
-                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                                                        </div>
-                                                        {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                                                    </Col>
-                                                    <Col span={18} className="submit-container">
-                                                        <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 8) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Panel>
-                                    )
-                                })
-                            }
-                        </Collapse>
-                    </div>
-                </Col>
-            </Row>
-        </div>
-    );
-}
+                                {/* 入库 */}
+                                {
+                                    WarehousingTaskList && WarehousingTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '11'} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际起止时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 2) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+                                {/* 领料 */}
+                                {
+                                    PickingTaskList && PickingTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '2'} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际起止时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 3) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+                                {/* 生产 */}
+                                {
+                                    ProductTaskList && ProductTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.TaskId + '3'} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际起止时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">{item.BatchNumber}</Descriptions.Item>
+                                                        <Descriptions.Item label="产成品">{item.Produce}</Descriptions.Item>
+                                                        <Descriptions.Item label="执行人">{item.EmployeeName}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际完成">{item.CompletedQuantity + item.Unit}</Descriptions.Item>
+                                                        <Descriptions.Item label="完成比例">{((item.CompletedQuantity / item.Quantity).toFixed(2)) * 100 + '%'}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            {<Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 4) }} icon={<BarsOutlined />}>{item.btn.content}</Button>}
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+                                {/* 留样 */}
+                                {
+                                    SampleRetentionTaskList && SampleRetentionTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId + '5'} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="计划时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="实际时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="留样内容要求">{item.TaskContent || ''}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" onClick={(e) => { this.TaskStartClick(item, index, 5) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+                                {/* 装箱（包装） */}
+                                {
+                                    PackingTaskList && PackingTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="计划开始时间">{item.PlanStartTime ? item.PlanStartTime.split(' ')[1] : '--'}</Descriptions.Item>
+                                                        <Descriptions.Item label="计划结束时间">{item.PlanEndTime ? item.PlanEndTime.split(' ')[1] : '--'}</Descriptions.Item>
+                                                        <Descriptions.Item label="计划用时">{this.residueTime2(item.PlanStartTime, item.PlanEndTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : '--'}</Descriptions.Item>
+                                                        <Descriptions.Item label="计划结束时间">{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际用时">{this.residueTime2(item.ActualStartTime, item.ActualEndTime)}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 6) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+
+                                {/* 质检 */}
+                                {
+                                    QualityInspectionTaskList && QualityInspectionTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
+                                                        <Descriptions.Item label="开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">
+                                                            <Input placeholder="扫描批次号条码" value={item.BatchNumber} allowClear={false} className="batch-number" />
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="索证索票">{item.TicketInspection}</Descriptions.Item>
+                                                        <Descriptions.Item label="索证索票附件">{item.AnnexName}</Descriptions.Item>
+                                                        <Descriptions.Item label="检验数量">{item.InspectionQuantity}</Descriptions.Item>
+                                                        <Descriptions.Item label="规格">{item.Unit}</Descriptions.Item>
+                                                        <Descriptions.Item label="合格数量">{item.InspectionQuantity - item.UnqualifiedNumber}</Descriptions.Item>
+                                                        {/* <Descriptions.Item label="不合格数量">
+                                                                <InputNumber min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber}
+                                                                    onChange={e => this.UnqualifiedNumber(e, item, index)} className="unqualified-number" />
+                                                            </Descriptions.Item> */}
+                                                    </Descriptions>
+
+                                                    <Row className="">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container submit-zj-container">
+                                                            <div className="mt unqualified-InputNumber">
+                                                                <h4 className="common-submit-title">不合格数量</h4>
+                                                                <InputNumber controls={false} min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber} value={item.UnqualifiedNumber}/>
+                                                                <div className="icon-group">
+                                                                    <b className="icon-subtract" onClick={ item.UnqualifiedNumber > 0 ? () => this.sbutractNumber(item) : null}></b>
+                                                                    <b className="icon-add" onClick={ item.UnqualifiedNumber < 10 ? () => this.addNumber(item) : null }></b>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt unqualified-list">
+                                                                <h4 className="common-submit-title">选择不合格原因</h4>
+                                                                <Button className="active">尺寸不达标</Button>
+                                                                <Button>变质</Button>
+                                                                <Button>新鲜度不达标</Button>
+                                                                <Button>有泥土</Button>
+                                                                <Button>发芽</Button>
+                                                                <Button>发霉</Button>
+                                                                <Button>破损</Button>
+                                                                <Button>其他</Button>
+                                                            </div>
+                                                            <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 7) }}><b class="icon-submit"></b>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+
+                                {/* 配送 */}
+                                {
+                                    LoadingTaskList && LoadingTaskList.map((item, index) => {
+                                        return (
+                                            <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId + '88'} showArrow={false}>
+                                                <div className="product-info">
+                                                    <Descriptions size={'default'} column={3} className="des-box">
+                                                        <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际起止时间">
+                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                        </Descriptions.Item>
+                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                        <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="客户名称">{item.CustomerName || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="客户地址">{item.CustomerAddress || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="物流公司">{item.CompanyName || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="配送员">{item.EmployeeName || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="配送员ID">{item.EmployeeId || ''}</Descriptions.Item>
+                                                        <Descriptions.Item label="实际出货">{item.Quantity + item.Specifications}</Descriptions.Item>
+                                                        <Descriptions.Item label="完成比例">{item.BatchNumber || ''}</Descriptions.Item>
+                                                    </Descriptions>
+
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                    showInfo={false}
+                                                                    type="circle"
+                                                                    trailColor={"#E7E1E2"}
+                                                                    strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 8) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Panel>
+                                        )
+                                    })
+                                }
+                            </Collapse>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
 }
 
 export default connect()(Mine);
