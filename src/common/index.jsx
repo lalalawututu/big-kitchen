@@ -38,27 +38,27 @@ class Header extends PureComponent {
               </Link>
               成都天府智慧大厨房智能管控
             </Col>
-            <Col span={3}>
+            <Col span={2}>
               <Link to="/">
                 人员看板
               </Link>
             </Col>
-            <Col span={3}>
+            <Col span={2}>
               <Link to="/workmange">
                 工艺管理
               </Link>
             </Col>
-            <Col span={3}>
+            <Col span={2}>
               <Link to="/peoplemange">
                 人员管理
               </Link>
             </Col>
-            <Col span={3}>
+            <Col span={2}>
               <Link to="/workinformation">
                 工艺详情
               </Link>
             </Col>
-            <Col span={3}>
+            <Col span={2}>
               <Link to="/workcreate">
                 工艺创建
               </Link>

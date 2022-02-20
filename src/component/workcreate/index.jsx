@@ -89,8 +89,9 @@ class WorkCreate extends PureComponent {
     render() {
         const { panes, activeKey } = this.state;
         const onFinish = (values) => {
-            console.log('Success:', values);
-            axios.post(`${apiUrl}/example`, {
+            axios.post(`${apiUrl}/SaveOrUpdateWorkmanship`, {
+                WorkmanshipId: '',
+                ProductionLineId: '1234',
                 WorkmanshipName: values.WorkmanshipName,
                 ProductionLineName: values.ProductionLineName,
                 FinishedProduct: values.FinishedProduct,

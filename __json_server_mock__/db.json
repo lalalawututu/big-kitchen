@@ -327,13 +327,26 @@
     "ActualEndTime": "07:00",
     "lastTime": "1小时"
   },
-  "example": {
-    "例子": "dsa",
-    "lastTime": [
-      {
-        "name": "baoluo",
-        "sex": "female"
-      }
-    ] 
-  }
+  "SaveOrUpdateWorkmanship": [
+    {
+      "WorkmanshipId": "",
+      "ProductionLineId": "1234",
+      "WorkmanshipName": "宫保鸡丁",
+      "ProductionLineName": "宫保鸡丁",
+      "FinishedProduct": "宫保鸡丁",
+      "FinishedProductRatio": "1.0",
+      "FinishedProductSpecification": "G23654-1",
+      "id": 1
+    },
+    {
+      "WorkmanshipId": "",
+      "ProductionLineId": "1234",
+      "WorkmanshipName": "宫保鸡丁2",
+      "ProductionLineName": "宫保鸡丁",
+      "FinishedProduct": "宫保鸡丁",
+      "FinishedProductRatio": "1.0",
+      "FinishedProductSpecification": "G23654-1",
+      "id": 2
+    }
+  ]
 }

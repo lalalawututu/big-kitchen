@@ -25,7 +25,7 @@ const dataStep = [];
 for (let i = 0; i < 100; i++) {
     dataDevice.push({
         key: i,
-        number: i+1,
+        number: i + 1,
         name: `土豆分拣机 ${i}`,
         type: `分拣设备 ${i}`,
         brand: `圣铭 ${i}`,
@@ -51,7 +51,8 @@ class WorkInfo extends PureComponent {
             ProductionLineName: '',
             FinishedProduct: '',
             FinishedProductSpecification: '',
-            worklength: ''
+            worklength: '',
+            workingProcedure: []
         }
     }
 
@@ -64,20 +65,22 @@ class WorkInfo extends PureComponent {
                 let param2 = param.split('=');
                 let param3 = param2[1];
                 workData.forEach((item, index) => {
-                    if(item.WorkmanshipId == param3) {
-                        this.setState({WorkmanshipName: item.WorkmanshipName});
-                        this.setState({ProductionLineName: item.ProductionLineName});
-                        this.setState({FinishedProduct: item.FinishedProduct});
-                        this.setState({FinishedProductSpecification: item.FinishedProductSpecification});
-                        this.setState({worklength: item.WorkingProcedure.length});
+                    if (item.WorkmanshipId == param3) {
+                        this.setState({ WorkmanshipName: item.WorkmanshipName });
+                        this.setState({ ProductionLineName: item.ProductionLineName });
+                        this.setState({ FinishedProduct: item.FinishedProduct });
+                        this.setState({ FinishedProductSpecification: item.FinishedProductSpecification });
+                        this.setState({ worklength: item.WorkingProcedure.length });
+                        this.setState({ workingProcedure: item.WorkingProcedure });
+                        console.log(item.WorkingProcedure)
                         let WorkerQuantity = 0;
                         let WorkingHours = 0;
                         item.WorkingProcedure.forEach((item, index) => {
                             WorkingHours += item.WorkingHours
                             WorkerQuantity += item.WorkerQuantity
                         })
-                        this.setState({WorkerQuantity: WorkerQuantity})
-                        this.setState({WorkingHours: WorkingHours})
+                        this.setState({ WorkerQuantity: WorkerQuantity })
+                        this.setState({ WorkingHours: WorkingHours })
                     }
                 })
             }
@@ -103,52 +106,50 @@ class WorkInfo extends PureComponent {
                 <div className="process-container">
                     <h2 className="common-title">工艺流程</h2>
                     <Tabs defaultActiveKey="1" onChange={callback} className="tabs-list">
-                        <TabPane tab="1.分拣土豆" key="1">
-                            <Descriptions size={'default'} column={4} className="descriptions-basic">
-                                <Descriptions.Item label="工序名称">分拣土豆</Descriptions.Item>
-                                <Descriptions.Item label="产 出 品">标准土豆</Descriptions.Item>
-                                <Descriptions.Item label="工序类别">分拣</Descriptions.Item>
-                                <Descriptions.Item label="工    时">2小时</Descriptions.Item>
-                                <Descriptions.Item label="生产方式">人工</Descriptions.Item>
-                                <Descriptions.Item label="报工方式">人工人工</Descriptions.Item>
-                                <Descriptions.Item label="排工方式">自动排工</Descriptions.Item>
-                                <Descriptions.Item label="质检标准">ZJ10023</Descriptions.Item>
-                            </Descriptions>
-                            <Row className="process-box">
-                                <Col span={12} className="explain">
-                                    <h3 className="common-two-title">工艺说明：</h3>
-                                    <p>将选好的原料送入料斗中，经过带式传送机，同时进行挑选，霉斑薯块和腐块。</p>
-                                </Col>
-                                <Col span={12} className="device">
-                                    <h3 className="common-two-title">设备：</h3>
-                                    <Table columns={columnsDevice} dataSource={dataDevice} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                            </Row>
-                            <Row className="step-list-box">
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">原料</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">调料</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">包材</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">人员</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                            </Row>
-                        </TabPane>
-                        <TabPane tab="2.清洗土豆" key="2">
-                            Content of Tab Pane 2
-                        </TabPane>
-                        <TabPane tab="3.放置土豆" key="3">
-                            Content of Tab Pane 3
-                        </TabPane>
+                        {this.state.workingProcedure != null &&
+                            this.state.workingProcedure.forEach((item,index) => {
+                                <TabPane tab={item.WorkingProcedureName} key={index + 1}>
+                                    <Descriptions size={'default'} column={4} className="descriptions-basic">
+                                        <Descriptions.Item label="工序名称">{item.WorkingProcedureName}</Descriptions.Item>
+                                        <Descriptions.Item label="产 出 品">{item.Produce}</Descriptions.Item>
+                                        <Descriptions.Item label="工序类别">{item.WorkingProcedureType}</Descriptions.Item>
+                                        <Descriptions.Item label="工    时">{item.WorkingHours}小时</Descriptions.Item>
+                                        <Descriptions.Item label="生产方式">{item.ProductionMode}</Descriptions.Item>
+                                        <Descriptions.Item label="报工方式">{item.WorkReportMethod}</Descriptions.Item>
+                                        <Descriptions.Item label="排工方式">{item.SchedulingMode}</Descriptions.Item>
+                                        <Descriptions.Item label="质检标准">{item.QualityInspectionStandard}</Descriptions.Item>
+                                    </Descriptions>
+                                    <Row className="process-box">
+                                        <Col span={12} className="explain">
+                                            <h3 className="common-two-title">工艺说明：</h3>
+                                            <p>将选好的原料送入料斗中，经过带式传送机，同时进行挑选，霉斑薯块和腐块。</p>
+                                        </Col>
+                                        <Col span={12} className="device">
+                                            <h3 className="common-two-title">设备：</h3>
+                                            <Table columns={columnsDevice} dataSource={dataDevice} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                    </Row>
+                                    <Row className="step-list-box">
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">原料</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">调料</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">包材</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                        <Col span={6} className="device">
+                                            <h3 className="common-two-title">人员</h3>
+                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                        </Col>
+                                    </Row>
+                                </TabPane>
+                            })
+                        }
                     </Tabs>
                 </div>
 
