@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal, InputNumber } from 'antd';
+import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal, InputNumber, Cascader } from 'antd';
 import { CheckSquareOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
 import './index.less';
 
@@ -40,9 +40,46 @@ const initialPanes = [
     { title: '2.清洗土豆', content: 'Content of Tab 2', key: '2' },
     { title: '3.放置土豆', content: 'Content of Tab 3', key: '3' },
 ];
+const optionsTab = [
+    {
+        value: '土豆父级1',
+        label: '土豆父级1',
+        children: [
+            {
+                value: '土豆子级1',
+                label: '土豆子级1',
+                children: [
+                    {
+                        value: '土豆子级2',
+                        label: '土豆子级2',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        value: '土豆父级2',
+        label: '土豆父级2',
+        children: [
+            {
+                value: '土豆子级1',
+                label: '土豆子级1',
+                children: [
+                    {
+                        value: '土豆子级2',
+                        label: '土豆子级2',
+                    },
+                ],
+            },
+        ],
+    },
+];
 
 function onChangeNumber(value) {
     console.log('changed', value);
+}
+function onChangeTab(value) {
+    console.log(value);
 }
 
 class WorkCreate extends PureComponent {
@@ -55,7 +92,11 @@ class WorkCreate extends PureComponent {
         this.setState({ activeKey });
     };
     onEdit = (targetKey, action) => {
-        this[action](targetKey);
+        console.log(targetKey,action)
+        if(action == 'add'){ //创建
+            this.setState({ isModalTab: true });
+        }
+        this[action](targetKey); //增加Tab
     };
     add = () => {
         const { panes } = this.state;
@@ -112,6 +153,9 @@ class WorkCreate extends PureComponent {
 
         const onFinishFailed = () => {
         };
+        const handleOkTab = () => {
+            this.setState({ isModalTab: false });
+        };
 
         const showModal = () => {
             this.setState({ isModalVisible: true });
@@ -120,8 +164,10 @@ class WorkCreate extends PureComponent {
             this.setState({ isModalVisible: false });
         };
         const handleCancel = () => {
+            this.setState({ isModalTab: false });
             this.setState({ isModalVisible: false });
         };
+
         return (
             <div className="work-create-information">
                 <Form
@@ -348,10 +394,27 @@ class WorkCreate extends PureComponent {
                     </div>
                 </Form>
 
+                {/* 添加tab弹框 */}
+                <Modal title="选择"
+                       width={600}
+                       centered
+                       visible={this.state.isModalTab}
+                       okText="确定"
+                       cancelText="取消"
+                       className="add-mask"
+                       onOk={handleOkTab} onCancel={handleCancel}>
+                    <div className="cascader-tabs-box">
+                        <h6>选择：</h6>
+                        <Cascader options={optionsTab} onChange={onChangeTab} changeOnSelect className="cascader-list" />
+                    </div>
+                </Modal>
+
+                {/* 添加人员弹框 */}
                 <Modal title="添加人员"
                        width={600}
                        centered
                        visible={this.state.isModalVisible}
+                       onCancel={handleCancel}
                        className="add-mask add-mask-footer">
                     <Form
                         name="basic"
@@ -399,14 +462,12 @@ const columnsDevice = [
         align: 'center',
         title: '设备编号',
         dataIndex: 'number',
-        // width: 150,
     },
     {
         key: 1,
         align: 'center',
         title: '设备名称',
         dataIndex: 'name',
-        // width: 150,
     },
     {
         key: 2,
@@ -420,16 +481,6 @@ const columnsDevice = [
         title: '品牌',
         dataIndex: 'brand',
     },
-    // {
-    //     align: 'center',
-    //     title: '操作',
-    //     dataIndex: 'operation',
-    //     render: (text, React) => (
-    //         <Space size="middle">
-    //             <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
-    //         </Space>
-    //     ),
-    // }
 ];
 const columnsStep = [
     {

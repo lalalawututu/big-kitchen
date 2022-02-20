@@ -34,7 +34,7 @@ class PeopleMange extends PureComponent {
                         Name: item.Name,
                         Sex: item.Sex,
                         Team: item.Team,
-                        EmployeePosition: item.EmployeePosition
+                        EmployeePosition: item.EmployeePosition.replace(/#/g, '，')
                     }
                     data.push(peopleInfo)
                 })
