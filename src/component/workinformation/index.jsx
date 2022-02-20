@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Descriptions, Table, Tabs } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Row, Col, Descriptions, Table, Tabs, Button } from 'antd';
+import { DeleteOutlined, DiffOutlined } from '@ant-design/icons';
 import './index.less';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -91,6 +91,9 @@ class WorkInfo extends PureComponent {
         const { Column } = Table;
         return (
             <div className="work-information">
+                <div class="search-container">
+                    <Button icon={<DiffOutlined />} className="common-add-btn">编辑</Button>
+                </div>
                 <div className="basic-info bg-fff">
                     <h2 className="common-title">基本信息</h2>
                     <Descriptions size={'default'} column={4} className="descriptions-basic">
