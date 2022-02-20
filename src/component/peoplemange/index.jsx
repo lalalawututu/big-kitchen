@@ -23,13 +23,14 @@ class PeopleMange extends PureComponent {
     }
 
     componentDidMount() {
-        fetch(`${apiUrl}/Employee`).then(async (response) => {
+        fetch(`getEmployeeList`).then(async (response) => {
             if (response.ok) {
                 let workData = await response.json();
+                console.log(workData,'getEmployeeList')
                 let data = [];
-                workData.forEach((item, index) => {
+                workData.Employees.forEach((item, index) => {
                     let peopleInfo = {
-                        id: item.id,
+                        id: item.EmployeeId,
                         key: index,
                         Name: item.Name,
                         Sex: item.Sex,
@@ -41,6 +42,25 @@ class PeopleMange extends PureComponent {
                 this.setState({ data: data })
             }
         });
+
+        // fetch(`${apiUrl}/Employee`).then(async (response) => {
+        //     if (response.ok) {
+        //         let workData = await response.json();
+        //         let data = [];
+        //         workData.forEach((item, index) => {
+        //             let peopleInfo = {
+        //                 id: item.id,
+        //                 key: index,
+        //                 Name: item.Name,
+        //                 Sex: item.Sex,
+        //                 Team: item.Team,
+        //                 EmployeePosition: item.EmployeePosition
+        //             }
+        //             data.push(peopleInfo)
+        //         })
+        //         this.setState({ data: data })
+        //     }
+        // });
     }
 
     handleChange(tag, checked) {
@@ -68,17 +88,30 @@ class PeopleMange extends PureComponent {
                 selectedTags: [],
                 EmployeeId: ''
             });
-            fetch(`${apiUrl}/Employee/${peopleId}`).then(async (response) => {
-                let peopleData = await response.json();
-                peopleData["EmployeePosition"] = tagsStr;
-                await axios.put(`${apiUrl}/Employee/${peopleId}`, peopleData)
-                    .then(function (response) {
-                        window.location.reload();
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+
+            fetch('UpdateEmployeePosition/'+peopleId, {
+                method: 'put',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({'employeePosition':tagsStr})
+            }).then(async (response) => {
+                if (response.ok) {
+                    let res = await response.json();
+                    window.location.reload();
+                }
             })
+            // fetch(`${apiUrl}/Employee/${peopleId}`).then(async (response) => {
+            //     let peopleData = await response.json();
+            //     peopleData["EmployeePosition"] = tagsStr;
+            //     await axios.put(`${apiUrl}/Employee/${peopleId}`, peopleData)
+            //         .then(function (response) {
+            //             window.location.reload();
+            //         })
+            //         .catch(function (error) {
+            //             console.log(error);
+            //         });
+            // })
         };
 
         const handleCancel = () => {

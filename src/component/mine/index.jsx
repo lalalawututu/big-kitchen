@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Space, Button, Progress, Collapse, Descriptions, Input, InputNumber } from 'antd';
-import { PoweroffOutlined, ContainerFilled, LeftCircleOutlined, BarsOutlined } from '@ant-design/icons';
+import { PoweroffOutlined, LeftCircleOutlined, BarsOutlined } from '@ant-design/icons';
 import './index.less';
 import { actionCreatorsMine } from './store';
 
@@ -530,7 +530,8 @@ class Mine extends PureComponent {
                             </div>
                         </div>
                         <div className="work-progress">
-                            <h3 className="commit-title"><b className="icon-progress"></b> 工作进度</h3>
+                            <h3 className="commit-title">
+                                <b className="icon-progress"></b> 工作进度</h3>
                             <Progress percent={20}
                                 trailColor={"#F7F7FF"}
                                 strokeColor={{
@@ -545,7 +546,7 @@ class Mine extends PureComponent {
                     <Col span={18} className="bulletin-board-right">
                         <div className="task-container">
                             <Space align="center" className="task-list-box">
-                                <h3 className="commit-title"><ContainerFilled /> 我的任务</h3>
+                                <h3 className="commit-title"><b className="icon-task"></b></h3>
 
                                 <div className="task-list">
                                     <LeftCircleOutlined className="icon-arrow" style={{ color: '#4C515D' }} />
@@ -568,28 +569,38 @@ class Mine extends PureComponent {
                                 {
                                     ReceivingTaskList && ReceivingTaskList.map((item, index) => {
                                         return (
-                                            <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index + 1} showArrow={false}>
-                                                <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20 + index}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
-                                                    <Descriptions size={'default'} column={3} className="des-box">
-                                                        <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                                                        <Descriptions.Item label="实际起止时间">
-                                                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                                                        </Descriptions.Item>
-                                                        <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                                                        <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                                                        <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                                                        <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                                                    </Descriptions>
+                                        <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index + 1} showArrow={false}>
+                                            <div className="product-info">
+                                                <Descriptions size={'default'} column={3} className="des-box">
+                                                    <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
+                                                    <Descriptions.Item label="实际起止时间">
+                                                        {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
+                                                    </Descriptions.Item>
+                                                    <Descriptions.Item label="剩余时间">{this.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
+                                                    <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
+                                                    <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
+                                                    <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
+                                                </Descriptions>
 
-                                                    <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 1) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                                                </div>
-                                            </Panel>
+                                                <Row className="submit-top">
+                                                    <Col span={6} className="product-progress-box">
+                                                        <div className="product-progress">
+                                                            <Progress percent={20 + index}
+                                                                      showInfo={false}
+                                                                      type="circle"
+                                                                      trailColor={"#E7E1E2"}
+                                                                      strokeColor={"#FF4B4B"} />
+                                                            <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                        </div>
+                                                        <p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>
+                                                    </Col>
+                                                    <Col span={18} className="submit-container">
+
+                                                        <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick(item, index, 1) }}><b className="icon-submit"></b>{item.btn.content}</Button>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Panel>
                                         )
                                     })
                                 }
@@ -600,12 +611,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId+'11'} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20 + index}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
                                                         <Descriptions.Item label="实际起止时间">
@@ -617,7 +622,23 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 2) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 2) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -630,12 +651,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId+'2'} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20 + index}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
                                                         <Descriptions.Item label="实际起止时间">
@@ -647,7 +662,23 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 3) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={(e) => { this.TaskStartClick(item, index, 3) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -660,12 +691,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.TaskId+'3'} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
                                                         <Descriptions.Item label="实际起止时间">
@@ -679,7 +704,23 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="完成比例">{((item.CompletedQuantity / item.Quantity).toFixed(2)) * 100 + '%'}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    {<Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 4) }} icon={<BarsOutlined />}>{item.btn.content}</Button> }
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+
+                                                            {<Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 4) }} icon={<BarsOutlined />}>{item.btn.content}</Button> }
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -692,12 +733,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId+'5'} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="计划时间">
                                                         {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
@@ -708,7 +743,22 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="留样内容要求">{item.TaskContent || ''}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <Button className="submit-btn" onClick={(e) => { this.TaskStartClick(item, index, 5) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" onClick={(e) => { this.TaskStartClick(item, index, 5) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -721,12 +771,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="计划开始时间">{item.PlanStartTime?item.PlanStartTime.split(' ')[1]:'--'}</Descriptions.Item>
                                                         <Descriptions.Item label="计划结束时间">{item.PlanEndTime?item.PlanEndTime.split(' ')[1]:'--'}</Descriptions.Item>
@@ -736,7 +780,22 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="实际用时">{this.residueTime2(item.ActualStartTime, item.ActualEndTime)}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 6) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 6) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -750,12 +809,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
                                                         <Descriptions.Item label="开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : ''}</Descriptions.Item>
@@ -774,19 +827,41 @@ class Mine extends PureComponent {
                                                         </Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <div className="unqualified-list">
-                                                        <h4>选择不合格原因</h4>
-                                                        <Button className="active">尺寸不达标</Button>
-                                                        <Button>变质</Button>
-                                                        <Button>新鲜度不达标</Button>
-                                                        <Button>有泥土</Button>
-                                                        <Button>发芽</Button>
-                                                        <Button>发霉</Button>
-                                                        <Button>破损</Button>
-                                                        <Button>其他</Button>
-                                                    </div>
-
-                                                    <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 7) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container submit-zj-container">
+                                                            <div className="mt unqualified-InputNumber">
+                                                                <h4 className="common-submit-title">不合格数量</h4>
+                                                                <InputNumber min={1} defaultValue={2} controls={false} />
+                                                                <div className="icon-group">
+                                                                    <b className="icon-add"></b>
+                                                                    <b className="icon-subtract"></b>
+                                                                </div>
+                                                            </div>
+                                                            <div className="mt unqualified-list">
+                                                                <h4 className="common-submit-title">选择不合格原因</h4>
+                                                                <Button className="active">尺寸不达标</Button>
+                                                                <Button>变质</Button>
+                                                                <Button>新鲜度不达标</Button>
+                                                                <Button>有泥土</Button>
+                                                                <Button>发芽</Button>
+                                                                <Button>发霉</Button>
+                                                                <Button>破损</Button>
+                                                                <Button>其他</Button>
+                                                            </div>
+                                                            <Button className="submit-btn" onClick={() => { this.TaskStartClick(item, index, 7) }}><b class="icon-submit"></b>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
@@ -799,12 +874,6 @@ class Mine extends PureComponent {
                                         return (
                                             <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId+'88'} showArrow={false}>
                                                 <div className="product-info">
-                                                    <div className="product-progress">
-                                                        任务进度
-                                                        <Progress percent={20 + index}
-                                                            trailColor={"#E7E1E2"}
-                                                            strokeColor={"#FF4B4B"} />
-                                                    </div>
                                                     <Descriptions size={'default'} column={3} className="des-box">
                                                         <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
                                                         <Descriptions.Item label="实际起止时间">
@@ -821,7 +890,22 @@ class Mine extends PureComponent {
                                                         <Descriptions.Item label="完成比例">{item.BatchNumber || ''}</Descriptions.Item>
                                                     </Descriptions>
 
-                                                    <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick( item, index, 8) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                    <Row className="submit-top">
+                                                        <Col span={6} className="product-progress-box">
+                                                            <div className="product-progress">
+                                                                <Progress percent={20 + index}
+                                                                          showInfo={false}
+                                                                          type="circle"
+                                                                          trailColor={"#E7E1E2"}
+                                                                          strokeColor={"#FF4B4B"} />
+                                                                <h5 className="">{20 + index}%<span>工作进度</span></h5>
+                                                            </div>
+                                                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
+                                                        </Col>
+                                                        <Col span={18} className="submit-container">
+                                                            <Button className="submit-btn" disabled={this.state.btnDisabled} onClick={() => { this.TaskStartClick( item, index, 8) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </Panel>
                                         )
