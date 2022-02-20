@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Input, Table, Button, Space, Modal, Tag } from 'antd';
 import { SearchOutlined, DiffOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import './index.less';
 
 const { Search } = Input;
@@ -16,7 +17,8 @@ class PeopleMange extends PureComponent {
         this.state = {
             data: [],
             isModalVisible: false,
-            selectedTags: ['浸泡'],
+            selectedTags: [],
+            EmployeeId: '',
         }
     }
 
@@ -27,6 +29,7 @@ class PeopleMange extends PureComponent {
                 let data = [];
                 workData.forEach((item, index) => {
                     let peopleInfo = {
+                        id: item.id,
                         key: index,
                         Name: item.Name,
                         Sex: item.Sex,
@@ -43,17 +46,39 @@ class PeopleMange extends PureComponent {
     handleChange(tag, checked) {
         const { selectedTags } = this.state;
         const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
-        console.log('You are interested in: ', nextSelectedTags);
         this.setState({ selectedTags: nextSelectedTags });
     }
 
     render() {
-        const showModal = () => {
-            this.setState({ isModalVisible: true });
+        const showModal = (text) => {
+            console.log(text)
+            this.setState({
+                isModalVisible: true,
+                EmployeeId: text.id,
+            });
         };
 
         const handleOk = () => {
-            this.setState({ isModalVisible: false });
+            let tagsArr = this.state.selectedTags;
+            let tagsStr = tagsArr.join('#');
+            let peopleId = this.state.EmployeeId;
+
+            this.setState({
+                isModalVisible: false,
+                selectedTags: [],
+                EmployeeId: ''
+            });
+            fetch(`${apiUrl}/Employee/${peopleId}`).then(async (response) => {
+                let peopleData = await response.json();
+                peopleData["EmployeePosition"] = tagsStr;
+                await axios.put(`${apiUrl}/Employee/${peopleId}`, peopleData)
+                    .then(function (response) {
+                        window.location.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            })
         };
 
         const handleCancel = () => {
@@ -93,7 +118,7 @@ class PeopleMange extends PureComponent {
                 key: 'action',
                 render: (text, record) => (
                     <Space size="middle">
-                        <Button className="common-btn-bg" onClick={showModal}>修改工种</Button>
+                        <Button className="common-btn-bg" onClick={() => showModal(text)}>修改工种</Button>
                         {/*<button>删除</button>*/}
                     </Space>
                 ),
@@ -113,13 +138,13 @@ class PeopleMange extends PureComponent {
                 </div>
 
                 <Modal title="修改工种"
-                       width={600}
-                       centered
-                       visible={this.state.isModalVisible}
-                       okText="确定"
-                       cancelText="取消"
-                       className="add-mask"
-                       onOk={handleOk} onCancel={handleCancel}>
+                    width={600}
+                    centered
+                    visible={this.state.isModalVisible}
+                    okText="确定"
+                    cancelText="取消"
+                    className="add-mask"
+                    onOk={handleOk} onCancel={handleCancel}>
                     <div className="tags-type-box">
                         {tagsData.map(tag => (
                             <CheckableTag

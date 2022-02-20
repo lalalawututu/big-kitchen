@@ -56,7 +56,6 @@ class WorkMange extends PureComponent {
         });
     }
     toWorkInfor(text) {
-        console.log(text.WorkmanshipId)
         history.push(`/workinformation/?workmanshipId=${text.WorkmanshipId}`);
     }
     render() {

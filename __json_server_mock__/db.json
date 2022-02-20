@@ -1,6 +1,7 @@
 {
   "Employee": [
     {
+      "id": 1,
       "EmployeeId": "1",
       "Name": "张三",
       "IDNumber": "4527",
@@ -14,7 +15,7 @@
       "PositionalTitles": "职称",
       "Department": "员工部门",
       "Team": "员工班组",
-      "EmployeePosition": "包装#烹饪#凉拌#配送",
+      "EmployeePosition": "包装#留样#滚揉",
       "MobilePhone": "13548745896",
       "Tel": "2548965",
       "EntryDate": "2022/01/01 00:00",
@@ -24,6 +25,7 @@
       "WorkStatus": "工作"
     },
     {
+      "id": 2,
       "EmployeeId": "2",
       "Name": "张艳",
       "IDNumber": "3879",
@@ -37,7 +39,7 @@
       "PositionalTitles": "职称",
       "Department": "员工部门",
       "Team": "管理层",
-      "EmployeePosition": "包装#烹饪#凉拌#配送",
+      "EmployeePosition": "分拣#速冻#包装",
       "MobilePhone": "13548745896",
       "Tel": "2548965",
       "EntryDate": "2022/01/01 00:00",
@@ -83,7 +85,7 @@
                 "Brand": "圣铭"
               },
               {
-                "EquipmentId": "SB_FJ_001",
+                "EquipmentId": "SB_FJ_002",
                 "EquipmentName": "土豆分拣机",
                 "EquipmentCategory": "分拣设备",
                 "Brand": "圣铭"
@@ -161,7 +163,7 @@
             "ProductionMode": "人工",
             "WorkReportMethod": "人工报工",
             "SchedulingMode": "自动排工",
-            "QualityInspectionStandard": "ZJ10011",
+            "QualityInspectionStandard": "ZJ10022",
             "Description": "清洗土豆",
             "WorkerQuantity": 4,
             "Equipment": [

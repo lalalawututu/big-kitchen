@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Space, Button, Descriptions, Table, Tabs } from 'antd';
+import { Row, Col, Descriptions, Table, Tabs } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import './index.less';
 
@@ -72,15 +72,14 @@ class WorkInfo extends PureComponent {
                         this.setState({ FinishedProductSpecification: item.FinishedProductSpecification });
                         this.setState({ worklength: item.WorkingProcedure.length });
                         this.setState({ workingProcedure: item.WorkingProcedure });
-                        console.log(item.WorkingProcedure)
                         let WorkerQuantity = 0;
                         let WorkingHours = 0;
                         item.WorkingProcedure.forEach((item, index) => {
                             WorkingHours += item.WorkingHours
                             WorkerQuantity += item.WorkerQuantity
                         })
-                        this.setState({ WorkerQuantity: WorkerQuantity })
-                        this.setState({ WorkingHours: WorkingHours })
+                        this.setState({ WorkerQuantity: WorkerQuantity });
+                        this.setState({ WorkingHours: WorkingHours });
                     }
                 })
             }
@@ -88,6 +87,8 @@ class WorkInfo extends PureComponent {
     }
 
     render() {
+        const { workingProcedure } = this.state;
+        const { Column } = Table;
         return (
             <div className="work-information">
                 <div className="basic-info bg-fff">
@@ -106,54 +107,9 @@ class WorkInfo extends PureComponent {
                 <div className="process-container">
                     <h2 className="common-title">工艺流程</h2>
                     <Tabs defaultActiveKey="1" onChange={callback} className="tabs-list">
-                        <TabPane tab="1.分拣土豆" key="1">
-                            <Descriptions size={'default'} column={4} className="descriptions-basic">
-                                <Descriptions.Item label="工序名称">分拣土豆</Descriptions.Item>
-                                <Descriptions.Item label="产 出 品">标准土豆</Descriptions.Item>
-                                <Descriptions.Item label="工序类别">分拣</Descriptions.Item>
-                                <Descriptions.Item label="工    时">2小时</Descriptions.Item>
-                                <Descriptions.Item label="生产方式">人工</Descriptions.Item>
-                                <Descriptions.Item label="报工方式">人工人工</Descriptions.Item>
-                                <Descriptions.Item label="排工方式">自动排工</Descriptions.Item>
-                                <Descriptions.Item label="质检标准">ZJ10023</Descriptions.Item>
-                            </Descriptions>
-                            <Row className="process-box">
-                                <Col span={12} className="explain">
-                                    <h3 className="common-two-title">工艺说明：</h3>
-                                    <p>将选好的原料送入料斗中，经过带式传送机，同时进行挑选，霉斑薯块和腐块。</p>
-                                </Col>
-                                <Col span={12} className="device">
-                                    <h3 className="common-two-title">设备：</h3>
-                                    <Table columns={columnsDevice} dataSource={dataDevice} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                            </Row>
-                            <Row className="step-list-box">
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">原料</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">调料</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">包材</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                                <Col span={6} className="device">
-                                    <h3 className="common-two-title">人员</h3>
-                                    <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
-                                </Col>
-                            </Row>
-                        </TabPane>
-
-                        <TabPane tab="2.清洗土豆" key="2">
-                            Content of Tab Pane 2
-                        </TabPane>
-
-                        {this.state.workingProcedure != null &&
-                            this.state.workingProcedure.forEach((item,index) => {
-                                <TabPane tab={item.WorkingProcedureName} key={index + 1}>
+                        {workingProcedure != null &&
+                            workingProcedure.map((item, index) => (
+                                <TabPane tab={`${index + 1}.${item.WorkingProcedureName}`} key={index}>
                                     <Descriptions size={'default'} column={4} className="descriptions-basic">
                                         <Descriptions.Item label="工序名称">{item.WorkingProcedureName}</Descriptions.Item>
                                         <Descriptions.Item label="产 出 品">{item.Produce}</Descriptions.Item>
@@ -167,33 +123,57 @@ class WorkInfo extends PureComponent {
                                     <Row className="process-box">
                                         <Col span={12} className="explain">
                                             <h3 className="common-two-title">工艺说明：</h3>
-                                            <p>将选好的原料送入料斗中，经过带式传送机，同时进行挑选，霉斑薯块和腐块。</p>
+                                            <p>{item.Description}</p>
                                         </Col>
                                         <Col span={12} className="device">
                                             <h3 className="common-two-title">设备：</h3>
-                                            <Table columns={columnsDevice} dataSource={dataDevice} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                            <Table dataSource={item.Equipment} scroll={{ y: 142 }} pagination={false} className="table-scroll">
+                                                <Column title="设备编号" dataIndex="EquipmentId" key="EquipmentId" />
+                                                <Column title="设备名称" dataIndex="EquipmentName" key="EquipmentName" />
+                                                <Column title="设备类型" dataIndex="EquipmentCategory" key="EquipmentCategory" />
+                                                <Column title="品牌" dataIndex="Brand" key="Brand" />
+                                            </Table>
                                         </Col>
                                     </Row>
                                     <Row className="step-list-box">
                                         <Col span={6} className="device">
                                             <h3 className="common-two-title">原料</h3>
-                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                            <Table dataSource={item.Material} scroll={{ y: 142 }} pagination={false} className="table-scroll">
+                                                <Column title="名称" dataIndex="MaterialName" key="MaterialName" />
+                                                <Column title="规格" dataIndex="Specification" key="Specification" />
+                                                <Column title="单位" dataIndex="Unit" key="Unit" />
+                                                <Column title="数量" dataIndex="Quantity" key="Quantity" />
+                                            </Table>
                                         </Col>
                                         <Col span={6} className="device">
                                             <h3 className="common-two-title">调料</h3>
-                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                            <Table dataSource={item.Seasoning} scroll={{ y: 142 }} pagination={false} className="table-scroll">
+                                                <Column title="名称" dataIndex="SeasoningName" key="SeasoningName" />
+                                                <Column title="规格" dataIndex="Specification" key="Specification" />
+                                                <Column title="单位" dataIndex="Unit" key="Unit" />
+                                                <Column title="数量" dataIndex="Quantity" key="Quantity" />
+                                            </Table>
                                         </Col>
                                         <Col span={6} className="device">
                                             <h3 className="common-two-title">包材</h3>
-                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                            <Table dataSource={item.Packaging} scroll={{ y: 142 }} pagination={false} className="table-scroll">
+                                                <Column title="名称" dataIndex="PackagingName" key="PackagingName" />
+                                                <Column title="规格" dataIndex="Specification" key="Specification" />
+                                                <Column title="单位" dataIndex="Unit" key="Unit" />
+                                                <Column title="数量" dataIndex="Quantity" key="Quantity" />
+                                            </Table>
                                         </Col>
                                         <Col span={6} className="device">
                                             <h3 className="common-two-title">人员</h3>
-                                            <Table columns={columnsStep} dataSource={dataStep} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
+                                            <Table dataSource={item.Worker} scroll={{ y: 142 }} pagination={false} className="table-scroll">
+                                                <Column title="岗位" dataIndex="WorkerPosition" key="WorkerPosition" />
+                                                <Column title="部门" dataIndex="Department" key="Department" />
+                                                <Column title="数量" dataIndex="Quantity" key="Quantity" />
+                                            </Table>
                                         </Col>
                                     </Row>
                                 </TabPane>
-                            })
+                            ))
                         }
                     </Tabs>
                 </div>
@@ -235,68 +215,6 @@ const columns = [
         dataIndex: 'Content',
         key: 'Content',
         responsive: ['lg'],
-    },
-];
-const columnsDevice = [
-    {
-        key: 0,
-        align: 'center',
-        title: '设备编号',
-        dataIndex: 'number',
-        // width: 150,
-    },
-    {
-        key: 1,
-        align: 'center',
-        title: '设备名称',
-        dataIndex: 'name',
-        // width: 150,
-    },
-    {
-        key: 2,
-        align: 'center',
-        title: '设备类型',
-        dataIndex: 'type',
-    },
-    {
-        key: 3,
-        align: 'center',
-        title: '品牌',
-        dataIndex: 'brand',
-    },
-    // {
-    //     align: 'center',
-    //     title: '操作',
-    //     dataIndex: 'operation',
-    //     render: (text, React) => (
-    //         <Space size="middle">
-    //             <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
-    //         </Space>
-    //     ),
-    // }
-];
-const columnsStep = [
-    {
-        align: 'center',
-        title: '名称',
-        dataIndex: 'name',
-        // width: 150,
-    },
-    {
-        align: 'center',
-        title: '规格',
-        dataIndex: 'specs',
-        // width: 150,
-    },
-    {
-        align: 'center',
-        title: '单位',
-        dataIndex: 'unit',
-    },
-    {
-        align: 'center',
-        title: '数量',
-        dataIndex: 'number',
     },
 ];
 
