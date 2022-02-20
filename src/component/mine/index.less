@@ -1,10 +1,31 @@
 .bulletin-board-container{
-    padding: 0 0 0 .24rem;
+    padding: 0 .24rem;
+    .ant-row{
+        position: relative;
+    }
+    .bulletin-board-left{
+        position: fixed;
+        left: .24rem;
+    }
+    .bulletin-board-right{
+        position: absolute;
+        right: 0;
+    }
     .commit-title{
         font-size: 0.18rem;
         font-weight: 600;
         color: #333951;
         margin-bottom: .22rem;
+        display: flex;
+        align-items: center;
+        .icon-progress {
+            display: block;
+            width: .24rem;
+            height: .24rem;
+            background: url("../../style/img/icon/icon-progress.png") no-repeat;
+            background-size: 100%;
+            margin-right: .06rem;
+        }
     }
     .ant-progress-show-info .ant-progress-outer{
         margin-right: calc(-2em - 18px);
@@ -23,7 +44,7 @@
         //height: 2.62rem;
         background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.3) 100%);
         border-radius: 0.5rem;
-        padding: .28rem .3rem .3rem .24rem;
+        padding: .28rem .33rem .3rem .3rem;
         .date{
             font-size: 0.18rem;
             font-weight: 600;
@@ -44,7 +65,7 @@
         }
         .data{
             //margin: .2rem 0 .2rem .2rem;
-            margin-left: .2rem;
+            margin-left: .3rem;
             display: flex;
             flex-direction: column;
             h6{
@@ -52,33 +73,57 @@
                 line-height: 100%;
                 font-weight: 600;
                 color: #191D32;
-                margin-bottom: .3rem;
+                margin-bottom: .2rem;
             }
             p{
                 font-size: 0.18rem;
+                line-height: 100%;
                 font-weight: 600;
                 color: #333951;
-                margin-bottom: .1rem;
+                margin-bottom: .2rem;
             }
+        }
+        .btn{
+            display: flex;
+            align-items: center;
             .leave-btn{
-                width: 1.5rem;
+                width: 1.12rem;
                 height: 0.49rem;
                 background: rgba(255, 255, 255, 0.7);
                 border-radius: 0.2rem;
                 font-size: 0.18rem;
                 font-weight: 600;
                 color: #6C6CE5;
+                border: none;
+                display: flex;
+                align-items: center;
+                .icon-leave{
+                    display: block;
+                    width: .23rem;
+                    height: .13rem;
+                    background: url(../../style/img/icon/icon-leave.png) no-repeat;
+                    background-size: 100%;
+                    margin-right: .04rem;
+                }
             }
             .quit-btn{
-                width: 100%;
+                //width: 100%;
+                width: 2rem;
                 height: 0.49rem;
-                margin-top: 0.1rem;
                 background: rgba(255, 255, 255, 0.7);
                 border-radius: 0.2rem;
                 font-size: 0.18rem;
                 font-weight: 600;
                 color: #FF4B4B;
+                border: none;
+                margin-left: .18rem;
             }
+        }
+    }
+    .news-container{
+        img{
+            width: 100%;
+            border-radius: .5rem;
         }
     }
     .work-progress{
