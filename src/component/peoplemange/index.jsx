@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Input, Table, Button, Space, Modal } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Input, Table, Button, Space, Modal, Tag } from 'antd';
+import { SearchOutlined, DiffOutlined } from '@ant-design/icons';
 import './index.less';
 
 const { Search } = Input;
+const { CheckableTag } = Tag;
+const tagsData = ['浸泡', '清洗', '去皮', '分拣', '切割', '消毒', '沥水', '去毛', '搅拌', '速冻', '凉拌', '解冻', '放置', '滚揉', '留样', '包装'];
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 class PeopleMange extends PureComponent {
@@ -13,6 +16,7 @@ class PeopleMange extends PureComponent {
         this.state = {
             data: [],
             isModalVisible: false,
+            selectedTags: ['浸泡'],
         }
     }
 
@@ -35,6 +39,14 @@ class PeopleMange extends PureComponent {
             }
         });
     }
+
+    handleChange(tag, checked) {
+        const { selectedTags } = this.state;
+        const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
+        console.log('You are interested in: ', nextSelectedTags);
+        this.setState({ selectedTags: nextSelectedTags });
+    }
+
     render() {
         const showModal = () => {
             this.setState({ isModalVisible: true });
@@ -48,6 +60,7 @@ class PeopleMange extends PureComponent {
             this.setState({ isModalVisible: false });
         };
 
+        const { selectedTags } = this.state;
         const columns = [
             {
                 align: 'center',
@@ -98,10 +111,26 @@ class PeopleMange extends PureComponent {
                 <div className="common-long-table">
                     <Table columns={columns} dataSource={this.state.data} />
                 </div>
-                <Modal title="弹框" visible={this.state.isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+
+                <Modal title="修改工种"
+                       width={600}
+                       centered
+                       visible={this.state.isModalVisible}
+                       okText="确定"
+                       cancelText="取消"
+                       className="add-mask"
+                       onOk={handleOk} onCancel={handleCancel}>
+                    <div className="tags-type-box">
+                        {tagsData.map(tag => (
+                            <CheckableTag
+                                key={tag}
+                                checked={selectedTags.indexOf(tag) > -1}
+                                onChange={checked => this.handleChange(tag, checked)}
+                            >
+                                {tag}
+                            </CheckableTag>
+                        ))}
+                    </div>
                 </Modal>
             </div>
         );

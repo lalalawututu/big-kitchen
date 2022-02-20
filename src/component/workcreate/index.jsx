@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal } from 'antd';
+import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal, InputNumber } from 'antd';
 import { CheckSquareOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
 import './index.less';
 
@@ -40,6 +40,10 @@ const initialPanes = [
     { title: '2.清洗土豆', content: 'Content of Tab 2', key: '2' },
     { title: '3.放置土豆', content: 'Content of Tab 3', key: '3' },
 ];
+
+function onChangeNumber(value) {
+    console.log('changed', value);
+}
 
 class WorkCreate extends PureComponent {
     newTabIndex = 0;
@@ -107,6 +111,16 @@ class WorkCreate extends PureComponent {
         };
 
         const onFinishFailed = () => {
+        };
+
+        const showModal = () => {
+            this.setState({ isModalVisible: true });
+        };
+        const handleOk = () => {
+            this.setState({ isModalVisible: false });
+        };
+        const handleCancel = () => {
+            this.setState({ isModalVisible: false });
         };
         return (
             <div className="work-create-information">
@@ -318,7 +332,7 @@ class WorkCreate extends PureComponent {
                                         <Col span={6} className="device">
                                             <h3 className="common-two-title">
                                                 人员：
-                                                <Button icon={<PlusCircleFilled />} className="add-btn">添加</Button>
+                                                <Button icon={<PlusCircleFilled />} className="add-btn" onClick={showModal}>添加</Button>
                                             </h3>
                                             <Table columns={columnsStaff} dataSource={dataStaff} scroll={{ y: 142 }} pagination={false} className="table-scroll" />
                                         </Col>
@@ -333,6 +347,47 @@ class WorkCreate extends PureComponent {
                         <Button className="common-btn-bg" icon={<CheckSquareOutlined />} htmlType="submit">保存</Button>
                     </div>
                 </Form>
+
+                <Modal title="添加人员"
+                       width={600}
+                       centered
+                       visible={this.state.isModalVisible}
+                       className="add-mask add-mask-footer">
+                    <Form
+                        name="basic"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
+                        <Form.Item
+                            label="岗位"
+                            name="username"
+                            rules={[{ required: true, message: '请填写岗位' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="部门"
+                            name="username"
+                            rules={[{ required: true, message: '请填写部门' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="数量"
+                            name="username"
+                            rules={[{ required: true, message: '请填写数量' }]}
+                        >
+                            <InputNumber min={1} defaultValue={1} onChange={onChangeNumber} />
+                        </Form.Item>
+
+                        <div className="ant-modal-footer" style={{display: 'flex'}}>
+                            <Button className="ant-btn" onClick={handleCancel}><span>取 消</span></Button>
+                            <Button className="ant-btn ant-btn-primary" htmlType="submit" onClick={handleOk}><span>确 定</span></Button>
+                        </div>
+                    </Form>
+                </Modal>
             </div>
         );
     }

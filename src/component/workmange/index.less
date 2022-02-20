@@ -23,6 +23,35 @@ body,html{
 .search-container{
     margin-top: 0.45rem;
     margin-bottom: 0.64rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .common-add-btn{
+        background: transparent;
+        border: none;
+        height: auto;
+        display: flex;
+        align-items: center;
+        color: #625EE4;
+        cursor: pointer;
+        box-shadow: 0 0 0 0 transparent;
+        span{
+            display: block;
+            font-size: 0.4rem;
+            line-height: 0.4rem;
+            font-weight: 600;
+            color: #625EE4;
+        }
+        span:first-of-type{
+            margin-top: .04rem;
+        }
+        span:last-of-type{
+            font-size: 0.26rem;
+        }
+    }
+    .common-add-btn:hover, .common-add-btn:focus, .common-add-btn:active{
+        background: transparent;
+    }
     .anticon,.anticon.ant-input-clear-icon{
         font-size: 0.39rem;
     }
@@ -54,6 +83,70 @@ body,html{
             border: none;
             margin-left: 0.24rem;
         }
+    }
+}
+.add-mask{
+    .ant-modal-content{
+        background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.9) 100%);
+        box-shadow: 0 0.36rem 0.36rem 0 rgba(183, 183, 241, 0.1);
+        border-radius: 0.4rem;
+        .ant-modal-close{
+            top: .05rem;
+            right: .05rem;
+            .ant-modal-close-x{
+                font-size: .25rem;
+            }
+        }
+    }
+    .ant-modal-header{
+        padding: .43rem 0 .36rem;
+        background: transparent;
+        border-bottom: none;
+        .ant-modal-title{
+            font-size: 0.3rem;
+            font-weight: 600;
+            color: #333951;
+            text-align: center;
+        }
+    }
+    .ant-modal-footer{
+        padding: .1rem 0 .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: none;
+        .ant-btn{
+            padding: .2rem .5rem;
+            border-radius: 0.39rem;
+            border: none;
+            height: auto;
+            font-size: 0.24rem;
+            font-weight: 600;
+            background: #D9D9E2;
+            color: #353B53!important;
+        }
+        button:last-of-type{
+            background: #6C6CE5;
+            color: #fff!important;
+            margin-left: .5rem!important;
+        }
+    }
+}
+.tags-type-box{
+    .ant-tag{
+        font-size: 0.15rem;
+        font-weight: 600;
+        color: #333951;
+        padding: .1rem .15rem;
+        border-radius: 0.21rem;
+        border: 0.01rem solid rgba(0, 0, 0, 0.1);
+        margin: .15rem;
+    }
+    .ant-tag-checkable-checked{
+        color: #FFFFFF;
+        background: #333951;
+        box-shadow: 0 0 0.15rem 0 rgba(0, 0, 0, 0.05);
+        border-radius: 0.21rem;
     }
 }
 
@@ -113,3 +206,21 @@ body,html{
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
