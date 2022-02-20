@@ -294,7 +294,7 @@
         ]
       },
       {
-        "WorkmanshipId": "c87gfka15opkj27d9vt0",
+        "WorkmanshipId": "GY01-0004",
         "WorkmanshipName": "鱼香肉丝工艺",
         "ProductionLineId": "SCX01-0005",
         "ProductionLineName": "鱼香肉丝生产线",
@@ -326,5 +326,14 @@
     "ActualStartTime": "06:00",
     "ActualEndTime": "07:00",
     "lastTime": "1小时"
+  },
+  "example": {
+    "例子": "dsa",
+    "lastTime": [
+      {
+        "name": "baoluo",
+        "sex": "female"
+      }
+    ] 
   }
 }

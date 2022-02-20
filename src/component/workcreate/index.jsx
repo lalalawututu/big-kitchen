@@ -1,17 +1,21 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal } from 'antd';
 import { CheckSquareOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
 import './index.less';
+
 const { TabPane } = Tabs;
 const { Option } = Select;
 const dataDevice = [];
 const dataStep = [];
 const dataStaff = [];
+const apiUrl = process.env.REACT_APP_API_URL;
+
 for (let i = 0; i < 10; i++) {
     dataDevice.push({
         key: i,
-        number: i+1,
+        number: i + 1,
         name: `土豆分拣机 ${i}`,
         type: `分拣设备 ${i}`,
         brand: `圣铭 ${i}`,
@@ -36,13 +40,6 @@ const initialPanes = [
     { title: '2.清洗土豆', content: 'Content of Tab 2', key: '2' },
     { title: '3.放置土豆', content: 'Content of Tab 3', key: '3' },
 ];
-
-const onFinish = () => {
-};
-
-const onFinishFailed = () => {
-};
-
 
 class WorkCreate extends PureComponent {
     newTabIndex = 0;
@@ -91,6 +88,25 @@ class WorkCreate extends PureComponent {
 
     render() {
         const { panes, activeKey } = this.state;
+        const onFinish = (values) => {
+            console.log('Success:', values);
+            axios.post(`${apiUrl}/example`, {
+                WorkmanshipName: values.WorkmanshipName,
+                ProductionLineName: values.ProductionLineName,
+                FinishedProduct: values.FinishedProduct,
+                FinishedProductRatio: values.FinishedProductRatio,
+                FinishedProductSpecification: values.select
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        };
+
+        const onFinishFailed = () => {
+        };
         return (
             <div className="work-create-information">
                 <Form
@@ -107,7 +123,7 @@ class WorkCreate extends PureComponent {
                             <Col span={5}>
                                 <Form.Item
                                     label="工艺名称"
-                                    name="username"
+                                    name="WorkmanshipName"
                                     rules={[{ required: true, message: '请填写工艺名称' }]}
                                 >
                                     <Input />
@@ -116,7 +132,7 @@ class WorkCreate extends PureComponent {
                             <Col span={5}>
                                 <Form.Item
                                     label="对应生产线"
-                                    name="username"
+                                    name="ProductionLineName"
                                     rules={[{ required: true, message: '请填写对应生产线' }]}
                                 >
                                     <Input />
@@ -125,7 +141,7 @@ class WorkCreate extends PureComponent {
                             <Col span={5}>
                                 <Form.Item
                                     label="产成品"
-                                    name="username"
+                                    name="FinishedProduct"
                                     rules={[{ required: true, message: '请填写产成品' }]}
                                 >
                                     <Input />
@@ -138,16 +154,16 @@ class WorkCreate extends PureComponent {
                                     rules={[{ required: true, message: '请选择产成品规格' }]}
                                 >
                                     <Select allowClear>
-                                        <Option value="1">Option 1</Option>
-                                        <Option value="2">Option 2</Option>
-                                        <Option value="3">Option 3</Option>
+                                        <Option value="G23654-1">G23654-1</Option>
+                                        <Option value="G23654-2">G23654-2</Option>
+                                        <Option value="G23654-3">G23654-3</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={4}>
                                 <Form.Item
                                     label="出成率"
-                                    name="username"
+                                    name="FinishedProductRatio"
                                     rules={[{ required: true, message: '请填写出成率' }]}
                                 >
                                     <Input />
@@ -273,7 +289,7 @@ class WorkCreate extends PureComponent {
                                                 name="intro"
                                                 rules={[{ required: true, message: 'Please input Intro' }]}
                                             >
-                                                <Input.TextArea bordered={false} maxLength={200} autoSize={true}  />
+                                                <Input.TextArea bordered={false} maxLength={200} autoSize={true} />
                                             </Form.Item>
                                         </Col>
                                         <Col span={12} className="device">
@@ -417,7 +433,7 @@ const columnsStaff = [
         dataIndex: 'operation',
         render: (text, React) => (
             <Space size="middle">
-                <DeleteOutlined style={{color: '#FF4B4B', cursor: 'pointer'}} />
+                <DeleteOutlined style={{ color: '#FF4B4B', cursor: 'pointer' }} />
             </Space>
         ),
     }

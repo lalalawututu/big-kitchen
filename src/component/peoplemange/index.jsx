@@ -1,4 +1,4 @@
-import React, { PureComponent, useState } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Input, Table, Button, Space, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
@@ -27,7 +27,7 @@ class PeopleMange extends PureComponent {
                         Name: item.Name,
                         Sex: item.Sex,
                         Team: item.Team,
-                        EmployeePosition: item.EmployeePosition,
+                        EmployeePosition: item.EmployeePosition
                     }
                     data.push(peopleInfo)
                 })
