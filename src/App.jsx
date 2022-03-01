@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import Header from './common/index'
 import Mine from './component/mine';
-import WorkMange from './component/workmange';
+import { WorkMange } from './component/workmange';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
@@ -28,5 +28,5 @@ class App extends PureComponent {
   }
 }
 
-export default connect()(App);
+export default App;
 
