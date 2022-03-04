@@ -23,7 +23,6 @@ interface ListProps {
 }
 
 export const SearchBanner = ({ initialData, setData }: ListProps) => {
-	console.log(initialData)
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounce(inputValue, 2000);
 
