@@ -221,4 +221,4 @@ const columns = [
     },
 ];
 
-export default connect()(WorkInfo);
+export default WorkInfo;

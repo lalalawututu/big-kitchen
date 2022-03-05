@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import './index.less';
-import { actionCreatorsHeader } from './store';
 
 class Header extends PureComponent {
   constructor(props) {
@@ -70,4 +68,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps)(Header);
+export default Header;

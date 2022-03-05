@@ -546,4 +546,4 @@ const columnsStaff = [
     }
 ];
 
-export default connect()(WorkCreate);
+export default WorkCreate;

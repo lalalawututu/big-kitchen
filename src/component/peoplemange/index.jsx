@@ -195,4 +195,4 @@ class PeopleMange extends PureComponent {
     }
 }
 
-export default connect()(PeopleMange);
+export default PeopleMange;

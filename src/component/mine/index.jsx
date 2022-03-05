@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Row, Col, Space, Button, Progress, Collapse, Descriptions, Input, InputNumber } from 'antd';
 import { PoweroffOutlined, LeftCircleOutlined, BarsOutlined } from '@ant-design/icons';
 import './index.less';
@@ -931,4 +930,4 @@ class Mine extends PureComponent {
     }
 }
 
-export default connect()(Mine);
+export default Mine;
