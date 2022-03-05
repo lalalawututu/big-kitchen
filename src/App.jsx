@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
-import Header from './common/index'
+import Header from './component/header'
 import Mine from './component/mine';
 import { WorkMange } from './component/workmange';
 import PeopleMange from './component/peoplemange';
