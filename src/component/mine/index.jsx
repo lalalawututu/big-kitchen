@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Row, Col, Space, Button, Progress, Collapse, Descriptions, Input, InputNumber } from 'antd';
 import { PoweroffOutlined, LeftCircleOutlined, BarsOutlined } from '@ant-design/icons';
 import './index.less';
-import { actionCreatorsMine } from './store';
 
 const { Panel } = Collapse;
 const lists = [
@@ -112,12 +111,6 @@ const genExtraps = (item) => (
     </Descriptions>
 );
 
-function callback(key) {
-    console.log(key);
-}
-
-
-
 class Mine extends PureComponent {
     constructor(props) {
         super(props);
@@ -150,7 +143,6 @@ class Mine extends PureComponent {
         fetch('GetTaskList').then(async (response) => {
             if (response.ok) {
                 let res = await response.json();
-
                 res.data.List.ReceivingTaskList.map((item, index) => {
                     item.btn = { 'content': '接货开始', flag: 0 }
                 })
@@ -178,8 +170,6 @@ class Mine extends PureComponent {
                 res.data.List.PackingTaskList.map((item, index) => {
                     item.btn = { 'content': '包装开始', flag: 0 }
                 })
-
-
                 this.setState({
                     'ReceivingTaskList': res.data.List.ReceivingTaskList || [], //接货
                     'WarehousingTaskList': res.data.List.WarehousingTaskList || [], //入库
@@ -190,8 +180,6 @@ class Mine extends PureComponent {
                     'PackingTaskList': res.data.List.PackingTaskList || [], //包装
                     'LoadingTaskList': res.data.List.LoadingTaskList || [], //配送
                 })
-                console.log(this.state, '666')
-
             }
         });
 
@@ -578,7 +566,7 @@ class Mine extends PureComponent {
                                             {
                                                 lists.map((item, index) => {
                                                     return (
-                                                        <p onClick={callback}>{item.title}（{item.number}）</p>
+                                                        <p>{item.title}（{item.number}）</p>
                                                     )
                                                 })
                                             }
@@ -587,7 +575,7 @@ class Mine extends PureComponent {
                                 </div>
                             </Space>
                             {/* 列表 */}
-                            <Collapse defaultActiveKey={['1']} className="lists" showArrow={false} onChange={callback}>
+                            <Collapse defaultActiveKey={['1']} className="lists" showArrow={false}>
                                 {/* 接货 */}
                                 {
                                     ReceivingTaskList && ReceivingTaskList.map((item, index) => {

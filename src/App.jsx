@@ -16,7 +16,7 @@ class App extends PureComponent {
     return (
       <Router history={history}>
         <div>
-          {/* <Header /> */}
+          <Header />
           <Route path="/" exact component={WorkMange}></Route>
           <Route path="/mine" component={Mine}></Route>
           <Route path="/peoplemange" component={PeopleMange}></Route>
