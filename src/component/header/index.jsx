@@ -21,18 +21,13 @@ class Header extends PureComponent {
     }
   }
   render() {
-    const {
-      headPicture,
-      toggleMine,
-      handletoggleMine
-    } = this.props;
     return (
       <div className="header">
         <div className="headerBox" style={{left: this.state.left}}>
           <Row>
             <Col span={7}>
               <Link to="/">
-                <img src={headPicture} alt="" className='logo' />
+                {/* <img alt="" className='logo' /> */}
               </Link>
               成都天府智慧大厨房智能管控
             </Col>
@@ -62,10 +57,5 @@ class Header extends PureComponent {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  headPicture: state.getIn(['header', 'headPicture']),
-});
-
 
 export default Header;
