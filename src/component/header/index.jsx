@@ -51,6 +51,11 @@ class Header extends PureComponent {
                 工艺创建
               </Link>
             </Col>
+            <Col span={3}>
+              <Link to="/commonCreate">
+                pc通用创建
+              </Link>
+            </Col>
           </Row>
         </div>
       </div>
