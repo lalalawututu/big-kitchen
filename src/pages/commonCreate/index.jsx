@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import creatorContainer from '../../container/commonCreate';
 import {
     Form,
@@ -7,7 +6,10 @@ import {
     Select,
     Typography,
     Upload,
-    Modal
+    Modal,
+    Tag,
+    Space,
+    Button
 } from 'antd';
 import 'antd/dist/antd.css';
 import './index.less';
@@ -15,31 +17,30 @@ import './index.less';
 const { Title } = Typography;
 const { Option } = Select;
 
-const children = [];
-for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-}
-
-export function CommonCreatePage () {
+export function CommonCreatePage() {
     let creator = creatorContainer.useContainer();
-    function handleChange(value) {
-      console.log(`selected ${value}`);
-    }
+
     // upload-image
-    const [fileList, setFileList] = useState([
+    const [imgList, setImgList] = useState([
         {
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         },
-      ]);
-    
-      const onChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-      };
-    
-      const onPreview = async file => {
+        {
+            uid: '-2',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        }
+    ]);
+
+    const onChange = ({ imgList: newImgList }) => {
+        setImgList(newImgList);
+    };
+
+    const onPreview = async file => {
         let src = file.url;
         if (!src) {
             src = await new Promise(resolve => {
@@ -52,6 +53,26 @@ export function CommonCreatePage () {
         image.src = src;
         const imgWindow = window.open(src);
         imgWindow.document.write(image.outerHTML);
+    };
+
+    // upload-files
+    const [fileList, setFileList2] = useState([
+        {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+            uid: '-2',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        }
+    ]);
+
+    const onChange2 = ({ imgList: newImgList }) => {
+        setFileList2(newImgList);
     };
 
     return (
@@ -120,36 +141,73 @@ export function CommonCreatePage () {
                             <Input className='field-input' placeholder='input placeholder' />
                         </Form.Item>
                     </div>
-                    {/* <div className='wrap-line labels-line'>
-                        此处标签不知道交互方式，暂时不做
-                    </div> */}
                     <div className='wrap-line'>
                         <Form.Item label='Field H'>
-                            <Select mode='tags' className='field-Select-tags' onChange={handleChange} tokenSeparators={[',']}>
-                                {children}
-                            </Select>
+                            <div className='tags-wrap'>
+                                <Tag className='active'>
+                                    Tag 1
+                                </Tag>
+                                <Tag>
+                                    Tag 2
+                                </Tag>
+                                <Tag>
+                                    Tag 3
+                                </Tag>
+                            </div>
+                        </Form.Item>
+                    </div>
+                    <div className='wrap-line'>
+                        <Form.Item label='Field I'>
+                            <div className='tags-wrap canClose'>
+                                <Tag className='active' closable onClose={() => { }}>
+                                    Tag 1
+                                </Tag>
+                                <Tag closable onClose={() => { }}>
+                                    Tag 2
+                                </Tag>
+                                <Tag closable onClose={() => { }}>
+                                    Tag 3
+                                </Tag>
+                            </div>
                         </Form.Item>
                     </div>
                 </Form>
             </div>
 
-            <div className='creator-content shadow'>
+            <div className='creator-content shadow module-form'>
                 <Title className='content-title' level={4}>原料图片</Title>
                 <Upload
                     action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
                     listType='picture-card'
-                    fileList={fileList}
+                    fileList={imgList}
                     onChange={onChange}
                     onPreview={onPreview}
+                >
+                    {imgList.length < 5 && '+ Upload'}
+                </Upload>
+            </div>
+
+            <div className='creator-content shadow module-form'>
+                <Title className='content-title' level={4}>附件</Title>
+                <Upload
+                    action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+                    fileList={fileList}
+                    className='file-upload'
+                    onChange={onChange2}
+                    itemRender={(originNode, file, currFileList) => (
+                        <div className='file-item'>
+                            {file.uid + file.name}
+                        </div>
+                    )}
                 >
                     {fileList.length < 5 && '+ Upload'}
                 </Upload>
             </div>
 
-            <div className='creator-content shadow'>
-                <Title className='content-title' level={4}>附件</Title>
-                
-            </div>
+            <Space className='buttons' size='large'>
+                <Button className='chen-button shadow'>取消</Button>
+                <Button className='chen-button shadow primary'>保存</Button>
+            </Space>
         </div>
     )
 }
