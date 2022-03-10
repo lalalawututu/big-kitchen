@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Row, Col, Descriptions, Table, Tabs, Button } from 'antd';
-import { DeleteOutlined, DiffOutlined } from '@ant-design/icons';
+import { DiffOutlined } from '@ant-design/icons';
 import './index.less';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -65,7 +64,7 @@ class WorkInfo extends PureComponent {
                 let param2 = param.split('=');
                 let param3 = param2[1];
                 workData.forEach((item, index) => {
-                    if (item.WorkmanshipId == param3) {
+                    if (item.WorkmanshipId === param3) {
                         this.setState({ WorkmanshipName: item.WorkmanshipName });
                         this.setState({ ProductionLineName: item.ProductionLineName });
                         this.setState({ FinishedProduct: item.FinishedProduct });

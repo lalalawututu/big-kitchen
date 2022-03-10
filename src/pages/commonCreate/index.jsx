@@ -6,7 +6,6 @@ import {
     Select,
     Typography,
     Upload,
-    Modal,
     Tag,
     Space,
     Button

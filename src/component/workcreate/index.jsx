@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
 import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal, InputNumber, Cascader } from 'antd';
 import { CheckSquareOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
@@ -93,7 +92,7 @@ class WorkCreate extends PureComponent {
     };
     onEdit = (targetKey, action) => {
         console.log(targetKey,action)
-        if(action == 'add'){ //创建
+        if(action === 'add'){ //创建
             this.setState({ isModalTab: true });
         }
         this[action](targetKey); //增加Tab
@@ -132,7 +131,7 @@ class WorkCreate extends PureComponent {
     };
 
     render() {
-        const { panes, activeKey } = this.state;
+        const { panes } = this.state;
         const onFinish = (values) => {
             axios.post(`${apiUrl}/SaveOrUpdateWorkmanship`, {
                 WorkmanshipId: '',

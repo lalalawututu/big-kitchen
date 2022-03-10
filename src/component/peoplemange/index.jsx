@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Input, Table, Button, Space, Modal, Tag } from 'antd';
-import { SearchOutlined, DiffOutlined } from '@ant-design/icons';
-import axios from 'axios';
+import { SearchOutlined } from '@ant-design/icons';
 import './index.less';
 
 const { Search } = Input;
 const { CheckableTag } = Tag;
 const tagsData = ['浸泡', '清洗', '去皮', '分拣', '切割', '消毒', '沥水', '去毛', '搅拌', '速冻', '凉拌', '解冻', '放置', '滚揉', '留样', '包装'];
-
-const apiUrl = process.env.REACT_APP_API_URL;
 
 class PeopleMange extends PureComponent {
     constructor(props) {
@@ -97,7 +93,7 @@ class PeopleMange extends PureComponent {
                 body: JSON.stringify({'employeePosition':tagsStr})
             }).then(async (response) => {
                 if (response.ok) {
-                    let res = await response.json();
+                    // let res = await response.json();
                     window.location.reload();
                 }
             })
