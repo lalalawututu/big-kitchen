@@ -3,6 +3,9 @@ import { Router, Route } from 'react-router-dom';
 // import Header from './component/header'
 import { Mine } from './component/mine';
 import { WorkMange } from './component/workmange';
+import { ProductionList } from './component/productionlist';
+import { ProductionCheck } from './component/productioncheck';
+import { ProductionDetail } from './component/productiondetail';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
@@ -22,6 +25,9 @@ class App extends PureComponent {
           <Route path="/workinformation" component={WorkInfo}></Route>
           <Route path="/workcreate" component={WorkCreate}></Route>
           <Route path="/commonCreate" component={CommonCreate}></Route>
+          <Route path="/productionlist" component={ProductionList}></Route>
+          <Route path="/productioncheck" component={ProductionCheck}></Route>
+          <Route path="/productiondetail" component={ProductionDetail}></Route>
         </div>
       </Router>
     );

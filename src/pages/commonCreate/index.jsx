@@ -10,7 +10,6 @@ import {
     Space,
     Button
 } from 'antd';
-import 'antd/dist/antd.css';
 import './index.less';
 
 const { Title } = Typography;
