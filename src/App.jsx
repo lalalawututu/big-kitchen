@@ -10,6 +10,8 @@ import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
 import CommonCreate from './component/commonCreate';
+import {ProduceMange} from './component/producemange';
+
 import history from './history';
 import './App.less';
 
@@ -28,6 +30,7 @@ class App extends PureComponent {
           <Route path="/productionlist" component={ProductionList}></Route>
           <Route path="/productioncheck" component={ProductionCheck}></Route>
           <Route path="/productiondetail" component={ProductionDetail}></Route>
+          <Route path="/producemange" component={ProduceMange}></Route>
         </div>
       </Router>
     );
