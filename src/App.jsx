@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Router, Route } from 'react-router-dom';
-// import Header from './component/header'
+import Header from './component/header'
 import { Mine } from './component/mine';
 import { WorkMange } from './component/workmange';
 import { ProductionList } from './component/productionlist';
@@ -20,7 +20,7 @@ class App extends PureComponent {
     return (
       <Router history={history}>
         <div>
-          {/* <Header /> */}
+          <Header />
           <Route path="/" exact component={WorkMange}></Route>
           <Route path="/mine" component={Mine}></Route>
           <Route path="/peoplemange" component={PeopleMange}></Route>
