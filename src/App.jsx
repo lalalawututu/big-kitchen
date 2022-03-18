@@ -11,6 +11,9 @@ import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
 import CommonCreate from './component/commonCreate';
 import {ProduceMange} from './component/producemange';
+
+import {ThirdPartyMange} from './component/thirdpartymange';
+
 import Screen from './component/screen';
 import history from './history';
 import './App.less';
@@ -32,6 +35,9 @@ class App extends PureComponent {
           <Route path="/productiondetail" component={ProductionDetail}></Route>
           <Route path="/producemange" component={ProduceMange}></Route>
           <Route path="/screen" component={Screen}></Route>
+
+
+          <Route path="/thirdparty" component={ThirdPartyMange}></Route>
         </div>
       </Router>
     );

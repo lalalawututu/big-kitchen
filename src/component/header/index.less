@@ -2,25 +2,23 @@
   width: 100%;
   height: 1.07rem;
   min-width: 1400px;
-  .headerBox {
+  .headerBox{
     width: 100%;
     min-width: 1400px;
     position: fixed;
     z-index: 99;
     background: #EDEDF5;
-    height: 1.07rem;
     line-height: 1.07rem;
     text-align: center;
     //box-shadow: 0 6px 10px 0 rgba(0,0,0,0.40);
     font-size: 0.25rem;
     font-weight: 600;
     color: #191D32;
-    font-family: PingFangSC-Semibold, PingFang SC;
     .ant-row{
       .logo{
         width: 14px;
         height: 16px;
-        background: url(../../style/img/header/headerpicture.png) no-repeat;  
+        background: url(../../style/img/header/headerpicture.png) no-repeat;
         margin-right: .1rem;
       }
       a{
@@ -28,9 +26,9 @@
       }
     }
   }
-  div{
-    height: 1.07rem;
-  }
+  //div{
+  //  height: 1.07rem;
+  //}
   .headerName {
     cursor: pointer;
     span {
@@ -45,6 +43,19 @@
       color: #F56014;
       font-size: 0.18rem;
       transition: 1s;
+    }
+  }
+
+  .menu-more{
+    background: transparent;
+    .ant-menu-submenu-title{
+      line-height: 1.07rem;
+      font-size: 0.25rem;
+      font-weight: 600;
+      color: #191D32;
+    }
+    .ant-menu-submenu-title:hover{
+      color: #191D32!important;
     }
   }
 }

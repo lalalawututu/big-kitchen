@@ -63,7 +63,7 @@ class Header extends PureComponent {
               </Link>
             </Col>
             <Col span={2}>
-              <Menu mode="horizontal">
+              <Menu mode="horizontal" className="menu-more">
                 <SubMenu key="SubMenu" title="更多">
                   <Menu.Item key="setting:1">
                     <Link to="/productionlist">
