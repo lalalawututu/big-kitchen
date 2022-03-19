@@ -3,6 +3,20 @@ import { Row, Col, Space, Button, Progress, Collapse, Descriptions, Input, Input
 import { PoweroffOutlined, BarsOutlined } from '@ant-design/icons'
 import './index.less'
 
+import ReceivingBoard from '../../component/bulletinBoard/receiving'; //接货看板
+import WarehousingBoard from '../../component/bulletinBoard/warehousing'; //入库看板
+import PickingBoard from '../../component/bulletinBoard/picking'; //领料看板
+import ProductBoard from '../../component/bulletinBoard/product'; //生产看板
+import SampleRetentionBoard from '../../component/bulletinBoard/sampleRetention'; //留样看板
+import PackingBoard from '../../component/bulletinBoard/packing'; //包装看板
+import QualityInspectionBoard from '../../component/bulletinBoard/qualityInspection'; //质检看板
+import LoadingBoard from '../../component/bulletinBoard/loading'; //配送看板
+import EquipmentStartBoard from '../../component/bulletinBoard/equipmentStart'; //设备启动
+import EquipmentMaintainBoard from '../../component/bulletinBoard/equipmentMaintain'; //设备维护
+import EquipmentByBoard from '../../component/bulletinBoard/equipmentBy'; //设备维护
+import AbnormalBoard from '../../component/bulletinBoard/abnormal'; //异常看板
+import Foreman from '../../component/bulletinBoard/foreman'; //班组长看板
+
 export const MinePage = () => {
   let mine = MineContainer.useContainer()
   const { Panel } = Collapse
@@ -111,6 +125,50 @@ export const MinePage = () => {
     </Descriptions>
   )
 
+  // 设备启动头部
+  const genExtrasbqd = (item) => (
+    <Descriptions layout="vertical" size={'default'} column={4} className="des-box">
+      <Descriptions.Item label="设备名称">{JSON.parse(item).equipmentName || ''}</Descriptions.Item>
+      <Descriptions.Item label="设备启动">{JSON.parse(item).taskStatus || ''}</Descriptions.Item>
+      <Descriptions.Item label="设备位置">{JSON.parse(item).equipmentPosition || ''}</Descriptions.Item>
+      <Descriptions.Item label="执行人">{JSON.parse(item).employeeName || ''}</Descriptions.Item>
+    </Descriptions>
+  )
+
+  // 设备维护头部
+  const genExtrasbwh = (item) => (
+    <Descriptions layout="vertical" size={'default'} column={4} className="des-box">
+      <Descriptions.Item label="设备名称">{JSON.parse(item).equipmentName || ''}</Descriptions.Item>
+      <Descriptions.Item label="设备故障">{JSON.parse(item).isFault || ''}</Descriptions.Item>
+      <Descriptions.Item label="设备位置">{JSON.parse(item).equipmentPosition || ''}</Descriptions.Item>
+      <Descriptions.Item label="设备编号">{JSON.parse(item).equipmentCode || ''}</Descriptions.Item>
+    </Descriptions>
+  )
+
+  //异常上报
+  const genExtraycsb = (item) => (
+    <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+      <Descriptions.Item label="货品名称">{JSON.parse(item).produce || ''}</Descriptions.Item>
+      <Descriptions.Item label="批次号">{JSON.parse(item).batchNumber || ''}</Descriptions.Item>
+      <Descriptions.Item label="筐编号">{JSON.parse(item).basketCode || ''}</Descriptions.Item>
+      <Descriptions.Item label="异常原因">{JSON.parse(item).abnormalCause || ''}</Descriptions.Item>
+      <Descriptions.Item label="发生时间">{JSON.parse(item).occurrenceTime || ''}</Descriptions.Item>
+    </Descriptions>
+  )
+
+  //班组长
+  const genExtraBzz= (item) => (
+    <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
+      <Descriptions.Item label="总批次号">{JSON.parse(item).TotalBatchNumber || ''}</Descriptions.Item>
+      <Descriptions.Item label="总人员">{JSON.parse(item).TotalPersonnel || ''}</Descriptions.Item>
+      <Descriptions.Item label="总任务量">{JSON.parse(item).TotalTasks || ''}</Descriptions.Item>
+      <Descriptions.Item label="已完成">{JSON.parse(item).Completed || ''}</Descriptions.Item>
+      <Descriptions.Item label="未完成">{JSON.parse(item).Incomplete || ''}</Descriptions.Item>
+      <Descriptions.Item label="完成率">{JSON.parse(item).CompletionRate || ''}</Descriptions.Item>
+    </Descriptions>
+  )
+
+
   return (
     <div className="bulletin-board-container">
       <Row>
@@ -144,7 +202,7 @@ export const MinePage = () => {
             </div>
           </div>
           <div className="news-container">
-            <img src={require('../../style/img/icon/news.png')} alt=""/>
+            <img src={require('../../style/img/icon/news.png')} alt="" />
           </div>
         </Col>
         <Col span={18} className="bulletin-board-right">
@@ -168,80 +226,26 @@ export const MinePage = () => {
               </div>
             </Space>
             {/* 列表 */}
-            <Collapse defaultActiveKey={['1']} className="lists" showArrow={false}>
+            <Collapse defaultActiveKey={['0']} className="lists" showArrow={false}>
+
               {/* 接货 */}
               {
                 mine.ReceivingTaskList && mine.ReceivingTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index + 1} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际起止时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                          <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-                            <Button className="submit-btn" disabled={mine.btnDisabled} onClick={() => { mine.TaskStartClick(item, index, 1) }}><b className="icon-submit"></b>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index} showArrow={false}>
+                      <ReceivingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
 
               {/* 入库 */}
+
               {
                 mine.WarehousingTaskList && mine.WarehousingTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '11'} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际起止时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : ''}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                          <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-                            <Button className="submit-btn" disabled={mine.btnDisabled} onClick={(e) => { mine.TaskStartClick(item, index, 2) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '1'} showArrow={false}>
+                      <WarehousingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
@@ -252,36 +256,7 @@ export const MinePage = () => {
                 mine.PickingTaskList && mine.PickingTaskList.map((item, index) => {
                   return (
                     <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '2'} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际起止时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际接货重量">{item.ActualWeighing ? item.ActualWeighing + item.Unit : ''}</Descriptions.Item>
-                          <Descriptions.Item label="完成比例">{((item.ActualWeighing / item.Weight).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-
-                            <Button className="submit-btn" disabled={mine.btnDisabled} onClick={(e) => { mine.TaskStartClick(item, index, 3) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                      <PickingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
@@ -292,38 +267,7 @@ export const MinePage = () => {
                 mine.ProductTaskList && mine.ProductTaskList.map((item, index) => {
                   return (
                     <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.TaskId + '3'} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
-                          <Descriptions.Item label="实际起止时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">{item.BatchNumber}</Descriptions.Item>
-                          <Descriptions.Item label="产成品">{item.Produce}</Descriptions.Item>
-                          <Descriptions.Item label="执行人">{item.EmployeeName}</Descriptions.Item>
-                          <Descriptions.Item label="实际完成">{item.CompletedQuantity + item.Unit}</Descriptions.Item>
-                          <Descriptions.Item label="完成比例">{((item.CompletedQuantity / item.Quantity).toFixed(2)) * 100 + '%'}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-
-                            {<Button className="submit-btn" onClick={() => { mine.TaskStartClick(item, index, 4) }} icon={<BarsOutlined />}>{item.btn.content}</Button>}
-                          </Col>
-                        </Row>
-                      </div>
+                      <ProductBoard data={item} index={index} />
                     </Panel>
                   )
                 })
@@ -333,35 +277,8 @@ export const MinePage = () => {
               {
                 mine.SampleRetentionTaskList && mine.SampleRetentionTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId + '5'} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="计划时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="实际时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="留样内容要求">{item.TaskContent || ''}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-                            <Button className="submit-btn" onClick={(e) => { mine.TaskStartClick(item, index, 5) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId + '4'} showArrow={false}>
+                      <SampleRetentionBoard data={item} index={index} />
                     </Panel>
                   )
                 })
@@ -371,100 +288,19 @@ export const MinePage = () => {
               {
                 mine.PackingTaskList && mine.PackingTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="计划开始时间">{item.PlanStartTime ? item.PlanStartTime.split(' ')[1] : '--'}</Descriptions.Item>
-                          <Descriptions.Item label="计划结束时间">{item.PlanEndTime ? item.PlanEndTime.split(' ')[1] : '--'}</Descriptions.Item>
-                          <Descriptions.Item label="计划用时">{mine.residueTime2(item.PlanStartTime, item.PlanEndTime)}</Descriptions.Item>
-                          <Descriptions.Item label="实际开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : '--'}</Descriptions.Item>
-                          <Descriptions.Item label="计划结束时间">{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}</Descriptions.Item>
-                          <Descriptions.Item label="实际用时">{mine.residueTime2(item.ActualStartTime, item.ActualEndTime)}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-                            <Button className="submit-btn" onClick={() => { mine.TaskStartClick(item, index, 6) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId + '5'} showArrow={false}>
+                      <PackingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
 
-
               {/* 质检 */}
               {
                 mine.QualityInspectionTaskList && mine.QualityInspectionTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId}</Descriptions.Item>
-                          <Descriptions.Item label="开始时间">{item.ActualStartTime ? item.ActualStartTime.split(' ')[1] : ''}</Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">
-                            <Input placeholder="扫描批次号条码" value={item.BatchNumber} allowClear={false} className="batch-number" />
-                          </Descriptions.Item>
-                          <Descriptions.Item label="索证索票">{item.TicketInspection}</Descriptions.Item>
-                          <Descriptions.Item label="索证索票附件">{item.AnnexName}</Descriptions.Item>
-                          <Descriptions.Item label="检验数量">{item.InspectionQuantity}</Descriptions.Item>
-                          <Descriptions.Item label="规格">{item.Unit}</Descriptions.Item>
-                          <Descriptions.Item label="合格数量">{item.InspectionQuantity - item.UnqualifiedNumber}</Descriptions.Item>
-                          {/* <Descriptions.Item label="不合格数量">
-                                                                <InputNumber min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber}
-                                                                    onChange={e => mine.UnqualifiedNumber(e, item, index)} className="unqualified-number" />
-                                                            </Descriptions.Item> */}
-                        </Descriptions>
-
-                        <Row className="">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container submit-zj-container">
-                            <div className="mt unqualified-InputNumber">
-                              <h4 className="common-submit-title">不合格数量</h4>
-                              <InputNumber controls={false} min={0} max={item.InspectionQuantity} defaultValue={item.UnqualifiedNumber} value={item.UnqualifiedNumber} />
-                              <div className="icon-group">
-                                <b className="icon-subtract" onClick={item.UnqualifiedNumber > 0 ? () => mine.sbutractNumber(item) : null}></b>
-                                <b className="icon-add" onClick={item.UnqualifiedNumber < 10 ? () => mine.addNumber(item) : null}></b>
-                              </div>
-                            </div>
-                            <div className="mt unqualified-list">
-                              <h4 className="common-submit-title">选择不合格原因</h4>
-                              <Button className="active">尺寸不达标</Button>
-                              <Button>变质</Button>
-                              <Button>新鲜度不达标</Button>
-                              <Button>有泥土</Button>
-                              <Button>发芽</Button>
-                              <Button>发霉</Button>
-                              <Button>破损</Button>
-                              <Button>其他</Button>
-                            </div>
-                            <Button className="submit-btn" onClick={() => { mine.TaskStartClick(item, index, 7) }}><b class="icon-submit"></b>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId + '6'} showArrow={false}>
+                      <QualityInspectionBoard data={item} index={index} />
                     </Panel>
                   )
                 })
@@ -474,45 +310,68 @@ export const MinePage = () => {
               {
                 mine.LoadingTaskList && mine.LoadingTaskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId + '88'} showArrow={false}>
-                      <div className="product-info">
-                        <Descriptions size={'default'} column={3} className="des-box">
-                          <Descriptions.Item label="工单号">{item.TaskId || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际起止时间">
-                            {item.ActualStartTime ? item.ActualStartTime.split(' ')[1] + ' - ' : '- -- '}{item.ActualEndTime ? item.ActualEndTime.split(' ')[1] : '--'}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="剩余时间">{mine.residueTime(item.PlanStartTime, item.PlanEndTime, item.ActualStartTime)}</Descriptions.Item>
-                          <Descriptions.Item label="批次号">{item.BatchNumber || ''}</Descriptions.Item>
-                          <Descriptions.Item label="客户名称">{item.CustomerName || ''}</Descriptions.Item>
-                          <Descriptions.Item label="客户地址">{item.CustomerAddress || ''}</Descriptions.Item>
-                          <Descriptions.Item label="物流公司">{item.CompanyName || ''}</Descriptions.Item>
-                          <Descriptions.Item label="配送员">{item.EmployeeName || ''}</Descriptions.Item>
-                          <Descriptions.Item label="配送员ID">{item.EmployeeId || ''}</Descriptions.Item>
-                          <Descriptions.Item label="实际出货">{item.Quantity + item.Specifications}</Descriptions.Item>
-                          <Descriptions.Item label="完成比例">{item.BatchNumber || ''}</Descriptions.Item>
-                        </Descriptions>
-
-                        <Row className="submit-top">
-                          <Col span={6} className="product-progress-box">
-                            <div className="product-progress">
-                              <Progress percent={20 + index}
-                                showInfo={false}
-                                type="circle"
-                                trailColor={"#E7E1E2"}
-                                strokeColor={"#FF4B4B"} />
-                              <h5 className="">{20 + index}%<span>工作进度</span></h5>
-                            </div>
-                            {/*<p>开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间开始时间</p>*/}
-                          </Col>
-                          <Col span={18} className="submit-container">
-                            <Button className="submit-btn" disabled={mine.btnDisabled} onClick={() => { mine.TaskStartClick(item, index, 8) }} icon={<BarsOutlined />}>{item.btn.content}</Button>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId + '7'} showArrow={false}>
+                      <LoadingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
+
+              {/* 设备启动 */}
+              {
+                mine.equipmentStartTaskList && mine.equipmentStartTaskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtrasbqd(`${JSON.stringify(item)}`)} key={item.TaskId + '8'} showArrow={false}>
+                      <EquipmentStartBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+              {/* 设备维护 */}
+              {
+                mine.equipmentMaintainTaskList && mine.equipmentMaintainTaskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.TaskId + '9'} showArrow={false}>
+                      <EquipmentMaintainBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+              {/* 设备保养 */}
+              {
+                mine.equipmentByTaskList && mine.equipmentByTaskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.TaskId + '10'} showArrow={false}>
+                      <EquipmentByBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+              {/* 异常上报 */}
+              {
+                mine.AbnormalTaskList && mine.AbnormalTaskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtraycsb(`${JSON.stringify(item)}`)} key={item.TaskId + '11'} showArrow={false}>
+                      <AbnormalBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+              {/* 班组长 */}
+              {
+                mine.ForemanTaskList && mine.ForemanTaskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtraBzz(`${JSON.stringify(item)}`)} key={item.TaskId + '12'} showArrow={false}>
+                      <Foreman data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
             </Collapse>
           </div>
         </Col>

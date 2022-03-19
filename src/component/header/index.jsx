@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Row, Col, Menu } from 'antd';
+import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import './index.less';
 
-const { SubMenu } = Menu;
 class Header extends PureComponent {
   constructor(props) {
     super(props);
@@ -24,64 +23,38 @@ class Header extends PureComponent {
   render() {
     return (
       <div className="header">
-        <div className="headerBox" style={{ left: this.state.left }}>
+        <div className="headerBox" style={{left: this.state.left}}>
           <Row>
-            <Col span={6}>
+            <Col span={7}>
               <Link to="/">
-                <img alt="" className='logo' />
+                {/* <img alt="" className='logo' /> */}
               </Link>
               成都天府智慧大厨房智能管控
             </Col>
-            <Col span={2}>
-              <Link to="/producemange">
-                生产管理
-              </Link>
-            </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/">
                 工艺管理
               </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/peoplemange">
                 人员管理
               </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/workinformation">
                 工艺详情
               </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/workcreate">
                 工艺创建
               </Link>
             </Col>
-            <Col span={2}>
+            <Col span={3}>
               <Link to="/commonCreate">
-                通用创建
+                pc通用创建
               </Link>
-            </Col>
-            <Col span={2}>
-              <Menu mode="horizontal" className="menu-more">
-                <SubMenu key="SubMenu" title="更多">
-                  <Menu.Item key="setting:1">
-                    <Link to="/productionlist">
-                      生产列表
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="setting:2">
-                    <Link to="/screen">
-                      能源消耗大屏
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="setting:3">
-                    <Link to="/mine">
-                      个人看板
-                    </Link>
-                  </Menu.Item>
-                </SubMenu>
-              </Menu>
             </Col>
           </Row>
         </div>
