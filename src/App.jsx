@@ -6,12 +6,12 @@ import { WorkMange } from './component/workmange';
 import { ProductionList } from './component/productionlist';
 import { ProductionCheck } from './component/productioncheck';
 import { ProductionDetail } from './component/productiondetail';
+import { MaterialsMange } from './component/materialsMange';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
 import CommonCreate from './component/commonCreate';
 import {ProduceMange} from './component/producemange';
-
 import {ThirdPartyMange} from './component/thirdpartymange';
 
 import Screen from './component/screen';
@@ -36,6 +36,7 @@ class App extends PureComponent {
           <Route path="/producemange" component={ProduceMange}></Route>
           <Route path="/screen" component={Screen}></Route>
           <Route path="/thirdparty" component={ThirdPartyMange}></Route>
+          <Route path="/materialsMange" component={MaterialsMange}></Route>
         </div>
       </Router>
     );

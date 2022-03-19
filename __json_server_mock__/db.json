@@ -690,5 +690,43 @@
     },
     "error_code": "",
     "error_msg": ""
+  },
+  "getMaterialsList":{
+    "data":{
+      "List": [
+        {
+          "materialName": "土豆",
+          "type": "原料",
+          "Unit": "筐",
+          "supplier": "首农股份",
+          "brand": "首农",
+          "imgurl": "https://p6.itc.cn/q_70/images01/20210929/fec3f1046a9e4c038fc55e7715f1539d.jpeg"
+        },
+        {
+          "materialName": "韭菜",
+          "type": "原料",
+          "Unit": "筐",
+          "supplier": "首农股份",
+          "brand": "首农",
+          "imgurl": "https://www.zhifure.com/upload/images/2017/11/2816274287.jpg"
+        },
+        {
+          "materialName": "香菜",
+          "type": "原料",
+          "Unit": "筐",
+          "supplier": "首农股份",
+          "brand": "首农",
+          "imgurl": "http://images.meishij.net/p/20110712/c7382b6d4199b00a98fe1de12bf56b74_180x180.jpg"
+        },
+        {
+          "materialName": "葱",
+          "type": "原料",
+          "Unit": "筐",
+          "supplier": "首农股份",
+          "brand": "首农",
+          "imgurl": "https://img.huabaike.com/tukuimgs/808/20200923131504_129758.jpg"
+        }
+      ]
+    }
   }
 }

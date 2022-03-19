@@ -8,13 +8,13 @@ import './index.less';
 const { Search } = Input;
 
 interface DataList {
-	WorkmanshipName: string;
-	FinishedProduct: string;
-	ProductionLineName: string;
-	workerNumber: number;
-	WorkerQuantity: number;
-	WorkingHours: number;
-	WorkmanshipId: string;
+	materialName : string;
+	type : string;
+	Unit : string;
+	supplier : string;
+	brand : string;
+	imgurl: string;
+	key: string;
 }
 
 interface ListProps {
@@ -30,7 +30,7 @@ export const SearchBanner = ({ initialData, setData }: ListProps) => {
 		let filterData: Array<DataList> = [];
 		if (inputValue !== '') {
 			initialData.forEach((item, index) => {
-				if (item.WorkmanshipName.indexOf(inputValue) >= 0 ) {
+				if (item.materialName.indexOf(inputValue) >= 0 ) {
 					filterData.push(item);
 				}
 			});
@@ -44,7 +44,7 @@ export const SearchBanner = ({ initialData, setData }: ListProps) => {
 		let filterData: Array<DataList> = [];
 		if (debouncedInputValue !== '') {
 			initialData.forEach((item, index) => {
-				if (item.WorkmanshipName.indexOf(debouncedInputValue) >= 0) {
+				if (item.materialName.indexOf(debouncedInputValue) >= 0) {
 					filterData.push(item);
 				}
 			});
@@ -57,7 +57,7 @@ export const SearchBanner = ({ initialData, setData }: ListProps) => {
 	return (
 		<div className="search-container">
 			<Search
-				placeholder="工艺名称"
+				placeholder="材料名称"
 				value={inputValue}
 				onChange={(evt) =>
 					setInputValue(evt.target.value)
