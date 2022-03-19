@@ -35,8 +35,6 @@ class App extends PureComponent {
           <Route path="/productiondetail" component={ProductionDetail}></Route>
           <Route path="/producemange" component={ProduceMange}></Route>
           <Route path="/screen" component={Screen}></Route>
-
-
           <Route path="/thirdparty" component={ThirdPartyMange}></Route>
         </div>
       </Router>
