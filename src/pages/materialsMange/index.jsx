@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import materialsMangeContainer from '../../container/materialsMange'
-import { Table, Button, Space, Modal } from 'antd'
 import { SearchBanner } from '../../component/materialsearchbanner/index.tsx'
+import { Table, Button, Space, Modal } from 'antd'
+import { DiffOutlined } from '@ant-design/icons';
 import './index.less'
 
 export const MaterialsListPage = () => {
@@ -74,7 +75,11 @@ export const MaterialsListPage = () => {
   ];
   return (
     <div className="container">
-      <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
+      <div className="search-container flex" style={{margin: 0}}>
+        <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
+        <Button icon={<DiffOutlined/>} className="common-add-btn">创建</Button>
+      </div>
+
       <div className="common-long-table">
         <Table columns={columns} dataSource={materialList.data} />
       </div>
@@ -86,13 +91,16 @@ export const MaterialsListPage = () => {
         className="add-mask"
         footer={[]}
         onCancel={handleOk}>
-        <div className="tags-type-box">
-          <span>物料名称:{materialDetail.materialName}</span>
-          <span>类型:{materialDetail.type}</span>
-          <span>规格:{materialDetail.Unit}</span>
-          <span>供货商:{materialDetail.supplier}</span>
-          <span>品牌:{materialDetail.brand}</span>
-          <div>原料照片<img src={materialDetail.imgurl} alt="" /></div>
+        <div className="detail-list">
+          <p><span>物料名称</span>{materialDetail.materialName}</p>
+          <p><span>类型</span>{materialDetail.type}</p>
+          <p><span>规格</span>{materialDetail.Unit}</p>
+          <p><span>供货商</span>{materialDetail.supplier}</p>
+          <p><span>品牌</span>{materialDetail.brand}</p>
+          <div>
+            <p><span>原料照片</span></p>
+            <img className="img" src={materialDetail.imgurl} alt="" />
+          </div>
         </div>
       </Modal>
     </div>

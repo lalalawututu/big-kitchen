@@ -34,5 +34,5 @@ const useList = () => {
   return {data, setData, initialData}
 }
 
-let materialsMangeContainer = createContainer(useList)
-export default materialsMangeContainer
+let MaterialsCreateContainer = createContainer(useList)
+export default MaterialsCreateContainer

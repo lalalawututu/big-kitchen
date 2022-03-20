@@ -87,19 +87,19 @@ export const CostPage = () => {
   return (
     <div className="container">
       <div className="common-long-table">
-        <h1>员工成本</h1>
+        <h1 className="common-title">员工成本</h1>
         <Table columns={laborColumns} dataSource={costMange.laborCostData} />
       </div>
       <div className="common-long-table">
-        <h1>物料成本</h1>
+        <h1 className="common-title">物料成本</h1>
         <Table columns={materialColumns} dataSource={costMange.materialCostData} />
       </div>
       <div className="common-long-table">
-        <h1>设备成本</h1>
+        <h1 className="common-title">设备成本</h1>
         <Table columns={deviceColumns} dataSource={costMange.deviceCostData} />
       </div>
       <div className="common-long-table">
-        <h1>能源成本</h1>
+        <h1 className="common-title">能源成本</h1>
         <Table columns={energyColumns} dataSource={costMange.energyCostData} />
       </div>
     </div>
