@@ -728,5 +728,104 @@
         }
       ]
     }
+  },
+  "LaborCost": {
+    "data":{
+      "List": [
+        {
+          "employee": "张三",
+          "hour": "8小时",
+          "price": "200" 
+        },
+        {
+          "employee": "里三",
+          "hour": "8小时",
+          "price": "200" 
+        },
+        {
+          "employee": "李四",
+          "hour": "8小时",
+          "price": "200" 
+        },
+        {
+          "employee": "王武",
+          "hour": "8小时",
+          "price": "200" 
+        }
+      ]
+    }
+  },
+  "MaterialCost": {
+    "data":{
+      "List": [
+        {
+          "sku_code": "土豆", 
+          "amount": "10筐",
+          "price":  "100"
+        },
+        {
+          "sku_code": "土豆", 
+          "amount": "10筐",
+          "price":  "100"
+        },
+        {
+          "sku_code": "土豆", 
+          "amount": "10筐",
+          "price":  "100"
+        },
+        {
+          "sku_code": "土豆", 
+          "amount": "10筐",
+          "price":  "100"
+        }
+      ]
+    }
+  },
+  "DeviceCost": {
+    "data":{
+      "List": [
+        {
+          "device": "削皮机",
+          "price": "2000",
+          "down_rate": "70%"
+        },
+        {
+          "device": "削皮机",
+          "price": "2000",
+          "down_rate": "70%"
+        },
+        {
+          "device": "削皮机",
+          "price": "2000",
+          "down_rate": "70%"
+        }
+      ]
+    }
+  },
+  "EnergyCost": {
+    "data":{
+      "List": [
+        {
+          "energy_type": "煤",
+          "price": "2000",
+          "amount": "2吨"
+        },
+        {
+          "energy_type": "煤",
+          "price": "2000",
+          "amount": "2吨"
+        },
+        {
+          "energy_type": "煤",
+          "price": "2000",
+          "amount": "2吨"
+        },
+        {
+          "energy_type": "煤",
+          "price": "2000",
+          "amount": "2吨"
+        }
+      ]
+    }
   }
 }

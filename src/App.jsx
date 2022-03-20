@@ -7,6 +7,7 @@ import { ProductionList } from './component/productionlist';
 import { ProductionCheck } from './component/productioncheck';
 import { ProductionDetail } from './component/productiondetail';
 import { MaterialsMange } from './component/materialsMange';
+import { Cost } from './component/cost';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
@@ -37,6 +38,7 @@ class App extends PureComponent {
           <Route path="/screen" component={Screen}></Route>
           <Route path="/thirdparty" component={ThirdPartyMange}></Route>
           <Route path="/materialsMange" component={MaterialsMange}></Route>
+          <Route path="/cost" component={Cost}></Route>
         </div>
       </Router>
     );
