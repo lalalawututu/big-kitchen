@@ -1,5 +1,5 @@
 import costContainer from '../../container/cost'
-import { Table, Space } from 'antd'
+import { Table } from 'antd'
 import './index.less'
 
 export const CostPage = () => {

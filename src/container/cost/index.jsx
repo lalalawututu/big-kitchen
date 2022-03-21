@@ -79,7 +79,6 @@ const useList = () => {
           }
           data.push(panInfo)
         })
-        console.log(data)
         setEnergyCostData(data)
       }
     })

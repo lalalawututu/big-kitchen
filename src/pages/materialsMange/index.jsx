@@ -2,7 +2,8 @@ import { useState } from 'react'
 import materialsMangeContainer from '../../container/materialsMange'
 import { SearchBanner } from '../../component/materialsearchbanner/index.tsx'
 import { Table, Button, Space, Modal } from 'antd'
-import { DiffOutlined } from '@ant-design/icons';
+import { DiffOutlined } from '@ant-design/icons'
+import history from '../../history'
 import './index.less'
 
 export const MaterialsListPage = () => {
@@ -15,6 +16,9 @@ export const MaterialsListPage = () => {
     brand: '',
     imgurl: ''
   })
+  const create = () => {
+    history.push(`/materialscreate`);
+  }
   let materialList = materialsMangeContainer.useContainer()
   const detail = (text) => {
     setIsModalVisible(true)
@@ -72,12 +76,12 @@ export const MaterialsListPage = () => {
         </Space>
       ),
     },
-  ];
+  ]
   return (
     <div className="container">
       <div className="search-container flex" style={{margin: 0}}>
         <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
-        <Button icon={<DiffOutlined/>} className="common-add-btn">创建</Button>
+        <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>
       </div>
 
       <div className="common-long-table">

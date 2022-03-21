@@ -11,7 +11,6 @@ const useWorkMange = () => {
   useMount(() => {
     fetch(`${apiWorkUrl}`).then(async (response) => {
       if (response.ok) {
-        let dataJson = await response.json();
         let data = [];
 
         setInitialData(data);

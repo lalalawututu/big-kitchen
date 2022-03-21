@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import MaterialsCreateContainer from '../../container/materialsCreate'
 import {
     Form,
     Input,
     Select,
     Typography,
     Upload,
-    Tag,
     Space,
     Button
 } from 'antd'
@@ -16,22 +14,8 @@ const { Title } = Typography;
 const { Option } = Select;
 
 export const MaterialsCreatePage = () => {
-    let mange = MaterialsCreateContainer.useContainer();
 
-    const [imgList, setImgList] = useState([
-        {
-            uid: '-1',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-2',
-            name: 'image.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        }
-    ]);
+    const [imgList, setImgList] = useState([]);
     const onChange = ({ imgList: newImgList }) => {
         setImgList(newImgList);
     };
