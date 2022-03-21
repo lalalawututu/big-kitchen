@@ -80,6 +80,21 @@ class Header extends PureComponent {
                       个人看板
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="setting:4">
+                    <Link to="/groupAttendance">
+                      小组出勤率
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="setting:5">
+                    <Link to="/groupHour">
+                      小组总工时
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="setting:6">
+                    <Link to="/groupYield">
+                      小组总产出
+                    </Link>
+                  </Menu.Item>
                 </SubMenu>
               </Menu>
             </Col>

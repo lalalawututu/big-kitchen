@@ -9,6 +9,9 @@ import { ProductionDetail } from './component/productiondetail';
 import { MaterialsMange } from './component/materialsMange';
 import { MaterialsCreate } from './component/materialsCreate';
 import { Cost } from './component/cost';
+import { GroupAttendance } from './component/groupAttendance';
+import { GroupHour } from './component/groupHour';
+import { GroupYield } from './component/groupYield';
 import PeopleMange from './component/peoplemange';
 import WorkInfo from './component/workinformation';
 import WorkCreate from './component/workcreate';
@@ -41,6 +44,9 @@ class App extends PureComponent {
           <Route path="/materialsMange" component={MaterialsMange}></Route>
           <Route path="/materialsCreate" component={MaterialsCreate}></Route>
           <Route path="/cost" component={Cost}></Route>
+          <Route path="/groupAttendance" component={GroupAttendance}></Route>
+          <Route path="/groupHour" component={GroupHour}></Route>
+          <Route path="/groupYield" component={GroupYield}></Route>
         </div>
       </Router>
     );
