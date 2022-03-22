@@ -1,7 +1,7 @@
 import workMangeContainer from '../../container/workmange'
 import { Table, Button, Space } from 'antd'
-import { SearchBanner } from '../../component/searchbanner/index.tsx';
-import history from '../../history';
+import { SearchBanner } from '../../component/searchbanner/index.tsx'
+import history from '../../history'
 import './index.less'
 
 export const WorkMangePage = () => {
