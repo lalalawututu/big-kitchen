@@ -2,11 +2,13 @@ import workMangeContainer from '../../container/workmange'
 import { Table, Button, Space } from 'antd'
 import { SearchBanner } from '../../component/searchbanner/index.tsx'
 import history from '../../history'
+import {loading, success} from '../../component/loading'
 import './index.less'
 
 export const WorkMangePage = () => {
   let mange = workMangeContainer.useContainer()
   const workInfo = (text) => {
+    loading("workmanage", 1000)
     history.push(`/workinformation/?workmanshipId=${text.WorkmanshipId}`);
   }
   const columns = [
