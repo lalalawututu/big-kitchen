@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import materialsMangeContainer from '../../container/materialsMange'
 import { SearchBanner } from '../../component/materialsearchbanner/index.tsx'
-import { Table, Button, Space, Modal } from 'antd'
+import { Table, Button, Space, Modal, Tag, Divider } from 'antd'
 import { DiffOutlined } from '@ant-design/icons'
 import history from '../../history'
 import './index.less'
 
+const { CheckableTag } = Tag;
+const tagsData = ['全部', '产成品', '原料', '调料', '包材', '耗材', '备件/配件', '其他'];
+
 export const MaterialsListPage = () => {
+  const [selectedTags, setSelectedTags] = useState(['全部'])
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [materialDetail, setDetail] = useState({
     materialName: '',
@@ -18,6 +22,10 @@ export const MaterialsListPage = () => {
   })
   const create = () => {
     history.push(`/materialscreate`);
+  }
+  const handleChange = (tag, checked) => {
+    const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter(t => t !== tag);
+    setSelectedTags(nextSelectedTags)
   }
   let materialList = materialsMangeContainer.useContainer()
   const detail = (text) => {
@@ -79,11 +87,22 @@ export const MaterialsListPage = () => {
   ]
   return (
     <div className="container">
-      <div className="search-container flex" style={{margin: 0}}>
+      <div className="search-container flex" style={{ margin: 0 }}>
         <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
-        <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>
+        <Button icon={<DiffOutlined />} className="common-add-btn" onClick={() => create()}>创建</Button>
       </div>
-
+      <Divider orientation="left">类型</Divider>
+      <div className="search-container" style={{ margin: 0 }}>
+        {tagsData.map(tag => (
+          <CheckableTag
+            key={tag}
+            checked={selectedTags.indexOf(tag) > -1}
+            onChange={checked => handleChange(tag, checked)}
+          >
+            {tag}
+          </CheckableTag>
+        ))}
+      </div>
       <div className="common-long-table">
         <Table columns={columns} dataSource={materialList.data} />
       </div>

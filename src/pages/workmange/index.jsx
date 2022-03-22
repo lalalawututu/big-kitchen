@@ -8,7 +8,7 @@ import './index.less'
 export const WorkMangePage = () => {
   let mange = workMangeContainer.useContainer()
   const workInfo = (text) => {
-    loading("workmanage", 1000)
+    loading("workmanage", 500)
     history.push(`/workinformation/?workmanshipId=${text.WorkmanshipId}`);
   }
   const columns = [
