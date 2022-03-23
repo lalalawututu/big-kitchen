@@ -1,25 +1,25 @@
 import React, { PureComponent } from 'react';
 import { Router, Route } from 'react-router-dom';
-import Header from './component/header'
-import { Mine } from './component/mine';
-import { WorkMange } from './component/workmange';
-import { ProductionList } from './component/productionlist';
-import { ProductionCheck } from './component/productioncheck';
-import { ProductionDetail } from './component/productiondetail';
-import { MaterialsMange } from './component/materialsMange';
-import { MaterialsCreate } from './component/materialsCreate';
-import { Cost } from './component/cost';
-import { GroupAttendance } from './component/groupAttendance';
-import { GroupHour } from './component/groupHour';
-import { GroupYield } from './component/groupYield';
-import PeopleMange from './component/peoplemange';
-import WorkInfo from './component/workinformation';
-import WorkCreate from './component/workcreate';
-import CommonCreate from './component/commonCreate';
-import {ProduceMange} from './component/producemange';
-import {ThirdPartyMange} from './component/thirdpartymange';
+import Header from './pages/header'
+import { Mine } from './pages/mine';
+import { WorkManage } from './pages/workmanage';
+import { ProductionList } from './pages/productionlist';
+import { ProductionCheck } from './pages/productioncheck';
+import { ProductionDetail } from './pages/productiondetail';
+import { MaterialsManage } from './pages/materialsManage';
+import { MaterialsCreate } from './pages/materialsCreate';
+import { Cost } from './pages/cost';
+import { GroupAttendance } from './pages/groupAttendance';
+import { GroupHour } from './pages/groupHour';
+import { GroupYield } from './pages/groupYield';
+import PeopleManage from './pages/peoplemanage';
+import WorkInfo from './pages/workinformation';
+import WorkCreate from './pages/workcreate';
+import CommonCreate from './pages/commonCreate';
+import {ProduceManage} from './pages/producemanage';
+import {ThirdPartyManage} from './pages/thirdpartymanage';
 
-import Screen from './component/screen';
+import Screen from './pages/screen';
 import history from './history';
 import './App.less';
 
@@ -29,19 +29,19 @@ class App extends PureComponent {
       <Router history={history}>
         <div>
           <Header />
-          <Route path="/" exact component={WorkMange}></Route>
+          <Route path="/" exact component={WorkManage}></Route>
           <Route path="/mine" component={Mine}></Route>
-          <Route path="/peoplemange" component={PeopleMange}></Route>
+          <Route path="/peoplemanage" component={PeopleManage}></Route>
           <Route path="/workinformation" component={WorkInfo}></Route>
           <Route path="/workcreate" component={WorkCreate}></Route>
           <Route path="/commonCreate" component={CommonCreate}></Route>
           <Route path="/productionlist" component={ProductionList}></Route>
           <Route path="/productioncheck" component={ProductionCheck}></Route>
           <Route path="/productiondetail" component={ProductionDetail}></Route>
-          <Route path="/producemange" component={ProduceMange}></Route>
+          <Route path="/producemanage" component={ProduceManage}></Route>
           <Route path="/screen" component={Screen}></Route>
-          <Route path="/thirdparty" component={ThirdPartyMange}></Route>
-          <Route path="/materialsMange" component={MaterialsMange}></Route>
+          <Route path="/thirdparty" component={ThirdPartyManage}></Route>
+          <Route path="/materialsManage" component={MaterialsManage}></Route>
           <Route path="/materialsCreate" component={MaterialsCreate}></Route>
           <Route path="/cost" component={Cost}></Route>
           <Route path="/groupAttendance" component={GroupAttendance}></Route>
