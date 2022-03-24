@@ -75,7 +75,7 @@ export function CommonCreatePage() {
 
     return (
         <div className='container'>
-            <div className='creator-content shadow'>
+            <div className='creator-content bg-fff'>
                 <Form
                     className='creator-form'
                     layout='inline'
@@ -101,7 +101,7 @@ export function CommonCreatePage() {
                 </Form>
             </div>
 
-            <div className='creator-content shadow module-form'>
+            <div className='creator-content bg-fff'>
                 <Title className='content-title' level={4}>板块标题</Title>
                 <Form
                     className='creator-form conpose-from'
@@ -172,7 +172,7 @@ export function CommonCreatePage() {
                 </Form>
             </div>
 
-            <div className='creator-content shadow module-form'>
+            <div className='creator-content bg-fff'>
                 <Title className='content-title' level={4}>原料图片</Title>
                 <Upload
                     action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
@@ -185,7 +185,7 @@ export function CommonCreatePage() {
                 </Upload>
             </div>
 
-            <div className='creator-content shadow module-form'>
+            <div className='creator-content bg-fff'>
                 <Title className='content-title' level={4}>附件</Title>
                 <Upload
                     action='https://www.mocky.io/v2/5cc8019d300000980a055e76'

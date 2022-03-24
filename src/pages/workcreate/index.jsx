@@ -168,7 +168,7 @@ class WorkCreate extends PureComponent {
         };
 
         return (
-            <div className="work-create-information">
+            <div className="common-work-container work-create-information">
                 <Form
                     ref={this.formRef}
                     name="basic"

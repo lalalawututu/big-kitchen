@@ -95,6 +95,11 @@ class Header extends PureComponent {
                       小组总产出
                     </Link>
                   </Menu.Item>
+                  <Menu.Item key="setting:7">
+                    <Link to="/assetAddEdit">
+                      资产创建
+                    </Link>
+                  </Menu.Item>
                 </SubMenu>
               </Menu>
             </Col>
