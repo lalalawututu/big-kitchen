@@ -90,7 +90,7 @@ class WorkInfo extends PureComponent {
         const { Column } = Table;
         return (
             <div className="work-information">
-                <div class="search-container">
+                <div className="search-container">
                     <Button icon={<DiffOutlined />} className="common-add-btn">编辑</Button>
                 </div>
                 <div className="basic-info bg-fff">
