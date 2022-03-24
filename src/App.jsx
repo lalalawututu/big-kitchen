@@ -19,6 +19,8 @@ import CommonCreate from './pages/commonCreate';
 import {ProduceManage} from './pages/producemanage';
 import {ThirdPartyManage} from './pages/thirdpartymanage';
 
+import {AssetAddEdit} from './pages/assetAddEdit';
+
 import Screen from './pages/screen';
 import history from './history';
 import './App.less';
@@ -47,6 +49,8 @@ class App extends PureComponent {
           <Route path="/groupAttendance" component={GroupAttendance}></Route>
           <Route path="/groupHour" component={GroupHour}></Route>
           <Route path="/groupYield" component={GroupYield}></Route>
+
+          <Route path="/assetAddEdit" component={AssetAddEdit}></Route>
         </div>
       </Router>
     );

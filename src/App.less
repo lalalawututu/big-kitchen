@@ -47,16 +47,16 @@ body,html{
   background: #EDEDF5!important;
   line-height: 100%;
 }
-.cyan{
-  color: #24B5D0!important;
-}
-.red{
-  color: #FF4B4B!important;
-}
 .bg-fff{
   background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
   backdrop-filter: blur(0.3rem);
   border-radius: 0.4rem;
+}
+.common-title{
+  font-size: .24rem;
+  line-height: 0.33rem;
+  font-weight: 600;
+  color: #333951;
 }
 .common-btn-bg{
   background: #6C6CE5!important;
@@ -72,7 +72,7 @@ body,html{
 .container{
   padding: 0 0.42rem 0 0.5rem;
   h1,h2,h3,h4,h5,h6,p,span{
-    margin-bottom: 0;
+    margin: 0;
   }
   ol, ul, dl{
     margin-bottom: 0;
@@ -95,17 +95,32 @@ body,html{
     display: flex;
     align-items: center;
   }
+  .flex-start{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .flex-end{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-around{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
   .flex-between{
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .common-title{
-    font-size: .24rem;
-    line-height: 0.33rem;
-    font-weight: 600;
-    color: #333951;
-  }
+
   .round-triangle{
     position: absolute;
     right: 0;
@@ -136,8 +151,15 @@ body,html{
       //border-top-left-radius: 30%;
     }
   }
-}
 
+  .cyan{
+    color: #24B5D0!important;
+  }
+  .red{
+    color: #FF4B4B!important;
+  }
+}
+// table
 .common-long-table{
   background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.3) 100%);
   box-shadow: 0 0.18rem 0.5rem 0 rgba(86, 40, 235, 0.06);
@@ -180,3 +202,4 @@ body,html{
     }
   }
 }
+

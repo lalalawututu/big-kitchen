@@ -89,7 +89,7 @@ class WorkInfo extends PureComponent {
         const { workingProcedure } = this.state;
         const { Column } = Table;
         return (
-            <div className="work-information">
+            <div className="common-work-container work-information">
                 <div class="search-container">
                     <Button icon={<DiffOutlined />} className="common-add-btn">编辑</Button>
                 </div>
