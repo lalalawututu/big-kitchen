@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import AssetAddEditContainer from '../../container/assetAddEdit'
 import { Form, Input, Button, Upload, Select, DatePicker, Space, Typography } from 'antd'
-import history from '../../history'
-import './index.less'
 
 const Option = { Select };
 const { Title } = Typography;
@@ -10,14 +8,7 @@ const { Title } = Typography;
 export const AssetAddEditPage = () => {
   let asset = AssetAddEditContainer.useContainer()
 
-  const [imgList, setImgList] = useState([
-    // {
-    //   uid: '-1',
-    //   name: 'image.png',
-    //   status: 'done',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-  ]);
+  const [imgList, setImgList] = useState([]);
 
   //预览图片功能
   const onPreview = async file => {
@@ -43,11 +34,6 @@ export const AssetAddEditPage = () => {
   const onChange = ({ imgList: newImgList }) => {
     setImgList(newImgList);
   };
-
-
-  const handleChange = (imgList) => {
-    console.log(imgList, 'fileLimgListist')
-  }
 
   return (
       // container

@@ -1,5 +1,4 @@
 import { Table, Space, Button } from 'antd'
-import './index.less'
 
 export const GroupAttendancePage = () => {
   const Columns = [

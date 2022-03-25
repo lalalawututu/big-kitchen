@@ -1,6 +1,5 @@
 import costContainer from '../../container/cost'
 import { Table } from 'antd'
-import './index.less'
 
 export const CostPage = () => {
   let costMange = costContainer.useContainer()

@@ -1,7 +1,6 @@
 import ProdutionListContainer from '../../container/productionlist'
 import { Table, Button, Space } from 'antd'
 import history from '../../history';
-import './index.less'
 
 export const ProductionListPage = () => {
   let planList = ProdutionListContainer.useContainer()

@@ -4,24 +4,19 @@ import { useMount } from '../../utils/index.ts';
 
 const apiWorkUrl = process.env.REACT_APP_API_WORKURL;
 
-const useWorkMange = () => {
-  const [initialData, setInitialData] = useState([]);
+const useMange = () => {
   const [data, setData] = useState([]);
 
   useMount(() => {
     fetch(`${apiWorkUrl}`).then(async (response) => {
       if (response.ok) {
-        let dataJson = await response.json();
-        let workData = dataJson.workmanship;
         let data = [];
-
-        setInitialData(data);
         setData(data);
       }
     });
   })
-  return {initialData, data, setData}
+  return {data, setData}
 }
 
-let AssetAddEditContainer = createContainer(useWorkMange)
+let AssetAddEditContainer = createContainer(useMange)
 export default AssetAddEditContainer

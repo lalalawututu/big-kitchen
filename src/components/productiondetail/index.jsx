@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import ProdutionDetailContainer from '../../container/productiondetail'
 import { Table, Button, Space } from 'antd'
-import './index.less'
 
 export const ProductionDetailPage = () => {
 

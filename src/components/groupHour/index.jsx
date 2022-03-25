@@ -1,5 +1,4 @@
 import { Table, Space, Button } from 'antd'
-import './index.less'
 
 export const GroupHourPage = () => {
   const Columns = [
@@ -37,16 +36,19 @@ export const GroupHourPage = () => {
       "group": "质检一组",
       "employee": "张三｜李四｜王武",
       "Hour": "45小时",
+      "key": "1"
     },
     {
       "group": "质检二组",
       "employee": "刘三｜李四｜王武",
       "Hour": "30小时",
+      "key": "2"
     },
     {
       "group": "质检三组",
       "employee": "马三｜李四｜王武",
       "Hour": "45小时",
+      "key": "3"
     },
   ]
   return (

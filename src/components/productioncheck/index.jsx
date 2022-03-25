@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import ProdutionTrialListContainer from '../../container/productioncheck'
 import { Table, Button, Space, Input, Modal } from 'antd'
-import history from '../../history';
-import './index.less'
 
 export const ProductionTrialListPage = () => {
   const [peopleName, setPeopleName] = useState('')
