@@ -41,11 +41,11 @@ export function CommonCreatePage() {
     const onChange = ({ imgList: newImgList }) => {
         setImgList(newImgList)
     }
-    
+
     const addInput = (e) => {
         setValue(e.target.value)
     }
-    
+
     const addTag = () => {
         const addTag = tagsData.indexOf(value) === -1 && value !== '' ? [...tagsData, value] : [...tagsData]
         setTageData(addTag)
@@ -156,7 +156,7 @@ export function CommonCreatePage() {
                         <Form.Item label='Field F'>
                             <Input className='field-input' placeholder='input placeholder' onChange={e => addInput(e)}/>
                         </Form.Item>
-                        <Button className='chen-button shadow primary' onClick={() => addTag()}>添加</Button>
+                        <Button className='common-btn-bg' onClick={() => addTag()}>添加</Button>
                     </div>
                     <div className='wrap-line'>
                         <Form.Item label='Field H'>
@@ -181,8 +181,8 @@ export function CommonCreatePage() {
                                         key={tag}
                                         className='active'
                                     >
-                                        {tag} 
-                                        <DeleteOutlined onClick={() => removeTag(tag)}/>
+                                        {tag}
+                                        <DeleteOutlined className="delete-btn" onClick={() => removeTag(tag)} />
                                     </Tag>
                                 ))}
                             </div>
