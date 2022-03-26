@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import creatorContainer from '../../container/commonCreate';
+import React, { useState } from 'react'
+import creatorContainer from '../../container/commonCreate'
 import {
     Form,
     Input,
@@ -9,14 +9,15 @@ import {
     Tag,
     Space,
     Button
-} from 'antd';
-import './index.less';
+} from 'antd'
+import { DeleteOutlined } from '@ant-design/icons'
+import './index.less'
 
-const { Title } = Typography;
-const { Option } = Select;
+const { Title } = Typography
+const { Option } = Select
 
 export function CommonCreatePage() {
-    let creator = creatorContainer.useContainer();
+    let creator = creatorContainer.useContainer()
 
     // upload-image
     const [imgList, setImgList] = useState([
@@ -32,26 +33,43 @@ export function CommonCreatePage() {
             status: 'done',
             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         }
-    ]);
+    ])
+
+    const [value, setValue] = useState('')
+    const [tagsData, setTageData] = useState(['标签1','标签2', '标签3'])
 
     const onChange = ({ imgList: newImgList }) => {
-        setImgList(newImgList);
-    };
+        setImgList(newImgList)
+    }
+    
+    const addInput = (e) => {
+        setValue(e.target.value)
+    }
+    
+    const addTag = () => {
+        const addTag = tagsData.indexOf(value) === -1 && value !== '' ? [...tagsData, value] : [...tagsData]
+        setTageData(addTag)
+    }
+
+    const removeTag = (tag) => {
+        const removeTag = tagsData.filter(t => t !== tag)
+        setTageData(removeTag)
+    }
 
     const onPreview = async file => {
-        let src = file.url;
+        let src = file.url
         if (!src) {
             src = await new Promise(resolve => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file.originFileObj);
-                reader.onload = () => resolve(reader.result);
-            });
+                const reader = new FileReader()
+                reader.readAsDataURL(file.originFileObj)
+                reader.onload = () => resolve(reader.result)
+            })
         }
-        const image = new Image();
-        image.src = src;
-        const imgWindow = window.open(src);
-        imgWindow.document.write(image.outerHTML);
-    };
+        const image = new Image()
+        image.src = src
+        const imgWindow = window.open(src)
+        imgWindow.document.write(image.outerHTML)
+    }
 
     // upload-files
     const [fileList, setFileList2] = useState([
@@ -67,11 +85,11 @@ export function CommonCreatePage() {
             status: 'done',
             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         }
-    ]);
+    ])
 
     const onChange2 = ({ imgList: newImgList }) => {
-        setFileList2(newImgList);
-    };
+        setFileList2(newImgList)
+    }
 
     return (
         <div className='container'>
@@ -136,8 +154,9 @@ export function CommonCreatePage() {
                     </Form.Item>
                     <div className='wrap-line'>
                         <Form.Item label='Field F'>
-                            <Input className='field-input' placeholder='input placeholder' />
+                            <Input className='field-input' placeholder='input placeholder' onChange={e => addInput(e)}/>
                         </Form.Item>
+                        <Button className='chen-button shadow primary' onClick={() => addTag()}>添加</Button>
                     </div>
                     <div className='wrap-line'>
                         <Form.Item label='Field H'>
@@ -157,15 +176,15 @@ export function CommonCreatePage() {
                     <div className='wrap-line'>
                         <Form.Item label='Field I'>
                             <div className='tags-wrap canClose'>
-                                <Tag className='active' closable onClose={() => { }}>
-                                    Tag 1
-                                </Tag>
-                                <Tag closable onClose={() => { }}>
-                                    Tag 2
-                                </Tag>
-                                <Tag closable onClose={() => { }}>
-                                    Tag 3
-                                </Tag>
+                            {tagsData.map((tag) => (
+                                    <Tag
+                                        key={tag}
+                                        className='active'
+                                    >
+                                        {tag} 
+                                        <DeleteOutlined onClick={() => removeTag(tag)}/>
+                                    </Tag>
+                                ))}
                             </div>
                         </Form.Item>
                     </div>
@@ -205,6 +224,9 @@ export function CommonCreatePage() {
             <Space className='buttons' size='large'>
                 <Button className='chen-button shadow'>取消</Button>
                 <Button className='chen-button shadow primary'>保存</Button>
+                <Button className='chen-button shadow primary' icon={<DeleteOutlined />}>
+                    删除
+                </Button>
             </Space>
         </div>
     )
