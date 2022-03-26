@@ -829,7 +829,7 @@
     }
   },
   "Performance": {
-    "data":{
+    "data": {
       "List": [
         {
           "employee": "张三",
@@ -839,6 +839,90 @@
         }
       ]
     }
-
+  },
+  "AssetInfo": {
+    "data": {
+      "List": [
+        {
+          "AssetsId": "c8lf6pivkvf2nn0s0h8g",
+          "AssetsName": "色何必1",
+          "WorkShopId": "",
+          "WorkShopName": "二层车间",
+          "BrandId": "",
+          "BrandName": "222",
+          "AssetsType": "放置",
+          "PurchasingDate": "2022-03-09T06:59:41.321Z",
+          "WarrantyPeriod": "10",
+          "MaintenanceCycle": "1",
+          "SupplierId": "",
+          "SupplierName": "2",
+          "ProcurementStaff": "订单",
+          "Specification": "",
+          "Picture": "",
+          "Station": null,
+          "StationTotal": 0
+        },
+        {
+          "AssetsId": "c8lb8lavkvf02c2qm680",
+          "AssetsName": "龙达蔬菜清洗机",
+          "WorkShopId": "c8kqafavkvf3847kufs0",
+          "WorkShopName": "粗加工车间",
+          "BrandId": "c8kru9ivkvf4jf4kiv9g",
+          "BrandName": "首农",
+          "AssetsType": "切割",
+          "PurchasingDate": "2022-03-01",
+          "WarrantyPeriod": "2032-03-01",
+          "MaintenanceCycle": "1",
+          "SupplierId": "c8jfmhavkvf36n4r7al0",
+          "SupplierName": "供应商01",
+          "ProcurementStaff": "张三",
+          "Specification": "说明书文件",
+          "Picture": "设备图片",
+          "Station": [
+            {
+              "StationId": "",
+              "StationName": "工位1",
+              "Jobs": "岗位1"
+            },
+            {
+              "StationId": "",
+              "StationName": "工位2",
+              "Jobs": "岗位2"
+            }
+          ],
+          "StationTotal": 2
+        },
+        {
+          "AssetsId": "c8lb61avkvf4r95v8a40",
+          "AssetsName": "万事达分割机A",
+          "WorkShopId": "c8kqafavkvf3847kufs0",
+          "WorkShopName": "粗加工车间",
+          "BrandId": "c8kru9ivkvf4jf4kiv9g",
+          "BrandName": "首农",
+          "AssetsType": "切割",
+          "PurchasingDate": "2022-03-01",
+          "WarrantyPeriod": "2032-03-01",
+          "MaintenanceCycle": "1",
+          "SupplierId": "c8jfmhavkvf36n4r7al0",
+          "SupplierName": "供应商01",
+          "ProcurementStaff": "张三",
+          "Specification": "说明书文件",
+          "Picture": "设备图片",
+          "Station": [
+            {
+              "StationId": "",
+              "StationName": "工位1",
+              "Jobs": "岗位1"
+            },
+            {
+              "StationId": "",
+              "StationName": "工位2",
+              "Jobs": "岗位2"
+            }
+          ],
+          "StationTotal": 2
+        }
+      ]
+    }
   }
 }
