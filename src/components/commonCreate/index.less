@@ -114,14 +114,25 @@
 
     .ant-tag {
         border-radius: 0.25rem;
-        width: 0.84rem;
-        height: 0.5rem;
-        line-height: 0.5rem;
+        line-height: .48rem;
         text-align: center;
         background-color: #E5E5F0;
+        font-size: .2rem;
+        color: #9A95A9;
+        padding: 0 .2rem;
+        margin-right: .3rem;
+        border: 0.01rem solid #E5E5F0;
         &.active {
             background-color: #FFF;
         }
+        .delete-btn{
+            margin-left: .1rem;
+            color: #FF4B4B;
+            cursor: pointer;
+        }
+    }
+    .ant-tag:last-of-type{
+        margin-right: 0;
     }
     .ant-upload-list-picture-card-container {
         height: auto;
