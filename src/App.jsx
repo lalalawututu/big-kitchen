@@ -20,6 +20,7 @@ import {ProduceManage} from './pages/producemanage';
 import {ThirdPartyManage} from './pages/thirdpartymanage';
 import {AssetAddEdit} from './pages/assetAddEdit';
 import Screen from './pages/screen';
+import {LargeScreen} from './pages/largeScreen';
 import history from './history';
 import './App.less';
 
@@ -48,6 +49,7 @@ class App extends PureComponent {
           <Route path="/groupHour" component={GroupHour}></Route>
           <Route path="/groupYield" component={GroupYield}></Route>
           <Route path="/assetAddEdit" component={AssetAddEdit}></Route>
+          <Route path="/largeScreen" component={LargeScreen}></Route>
         </div>
       </Router>
     );

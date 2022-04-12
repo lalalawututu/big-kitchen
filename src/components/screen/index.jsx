@@ -101,7 +101,7 @@ function NormalLineChart ({
             Echart.resize({ height: node.offsetHeight, width: node.offsetWidth });
         }
     }, [])
-    
+
     return (
         <div
             ref={EchartEl}
@@ -251,7 +251,7 @@ export function ScreenPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className='floor floor3'>
+                         <div className='floor floor3'>
                             <div>一层能耗</div>
                             <div className='dashboard'>
                                 <div className='deplete electric'>
