@@ -1,11 +1,11 @@
 import React from 'react';
-import WorkManageContainer from '../../container/workmanage';
-import { WorkManagePage } from '../../components/workmanage';
+import WorkMangeContainer from '../../container/workmange';
+import { WorkMangePage } from '../../components/workmange';
 
 export const WorkManage = () => {
 	return (
-		<WorkManageContainer.Provider>
-			<WorkManagePage />
-		</WorkManageContainer.Provider>
+		<WorkMangeContainer.Provider>
+			<WorkMangePage />
+		</WorkMangeContainer.Provider>
 	)
 }

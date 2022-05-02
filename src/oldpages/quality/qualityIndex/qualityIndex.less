@@ -1,0 +1,117 @@
+.quality-content{
+    header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0px 10px;
+        border-bottom: 1px solid #D7D7D7;
+    }
+    
+    header h3{
+        font-weight: bolder;
+    }
+    
+    header button{
+        margin-left: 10px;
+    }
+    
+    .collapseHeader{
+        width: 100%;
+    }
+    .collapseHeader-title{
+        border: 1px solid gray;
+        padding: 0 10px;
+        background: whitesmoke;
+        padding: 15px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .collapseHeader ul{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0px;
+        padding: 15px 0px;
+        li:nth-of-type(2){
+            &>div:first-child{
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .collapseHeader ul li:first-child{
+        border-left: 1px solid lightgray;
+        &>div:first-child{
+            margin-right: 20px;
+        }
+    }
+
+    .collapseHeader ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 50px;
+        border-right: 1px solid lightgray;
+        cursor: pointer;
+    }
+    
+    .collapseHeader ul .header-title{
+        font-size: 18px;
+        color: gray;
+        display: flex;
+        justify-content: center;
+        &+p{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            color: #9A9A9A;
+        }
+    }
+     .collapseHeader ul .data-num{
+        font-size: 55px;
+        line-height: 55px;
+        font-weight: bolder;
+        color: #333333;
+    }
+
+
+    .page-box{
+        margin-top: 15px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    /* 进度调样式重置 */
+     .collapseHeader ul .my-progress .ant-progress-inner{
+        border-radius: unset !important;
+    }
+     .collapseHeader ul .my-progress .ant-progress-bg{
+        height: 15px !important;
+        border-radius: unset !important;
+    }
+
+    /* 今日质检计划执行概况样式 */
+    .todayPlan{
+        background-color: #F2F2F2;
+        margin:6px 0 12px;
+
+        .title{
+            display: flex;
+            align-items: center;
+            padding-top: 8px;
+        }
+        .title div{
+            height: 18px;
+            width: 8px;
+            background: #797979;
+            margin-right: 8px;
+        }
+    }
+
+}
+
+
+
+
+

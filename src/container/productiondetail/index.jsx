@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createContainer } from "unstated-next"
-import { useMount } from '../../utils/index.ts'
+import { useMount } from '../../utils'
 
 const apiPlanTrialUrl = process.env.REACT_APP_API_PLANTRIALURL
 

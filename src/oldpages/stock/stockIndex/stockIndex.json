@@ -1,0 +1,58 @@
+//库存首页接口（返回数据字段）
+{
+    "stockName": "原料库",       // 库名称 string
+    "stockID": "1",               //库ID   string
+    "actualWarehousing": "8.7", //实际入库(吨) Number/string
+    "planWarehousing": "10",   //计划入库(吨)  Number/string
+    "actualExwarehouse": "8.7", //计划出库库(吨) Number/string
+    "planExwarehouse": "10",   //计划出库库(吨) Number/string
+    "inventoryRisk": [{      //库存风险
+        "id": "1",
+        "name": "海天酱油",    //名称
+        "num": "2"          //数量  Number/string
+    }],
+    "aboutExpire": [{         //即将过期
+        "id": "1",
+        "name": "海天酱油",    //名称     string
+        "num": "2"          //数量  Number/string
+    }],
+    "notReturn": [{         //尚未返库
+        "id": "1",
+        "name": "海天酱油",    //名称    string
+        "num": "2"          //数量  Number/string
+    }]
+}
+
+//请求参数
+{
+    "stockID": "1",               //库ID   string （为空时默认请求全部库存数据）
+}
+
+请求接口定义：  /getDeviceData
+请求参数：
+{
+    "deviceID": "1",               //设备ID   string
+}
+返回数据字段：
+{
+    "DeviceName": "",                // 设备名称 string
+    "DeviceID": "1",                //设备ID   string
+    "DeviceCategory": "",           //设备类别  string
+    "DeviceStatus": "0",             //设备状态   Number/string （0：在用，1：闲置）
+    "Model": "",                    //规格型号   string
+    "Source": "",                   //来源       string
+    "Supplier": "",                 //供应商    string
+    "Brand": "",                    //品牌     string
+    "Company": "",                   //所属公司       string
+    "UserDepartment": "",            //使用部门    string
+    "User": "",                      //使用人    string
+    "StorageArea": "",               //存放区域       string
+    "ServiceLife": "",               //使用年限    string
+    "PurchaseDate": "",              //采购日期    string
+    "PurchasePrice": "",             //采购单价       string
+    "MaintenanceProvider": "",       //维保商    string
+    "MaintenanceStatus": "0",        //维保状态    Number/string （0：在保，1：过保）
+    "ReleaseDate": "",              //脱保日期    stringtu
+    "DeviceImage": "",              //设备图片    图片链接
+    "Enclosure": ""                 //附件        文件下载链接
+}

@@ -176,7 +176,7 @@ export function CommonCreatePage() {
                     <div className='wrap-line'>
                         <Form.Item label='Field I'>
                             <div className='tags-wrap canClose'>
-                            {tagsData.map((tag) => (
+                                {tagsData.map((tag) => (
                                     <Tag
                                         key={tag}
                                         className='active'

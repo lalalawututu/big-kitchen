@@ -1,0 +1,223 @@
+.system {
+    display: flex;
+    justify-content: space-between;
+
+    .tree {
+        width: 12%;
+        height: 100%;
+    }
+
+    .content {
+        width: 86%;
+        height: 100%;
+    }
+
+    .marginRight {
+        margin-right: 10px;
+    }
+
+    .searchEle {
+        padding: 10px 0;
+    }
+
+}
+
+//用户管理
+.systemUser {
+
+    //搜索栏
+    .searchEle {
+        display: flex;
+        align-items: center;
+        background: #F1F2F1;
+        padding: 15px 10px;
+        margin: 5px 0;
+    }
+
+    .marginRight {
+        margin-right: 10px;
+    }
+
+}
+
+//组织管理
+.systemOrganization {
+    .searchEle {
+        background: #F1F2F1;
+        padding: 15px 10px;
+        margin: 5px 0;
+    }
+
+    .marginRight {
+        margin-right: 10px;
+    }
+
+    .addDept {
+        float: right;
+    }
+
+    .optButton {
+        background: #6C6CE5;
+        border-radius: 0.39rem !important;
+        padding: 0.16rem 0.37rem 0.2rem 0.4rem !important;
+        height: auto;
+        font-size: 0.26rem;
+        font-weight: 600;
+        border: none;
+        margin-left: 0.24rem;
+        color: #ffffff;
+    }
+}
+
+//弹框内的表单样式
+.modal-addFrom {
+
+    //展示详情
+    .showDetail {
+        font-size: 0.2rem;
+        font-weight: 600;
+        color: #333951;
+    }
+
+    //弹窗中的表格去掉margin
+    .common-long-table {
+        margin-bottom: 0;
+    }
+
+    //弹框中操作按钮
+    .buttons {
+        margin: 0.2rem 0 0.2rem 0;
+    }
+
+    .optButton {
+        background: #6C6CE5;
+        border-radius: 0.39rem !important;
+        padding: 0.1rem 0.31rem 0.14rem 0.34rem !important;
+        height: auto;
+        font-size: 0.2rem;
+        font-weight: 600;
+        border: none;
+        margin-left: 0.24rem;
+        color: #ffffff;
+    }
+
+    //搜索框
+    .searchArea {
+        margin: 0 0.2rem 0.2rem 0;
+
+        input {
+            width: 3rem;
+            height: 0.56rem;
+        }
+    }
+
+    .modal-form {
+        &.ant-form-inline {
+            .ant-form-item {
+                margin-right: 0.39rem;
+            }
+        }
+
+        .ant-form-item {
+            .ant-form-item-label {
+                &>label {
+                    height: 100%;
+                }
+            }
+
+            .field-input {
+                width: 2.1rem;
+                height: 0.54rem;
+                padding: 0.18rem 0.3rem;
+                border-radius: 0.16rem;
+            }
+
+            .field-select {
+                .ant-select-selector {
+                    min-width: 2.1rem;
+                    height: 0.54rem;
+                    padding: 0.18rem 0.3rem;
+                    border-radius: 0.2rem;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+    .ant-tag:last-of-type {
+        margin-right: 0;
+    }
+
+    .ant-upload-list-picture-card-container {
+        height: auto;
+        width: auto;
+    }
+
+    .ant-upload-list-picture-card .ant-upload-list-item {
+        padding: 0;
+        width: 3rem;
+        height: 2rem;
+        margin-right: 2%;
+        margin-bottom: 0.2rem;
+    }
+
+    .ant-upload.ant-upload-select-picture-card {
+        width: 3rem;
+        height: 2rem;
+    }
+
+    .ant-form-inline .ant-form-item {
+        margin-bottom: .3rem;
+    }
+
+    .ant-form-item-label {
+        width: 1.2rem;
+    }
+
+    .ant-form-item-label>label {
+        height: .62rem;
+        font-size: 0.2rem;
+        line-height: 100%;
+        font-weight: 600;
+        color: #9598A8;
+    }
+
+    .ant-input,
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        font-size: 0.18rem;
+        line-height: 100%;
+        color: #333951;
+        padding: .17rem .2rem;
+        border-radius: 0.2rem;
+        border: 0.01rem solid #E5E5F0;
+    }
+
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        height: .62rem;
+        font-size: 0.2rem;
+        line-height: 100%;
+    }
+
+    .ant-descriptions-item {
+        padding-bottom: .3rem;
+    }
+
+    .ant-descriptions-item-container {
+        align-items: center;
+    }
+
+    .ant-descriptions-item-label {
+        font-size: 0.2rem;
+        font-weight: 600;
+        color: #9598A8;
+        line-height: 100%;
+    }
+
+    .ant-descriptions-item-content {
+        font-size: 0.22rem;
+        font-weight: 600;
+        color: #333951;
+        line-height: 100%;
+    }
+}

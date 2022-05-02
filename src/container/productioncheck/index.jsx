@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createContainer } from "unstated-next"
-import { useMount } from '../../utils/index.ts'
+import { useMount } from '../../utils'
 
 const apiPlanTrialUrl = process.env.REACT_APP_API_PLANTRIALURL
 
@@ -45,7 +45,7 @@ const useProductionTrialList = () => {
         item.EmployeeName = peopleName
       }
     })
-    
+
     // 交互已写好，这里根据后台提供更改接口以改变数据
   }, [peopleName])
 

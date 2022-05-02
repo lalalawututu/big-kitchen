@@ -1,52 +1,35 @@
 import MineContainer from '../../container/mine'
-import { Row, Col, Space, Button, Progress, Collapse, Descriptions, Input, InputNumber } from 'antd'
-import { PoweroffOutlined, BarsOutlined } from '@ant-design/icons'
+import {Row, Col, Space, Button, Progress, Collapse, Descriptions, Spin, Alert, Modal, Table} from 'antd'
+import { PoweroffOutlined } from '@ant-design/icons'
 import './index.less'
 
-import ReceivingBoard from '../../pages/bulletinBoard/receiving'; //接货看板
-import WarehousingBoard from '../../pages/bulletinBoard/warehousing'; //入库看板
-import PickingBoard from '../../pages/bulletinBoard/picking'; //领料看板
-import ProductBoard from '../../pages/bulletinBoard/product'; //生产看板
-import SampleRetentionBoard from '../../pages/bulletinBoard/sampleRetention'; //留样看板
-import PackingBoard from '../../pages/bulletinBoard/packing'; //包装看板
-import QualityInspectionBoard from '../../pages/bulletinBoard/qualityInspection'; //质检看板
-import LoadingBoard from '../../pages/bulletinBoard/loading'; //配送看板
-import EquipmentStartBoard from '../../pages/bulletinBoard/equipmentStart'; //设备启动
-import EquipmentMaintainBoard from '../../pages/bulletinBoard/equipmentMaintain'; //设备维护
-import EquipmentByBoard from '../../pages/bulletinBoard/equipmentBy'; //设备维护
-import AbnormalBoard from '../../pages/bulletinBoard/abnormal'; //异常看板
-import Foreman from '../../pages/bulletinBoard/foreman'; //班组长看板
+import ReceivingBoard from '../bulletinBoard/receiving'; //接货看板
+import WarehousingBoard from '../bulletinBoard/warehousing'; //入库看板
+import PickingBoard from '../bulletinBoard/picking'; //领料看板
+import ProductBoard from '../bulletinBoard/product'; //生产看板
+import SampleRetentionBoard from '../bulletinBoard/sampleRetention'; //留样看板
+import PackingBoard from '../bulletinBoard/packing'; //包装看板
+import QualityInspectionBoard from '../bulletinBoard/qualityInspection'; //质检看板
+import QualityControlBoard from '../bulletinBoard/qualityControl'; //质检看板
+import LoadingBoard from '../bulletinBoard/loading'; //配送看板
+import EquipmentStartBoard from '../bulletinBoard/equipmentStart'; //设备启动
+import EquipmentMaintainBoard from '../bulletinBoard/equipmentMaintain'; //设备维护
+import EquipmentByBoard from '../bulletinBoard/equipmentBy'; //设备维护
+import AbnormalBoard from '../bulletinBoard/abnormal'; //异常看板
+import ForemanBoard from '../bulletinBoard/foreman'; //班组长看板
+import BasketBoard from '../bulletinBoard/basket'; //回筐
+import ReturnWarehouseBoard from '../bulletinBoard/returnWarehouse'; //返库
+import InventoryBoard from '../bulletinBoard/Inventory';
+import SimpleTask from "../bulletinBoard/clean";
+import React from "react"; //返库
 
 export const MinePage = () => {
   let mine = MineContainer.useContainer()
   const { Panel } = Collapse
-  const lists = [
-    {
-      key: 0,
-      title: '全部',
-      number: 10
-    },
-    {
-      key: 1,
-      title: '进行中',
-      number: 1
-    },
-    {
-      key: 2,
-      title: '即将超时',
-      number: 1
-    },
-    {
-      key: 3,
-      title: '待执行',
-      number: 11
-    },
-    {
-      key: 4,
-      title: '已完成',
-      number: 10
-    },
-  ]
+
+    const logOff = () => {
+        window.location = `/#/unicardswipe`
+    }
 
   //接货头部
   const genExtra = (item) => (
@@ -56,28 +39,57 @@ export const MinePage = () => {
       <Descriptions.Item label="规格">{JSON.parse(item).Specification || ''}</Descriptions.Item>
       <Descriptions.Item label="重量">{JSON.parse(item).Weight + JSON.parse(item).Unit || ''}</Descriptions.Item>
       <Descriptions.Item label="计划起止时间">
-        {JSON.parse(item).PlanStartTime ? JSON.parse(item).PlanStartTime.split(' ')[1] + ' - ' : '-- - '}{JSON.parse(item).PlanEndTime ? JSON.parse(item).PlanEndTime.split(' ')[1] : '--'}</Descriptions.Item>
-      <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
+        {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}</Descriptions.Item>
+      <Descriptions.Item contentStyle={{color:"red"}} label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
     </Descriptions>
   )
+
+    const genExtrall = (item) => (
+        <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+            <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
+            <Descriptions.Item label="批次号">{JSON.parse(item).batchNumber || ''}</Descriptions.Item>
+            <Descriptions.Item label="计划起止时间">
+                {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}</Descriptions.Item>
+            <Descriptions.Item label="实际起止时间">
+                {JSON.parse(item).ActualStartTime + ' - ' + JSON.parse(item).ActualEndTime}</Descriptions.Item>
+            <Descriptions.Item contentStyle={{color:"red"}} label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
+        </Descriptions>
+    )
 
   //生产头部
   const genExtrasc = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-      <Descriptions.Item label="工单内容">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
-      <Descriptions.Item label="工序">{JSON.parse(item).WorkingProcedureName || ''}</Descriptions.Item>
-      <Descriptions.Item label="重量">{JSON.parse(item).Quantity + JSON.parse(item).Unit || ''}</Descriptions.Item>
-      <Descriptions.Item label="计划起止时间">{JSON.parse(item).PlanStartTime.split(' ')[1] + '-' + JSON.parse(item).PlanEndTime.split(' ')[1]}</Descriptions.Item>
+      <Descriptions.Item label="工单内容">{JSON.parse(item).Production || ''}</Descriptions.Item>
+      <Descriptions.Item label="工序">{JSON.parse(item).Order|| ''}</Descriptions.Item>
+      <Descriptions.Item label="重量">{JSON.parse(item).OutputQuantity + JSON.parse(item).Unit || ''}</Descriptions.Item>
+      <Descriptions.Item label="计划起止时间">
+            {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
+      </Descriptions.Item>
       <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
     </Descriptions>
   )
 
+    //simple
+    const genExtrasp = (item) => (
+        <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+            <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
+            <Descriptions.Item label="工单内容">{JSON.parse(item).Production || ''}</Descriptions.Item>
+            <Descriptions.Item label="计划起止时间">
+                {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
+            </Descriptions.Item>
+            <Descriptions.Item label="实际起止时间">
+                {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
+            </Descriptions.Item>
+            <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
+        </Descriptions>
+    )
+
   // 留样头部
   const genExtraly = (item) => (
     <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
-      <Descriptions.Item label="任务名称">{JSON.parse(item).TaskName || ''}</Descriptions.Item>
-      <Descriptions.Item label="批次号">{JSON.parse(item).BatchNumber || ''}</Descriptions.Item>
+      <Descriptions.Item label="任务名称">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
+      <Descriptions.Item label="批次号">{JSON.parse(item).batchNumber || ''}</Descriptions.Item>
       <Descriptions.Item label="留样产线">{JSON.parse(item).Station || ''}</Descriptions.Item>
       <Descriptions.Item label="存放位置">{JSON.parse(item).StorageLocation || ''}</Descriptions.Item>
       <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus || ''}</Descriptions.Item>
@@ -87,7 +99,7 @@ export const MinePage = () => {
   // 包装头部
   const genExtrabz = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
-      <Descriptions.Item label="生产批次">{JSON.parse(item).BatchNumber || ''}</Descriptions.Item>
+      <Descriptions.Item label="生产批次">{JSON.parse(item).batchNumber || ''}</Descriptions.Item>
       <Descriptions.Item label="包装规格">{JSON.parse(item).Specification || ''}</Descriptions.Item>
       <Descriptions.Item label="计划产量">{JSON.parse(item).PlanQuantity || ''}</Descriptions.Item>
       <Descriptions.Item label="实际产量">{JSON.parse(item).ActualQuantity || ''}</Descriptions.Item>
@@ -96,18 +108,16 @@ export const MinePage = () => {
     </Descriptions>
   )
 
-  // 质检头部
+  // 接货质检头部
   const genExtrazj = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-      <Descriptions.Item label="检验内容">{JSON.parse(item).QualityInspectionContent || ''}</Descriptions.Item>
-      <Descriptions.Item label="检验产线">{JSON.parse(item).ProductionLine || ''}</Descriptions.Item>
-      <Descriptions.Item label="检验要求">{JSON.parse(item).InspectionRequirements || ''}</Descriptions.Item>
+      <Descriptions.Item label="检验物品">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
+      <Descriptions.Item label="检验产线">{JSON.parse(item).ProdLine || ''}</Descriptions.Item>
+      <Descriptions.Item label="检验要求">{JSON.parse(item).Requirment || ''}</Descriptions.Item>
       <Descriptions.Item label="计划起止时间">
-        {/* {JSON.parse(item).PlanStartTime.split(' ')[1] + '-' + JSON.parse(item).PlanEndTime.split(' ')[1]} */}
-        {JSON.parse(item).PlanStartTime ? JSON.parse(item).PlanStartTime.split(' ')[1] + ' - ' : '-- - '}{JSON.parse(item).PlanEndTime ? JSON.parse(item).PlanEndTime.split(' ')[1] : '--'}
+            {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
       </Descriptions.Item>
-      <Descriptions.Item label="合格率">{JSON.parse(item).InspectionQuantity ? ((JSON.parse(item).InspectionQuantity - JSON.parse(item).UnqualifiedNumber) / JSON.parse(item).InspectionQuantity) * 100 + '%' : '-'}</Descriptions.Item>
     </Descriptions>
   )
 
@@ -115,11 +125,11 @@ export const MinePage = () => {
   const genExtraps = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-      <Descriptions.Item label="工单内容">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
-      <Descriptions.Item label="配送口">{JSON.parse(item).DeliverPort || ''}</Descriptions.Item>
-      <Descriptions.Item label="车牌号">{JSON.parse(item).CarNumber || ''}</Descriptions.Item>
+      <Descriptions.Item label="配送口">{JSON.parse(item).dock?.dockSn || ''}</Descriptions.Item>
+      <Descriptions.Item label="车牌号">{JSON.parse(item).carNumber || ''}</Descriptions.Item>
+        <Descriptions.Item label="司机">{JSON.parse(item).driverName || ''}</Descriptions.Item>
       <Descriptions.Item label="计划起止时间">
-        {JSON.parse(item).PlanStartTime ? JSON.parse(item).PlanStartTime.split(' ')[1] + ' - ' : '-- - '}{JSON.parse(item).PlanEndTime ? JSON.parse(item).PlanEndTime.split(' ')[1] : '--'}
+          {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
       </Descriptions.Item>
       <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus || ''}</Descriptions.Item>
     </Descriptions>
@@ -129,9 +139,8 @@ export const MinePage = () => {
   const genExtrasbqd = (item) => (
     <Descriptions layout="vertical" size={'default'} column={4} className="des-box">
       <Descriptions.Item label="设备名称">{JSON.parse(item).equipmentName || ''}</Descriptions.Item>
-      <Descriptions.Item label="设备启动">{JSON.parse(item).taskStatus || ''}</Descriptions.Item>
+      <Descriptions.Item label="是否已启动">{JSON.parse(item).taskStatus || ''}</Descriptions.Item>
       <Descriptions.Item label="设备位置">{JSON.parse(item).equipmentPosition || ''}</Descriptions.Item>
-      <Descriptions.Item label="执行人">{JSON.parse(item).employeeName || ''}</Descriptions.Item>
     </Descriptions>
   )
 
@@ -145,7 +154,18 @@ export const MinePage = () => {
     </Descriptions>
   )
 
-  //异常上报
+    //回筐
+    const genExtrahk = (item) => (
+        <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+            <Descriptions.Item label="任务类型">{item.taskType || ''}</Descriptions.Item>
+            <Descriptions.Item label="筐总量">{item.allCount || ''}</Descriptions.Item>
+            <Descriptions.Item label="今日回筐">{item.returnCount || ''}</Descriptions.Item>
+            <Descriptions.Item label="坏筐">{item.damageCount || ''}</Descriptions.Item>
+            <Descriptions.Item label="待回筐">{item.awaitNumber || ''}</Descriptions.Item>
+        </Descriptions>
+    )
+
+    //异常上报
   const genExtraycsb = (item) => (
     <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
       <Descriptions.Item label="货品名称">{JSON.parse(item).produce || ''}</Descriptions.Item>
@@ -157,7 +177,7 @@ export const MinePage = () => {
   )
 
   //班组长
-  const genExtraBzz= (item) => (
+  const genExtraBzz = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="总批次号">{JSON.parse(item).TotalBatchNumber || ''}</Descriptions.Item>
       <Descriptions.Item label="总人员">{JSON.parse(item).TotalPersonnel || ''}</Descriptions.Item>
@@ -168,6 +188,19 @@ export const MinePage = () => {
     </Descriptions>
   )
 
+  //盘库
+  const genExtraPk = (item) => (
+    <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
+      <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
+      <Descriptions.Item label="工单号">{JSON.parse(item).TaskId || ''}</Descriptions.Item>
+      <Descriptions.Item label="工单内容">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
+      <Descriptions.Item label="仓库">{JSON.parse(item).StorageRoomName || ''}</Descriptions.Item>
+      <Descriptions.Item label="计划起止时间">
+          {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
+      </Descriptions.Item>
+      <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus || ''}</Descriptions.Item>
+    </Descriptions>
+  )
 
   return (
     <div className="bulletin-board-container">
@@ -176,29 +209,29 @@ export const MinePage = () => {
           <div className="employee-info">
             <div className="date">{mine.time.split(' ')[0]}<span>{mine.time.split(' ')[1]}</span></div>
             <Space align="start">
-              <img className="header-url" src="https://avatars.githubusercontent.com/u/22983816?s=40&v=4" alt="" />
+              <img className="header-url" src={"http://123.57.137.181:8090/" + mine.peopleInfo.photo} alt="" />
               <div className="data">
-                <h6>{mine.peopleInfo.Name || ''}</h6>
-                <p>{mine.peopleInfo.EmployeeId || ''}</p>
+                <h6>{mine.peopleInfo.name || ''}</h6>
+                <p>{mine.peopleInfo.employee_id || ''}</p>
               </div>
             </Space>
             <div className="btn">
-              <Button className="leave-btn"><b className="icon-leave"></b>请假</Button>
-              <Button className="quit-btn"><PoweroffOutlined />退出</Button>
+              <Button className="leave-btn"><b className="icon-leave"/>请假</Button>
+              <Button className="quit-btn" onClick={()=>{logOff()}}><PoweroffOutlined />退出</Button>
             </div>
           </div>
           <div className="work-progress">
             <h3 className="commit-title">
-              <b className="icon-progress"></b> 工作进度</h3>
-            <Progress percent={20}
+              <b className="icon-progress"/> 工作进度</h3>
+            <Progress percent={0}
               trailColor={"#F7F7FF"}
               strokeColor={{
                 '0%': '#7071DB',
                 '100%': '#6364D9',
               }} />
             <div className="legend-box">
-              <span><b></b>总工作量</span>
-              <span><b></b>已完成</span>
+              <span><b/>总工作量</span>
+              <span><b/>已完成</span>
             </div>
           </div>
           <div className="news-container">
@@ -207,32 +240,32 @@ export const MinePage = () => {
         </Col>
         <Col span={18} className="bulletin-board-right">
           <div className="task-container">
-            <Space align="center" className="task-list-box">
-              <h3 className="commit-title"><b className="icon-task"></b></h3>
-              <div className="task-list">
-                <b className="icon-nav-arrow"></b>
-                {/*<LeftCircleOutlined className="icon-arrow" style={{ color: '#4C515D' }} />*/}
-                <Collapse accordion className="collapse-list">
-                  <Panel header="" key={1} showArrow={false}>
-                    {
-                      lists.map((item, index) => {
-                        return (
-                          <p key={item}>{item.title}（{item.number}）</p>
-                        )
-                      })
-                    }
-                  </Panel>
-                </Collapse>
-              </div>
-            </Space>
+            {/*<Space align="center" className="task-list-box">*/}
+            {/*  <h3 className="commit-title"><b className="icon-task"/></h3>*/}
+            {/*  <div className="task-list">*/}
+            {/*    <b className="icon-nav-arrow"/>*/}
+            {/*    /!*<LeftCircleOutlined className="icon-arrow" style={{ color: '#4C515D' }} />*!/*/}
+            {/*    <Collapse accordion className="collapse-list">*/}
+            {/*      <Panel header="" key={1} showArrow={false}>*/}
+            {/*        {*/}
+            {/*          lists.map((item, index) => {*/}
+            {/*            return (*/}
+            {/*              <p key={item}>{item.title}（{item.number}）</p>*/}
+            {/*            )*/}
+            {/*          })*/}
+            {/*        }*/}
+            {/*      </Panel>*/}
+            {/*    </Collapse>*/}
+            {/*  </div>*/}
+            {/*</Space>*/}
             {/* 列表 */}
             <Collapse defaultActiveKey={['0']} className="lists" showArrow={false}>
 
               {/* 接货 */}
               {
-                mine.ReceivingTaskList && mine.ReceivingTaskList.map((item, index) => {
+                mine.model === 'receiving' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index} showArrow={false}>
+                    <Panel onChange={()=> {mine.startTask(item.taskId)}} header="" extra={genExtra(`${JSON.stringify(item)}`)} key={index} showArrow={false}>
                       <ReceivingBoard data={item} index={index} />
                     </Panel>
                   )
@@ -240,11 +273,10 @@ export const MinePage = () => {
               }
 
               {/* 入库 */}
-
               {
-                mine.WarehousingTaskList && mine.WarehousingTaskList.map((item, index) => {
+                  mine.model === 'enter' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '1'} showArrow={false}>
+                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.taskId + '1'} showArrow={false}>
                       <WarehousingBoard data={item} index={index} />
                     </Panel>
                   )
@@ -253,31 +285,49 @@ export const MinePage = () => {
 
               {/* 领料 */}
               {
-                mine.PickingTaskList && mine.PickingTaskList.map((item, index) => {
+                  mine.model === 'picking' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.TaskId + '2'} showArrow={false}>
-                      <PickingBoard data={item} index={index} />
-                    </Panel>
+                          <Panel header="" extra={genExtrall(`${JSON.stringify(item)}`)} key={item.taskId + '2'} showArrow={false}>
+                              <PickingBoard data={item} index={index} />
+                          </Panel>
                   )
                 })
               }
 
               {/* 生产 */}
               {
-                mine.ProductTaskList && mine.ProductTaskList.map((item, index) => {
+                  mine.model === 'prod' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.TaskId + '3'} showArrow={false}>
+                    <Panel header="" extra={genExtrasc(`${JSON.stringify(item)}`)} key={item.taskId + '3'} showArrow={false}>
                       <ProductBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
+                {
+                    mine.model === 'clean' && mine.taskList.map((item, index) => {
+                        return (
+                            <Panel header="" extra={genExtrasp(`${JSON.stringify(item)}`)} key={item.taskId + '3'} showArrow={false}>
+                                <SimpleTask data={item} index={index} />
+                            </Panel>
+                        )
+                    })
+                }
+                {
+                    mine.model === 'disinfection' && mine.taskList.map((item, index) => {
+                        return (
+                            <Panel header="" extra={genExtrasp(`${JSON.stringify(item)}`)} key={item.taskId + '3'} showArrow={false}>
+                                <SimpleTask data={item} index={index} />
+                            </Panel>
+                        )
+                    })
+                }
 
               {/* 留样 */}
               {
-                mine.SampleRetentionTaskList && mine.SampleRetentionTaskList.map((item, index) => {
+                  mine.model === 'sample' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.TaskId + '4'} showArrow={false}>
+                    <Panel header="" extra={genExtraly(`${JSON.stringify(item)}`)} key={item.taskId + '4'} showArrow={false}>
                       <SampleRetentionBoard data={item} index={index} />
                     </Panel>
                   )
@@ -286,31 +336,64 @@ export const MinePage = () => {
 
               {/* 装箱（包装） */}
               {
-                mine.PackingTaskList && mine.PackingTaskList.map((item, index) => {
+                  mine.model === 'packing' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.TaskId + '5'} showArrow={false}>
+                    <Panel header="" extra={genExtrall(`${JSON.stringify(item)}`)} key={item.taskId + '5'} showArrow={false}>
                       <PackingBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
 
-              {/* 质检 */}
+              {/* 检验 */}
               {
-                mine.QualityInspectionTaskList && mine.QualityInspectionTaskList.map((item, index) => {
+                  mine.model === 'inspection' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.TaskId + '6'} showArrow={false}>
+                    <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.taskId + '6'} showArrow={false}>
                       <QualityInspectionBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
 
+            {/* 品控 */}
+            {
+                mine.model === 'control' && mine.taskList.map((item, index) => {
+                    return (
+                        <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.taskId + '8'} showArrow={false}>
+                            <QualityControlBoard data={item} index={index} />
+                        </Panel>
+                    )
+                })
+            }
+
+                {/* 接货检验 */}
+                {
+                    mine.model === 'recvinsp' && mine.taskList.map((item, index) => {
+                        return (
+                            <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.taskId + '7'} showArrow={false}>
+                                <QualityInspectionBoard data={item} index={index} />
+                            </Panel>
+                        )
+                    })
+                }
+
+                {/* 接货品控 */}
+                {
+                    mine.model === 'recvctrl' && mine.taskList.map((item, index) => {
+                        return (
+                            <Panel header="" extra={genExtrazj(`${JSON.stringify(item)}`)} key={item.taskId + '9'} showArrow={false}>
+                                <QualityControlBoard data={item} index={index} />
+                            </Panel>
+                        )
+                    })
+                }
+
               {/* 配送 */}
               {
-                mine.LoadingTaskList && mine.LoadingTaskList.map((item, index) => {
+                  mine.model === 'loading' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.TaskId + '7'} showArrow={false}>
+                    <Panel header="" extra={genExtraps(`${JSON.stringify(item)}`)} key={item.taskId + '10'} showArrow={false}>
                       <LoadingBoard data={item} index={index} />
                     </Panel>
                   )
@@ -319,20 +402,20 @@ export const MinePage = () => {
 
               {/* 设备启动 */}
               {
-                mine.equipmentStartTaskList && mine.equipmentStartTaskList.map((item, index) => {
+                  mine.model === 'poweron' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrasbqd(`${JSON.stringify(item)}`)} key={item.TaskId + '8'} showArrow={false}>
+                    <Panel header="" extra={genExtrasbqd(`${JSON.stringify(item)}`)} key={item.taskId + '11'} showArrow={false}>
                       <EquipmentStartBoard data={item} index={index} />
                     </Panel>
                   )
                 })
               }
 
-              {/* 设备维护 */}
+              {/* 设备维修 */}
               {
-                mine.equipmentMaintainTaskList && mine.equipmentMaintainTaskList.map((item, index) => {
+                  mine.model === 'repaire' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.TaskId + '9'} showArrow={false}>
+                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.taskId + '12'} showArrow={false}>
                       <EquipmentMaintainBoard data={item} index={index} />
                     </Panel>
                   )
@@ -341,9 +424,9 @@ export const MinePage = () => {
 
               {/* 设备保养 */}
               {
-                mine.equipmentByTaskList && mine.equipmentByTaskList.map((item, index) => {
+                  mine.model === 'maintain' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.TaskId + '10'} showArrow={false}>
+                    <Panel header="" extra={genExtrasbwh(`${JSON.stringify(item)}`)} key={item.taskId + '13'} showArrow={false}>
                       <EquipmentByBoard data={item} index={index} />
                     </Panel>
                   )
@@ -352,9 +435,9 @@ export const MinePage = () => {
 
               {/* 异常上报 */}
               {
-                mine.AbnormalTaskList && mine.AbnormalTaskList.map((item, index) => {
+                  mine.model === 'exception' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraycsb(`${JSON.stringify(item)}`)} key={item.TaskId + '11'} showArrow={false}>
+                    <Panel header="" extra={genExtraycsb(`${JSON.stringify(item)}`)} key={item.taskId + '14'} showArrow={false}>
                       <AbnormalBoard data={item} index={index} />
                     </Panel>
                   )
@@ -363,10 +446,44 @@ export const MinePage = () => {
 
               {/* 班组长 */}
               {
-                mine.ForemanTaskList && mine.ForemanTaskList.map((item, index) => {
+                  mine.model === 'leader' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtraBzz(`${JSON.stringify(item)}`)} key={item.TaskId + '12'} showArrow={false}>
-                      <Foreman data={item} index={index} />
+                    <Panel header="" extra={genExtraBzz(`${JSON.stringify(item)}`)} key={item.taskId + '15'} showArrow={false}>
+                      <ForemanBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+              {/* 回筐 */}
+                {
+                    mine.model === 'recycle' && mine.taskList.map((item, index) => {
+                        return (
+                            <Panel header="" extra={genExtrahk(`${JSON.stringify(item)}`)} key={item.taskId + '23'} showArrow={false}>
+                                <BasketBoard data={item} index={index}/>
+                            </Panel>
+                        )
+                    })
+                }
+
+              {/* 返库 */}
+              {
+                  mine.model === 'reenter' && mine.taskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.taskId + '16'} showArrow={false}>
+                      <ReturnWarehouseBoard data={item} index={index} />
+                    </Panel>
+                  )
+                })
+              }
+
+
+              {/* 盘库 */}
+              {
+                  mine.model === 'fixstock' && mine.taskList.map((item, index) => {
+                  return (
+                    <Panel header="" extra={genExtraPk(`${JSON.stringify(item)}`)} key={item.taskId + '17'} showArrow={false}>
+                      <InventoryBoard data={item.inStockSkuList} index={index} />
                     </Panel>
                   )
                 })
@@ -376,6 +493,19 @@ export const MinePage = () => {
           </div>
         </Col>
       </Row>
+
+    <Modal title=""
+           width={300}
+           centered
+           visible={mine.loading}
+           okText="确定"
+           className="add-mask"
+           footer={[]}
+           onCancel={() => {mine.setLoading(false)}}>
+        <div className="detail-list">
+            <img className="img" src="http://123.57.137.181:8090/Img/loading.gif" alt="loading..."/>
+        </div>
+    </Modal>
     </div>
   )
 }

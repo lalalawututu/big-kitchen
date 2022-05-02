@@ -1,11 +1,11 @@
 import React from 'react';
-import groupYieldContainer from '../../container/groupYield';
 import { GroupYieldPage } from '../../components/groupYield';
+import perfContainer from "../../container/performance";
 
 export const GroupYield = () => {
 	return (
-		<groupYieldContainer.Provider>
+		<perfContainer.Provider>
 			<GroupYieldPage />
-		</groupYieldContainer.Provider>
+		</perfContainer.Provider>
 	)
 }

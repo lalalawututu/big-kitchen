@@ -8,7 +8,7 @@ export const ProductionListPage = () => {
     history.push(`/productioncheck/?ProductCode=${text.ProductCode}`);
   }
   const detailState = (text) => {
-    history.push(`/productiondetail/?ProductCode=${text.ProductCode}`);
+    history.push(`/ProduceManage/${text}`);
   }
   const columns = [
     {
@@ -16,6 +16,12 @@ export const ProductionListPage = () => {
       title: '计划名称',
       dataIndex: 'PlanName',
       key: 'PlanName',
+    },
+    {
+      align: 'center',
+      title: '批次',
+      dataIndex: 'Batch',
+      key: 'Batch',
     },
     {
       align: 'center',
@@ -46,19 +52,19 @@ export const ProductionListPage = () => {
       title: '操作',
       key: 'action',
       render: (text, record) => (
-        <Space size="middle">
-          <Button className="common-btn-bg" onClick={() => checkState(text)}>审核</Button>
-          <Button className="common-btn-bg">撤回</Button>
-          <Button className="common-btn-bg" onClick={() => detailState(text)}>查看</Button>
-        </Space>
+          <Space size="middle">
+            <Button className="common-btn-bg" onClick={() => checkState(text)}>审核</Button>
+            <Button className="common-btn-bg">撤回</Button>
+            <Button className="common-btn-bg" onClick={() => detailState(record.PlanIndex.split("/")[2])}>查看</Button>
+          </Space>
       ),
     },
   ];
   return (
-    <div className="container">
-      <div className="common-long-table">
-        <Table columns={columns} dataSource={planList.data}/>
+      <div className="container">
+        <div className="common-long-table">
+          <Table columns={columns} dataSource={planList.data}/>
+        </div>
       </div>
-    </div>
   )
 }

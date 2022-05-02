@@ -52,17 +52,17 @@ export const ProductionDetailPage = () => {
       title: '操作',
       key: 'action',
       render: (text, record) => (
-        <Space size="middle">
-          <Button className="common-btn-bg">查看</Button>
-        </Space>
+          <Space size="middle">
+            <Button className="common-btn-bg">查看</Button>
+          </Space>
       ),
     },
   ];
   return (
-    <div className="container">
-      <div className="common-long-table">
-        <Table columns={columns} dataSource={detail.data} />
+      <div className="container">
+        <div className="common-long-table">
+          <Table columns={columns} dataSource={detail.data} />
+        </div>
       </div>
-    </div>
   )
 }

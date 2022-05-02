@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createContainer } from "unstated-next";
-import { useMount } from '../../utils/index.ts';
+import { useMount } from '../../utils';
 
 const apiWorkUrl = process.env.REACT_APP_API_WORKURL;
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import costContainer from '../../container/cost';
-import { CostPage } from '../../components/cost';
+import CostPage from '../../components/cost';
 
-export const Cost = () => {
+const Cost = () => {
 	return (
 		<costContainer.Provider>
 			<CostPage />
 		</costContainer.Provider>
 	)
 }
+
+export default Cost

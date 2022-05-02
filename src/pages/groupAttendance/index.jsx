@@ -1,11 +1,11 @@
 import React from 'react';
-import groupAttendanceContainer from '../../container/groupAttendance';
 import { GroupAttendancePage } from '../../components/groupAttendance';
+import perfContainer from "../../container/performance";
 
 export const GroupAttendance = () => {
 	return (
-		<groupAttendanceContainer.Provider>
+		<perfContainer.Provider>
 			<GroupAttendancePage />
-		</groupAttendanceContainer.Provider>
+		</perfContainer.Provider>
 	)
 }

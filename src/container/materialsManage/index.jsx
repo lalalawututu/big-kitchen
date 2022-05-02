@@ -1,28 +1,33 @@
 import { useState } from 'react'
 import { createContainer } from "unstated-next"
-import { useMount } from '../../utils/index.ts'
+import { useMount } from '../../utils'
+import {Sync_Server} from "../../common";
 
-const materialUrl = process.env.REACT_APP_API_MATERIALURL
+const getDataFromBlockchain = Sync_Server + "/data/blockchain?model="
 
 const useList = () => {
   const [initialData, setInitialData] = useState([]);
   const [data, setData] = useState([])
+  const [boms, setBoms] = useState([])
 
   useMount(() => {
-    fetch(`${materialUrl}`).then(async (response) => {
+    let url = getDataFromBlockchain + "sku"
+    fetch(`${url}`).then(async (response) => {
       if (response.ok) {
         let dataJson = await response.json()
-        let planList = dataJson.data.List
+        // console.log(dataJson.content)
+        let planList = JSON.parse(dataJson.content)
+        // console.log(planList)
         let data = []
-        planList.forEach((item, index) => {
+        planList.material.forEach((item, index) => {
           let panInfo = {
-            materialName : item.materialName,
-            type : item.type,
-            Unit : item.Unit,
-            supplier : item.supplier,
-            brand : item.brand,
-            imgurl: item.imgurl,
-            key: index
+            key: item.sku_code,
+            sku_code: item.sku_code,
+            materialName: item.sku_name,
+            supplier: item.sku_supplier,
+            Unit: item.sku_uom,
+            brand: item.sku_brand,
+            type: item.sku_type,
           }
           data.push(panInfo)
         })
@@ -30,8 +35,51 @@ const useList = () => {
         setInitialData(data)
       }
     })
+    getBoms()
   })
-  return {data, setData, initialData}
+
+  const getBoms = () => {
+    let url = getDataFromBlockchain + "boms"
+    fetch(`${url}`).then(async (response) => {
+      if (response.ok) {
+        let dataJson = await response.json()
+        // console.log(dataJson.content)
+        let planList = JSON.parse(dataJson.content)
+        // console.log(planList)
+        let data = {}
+        planList.bom.forEach((item, index) => {
+          item.material.forEach((item2)=>{
+            if (data.hasOwnProperty(item.finishedSkuCode)) {
+              let panInfo = {
+                key: item2.skuCode,
+                FinishSkuCode: '',
+                BomName: '',
+                Material: item2.skuCode,
+                Quantity: item2.quantity,
+                Rate: '',
+              }
+              data[item.finishedSkuCode].push(panInfo)
+            }else {
+              let panInfo = {
+                key: item2.skuCode,
+                FinishSkuCode: item.finishedSkuCode,
+                BomName: item.bomName,
+                Material: item2.skuCode,
+                Quantity: item2.quantity,
+                Rate: '90%',
+              }
+              data[item.finishedSkuCode] = [panInfo]
+            }
+          })
+        })
+        console.log(data)
+        let bom = Object.entries(data).map((value) => value[1]).reduce((arr,cur)=>arr.concat(cur))
+        console.log(bom)
+        setBoms(bom)
+      }
+    })
+  }
+  return {data, boms, initialData, setData, setBoms}
 }
 
 let materialsManageContainer = createContainer(useList)

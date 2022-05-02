@@ -1,27 +1,33 @@
 import { useState } from 'react'
 import { createContainer } from "unstated-next"
-import { useMount } from '../../utils/index.ts'
+import {getAnchorModel, useMount} from '../../utils'
+import {APS_Server} from "../../common";
 
-const apiPlanUrl = process.env.REACT_APP_API_PLANURL
+// const apiPlanUrl = process.env.REACT_APP_API_PLANURL
+const apiPlanUrl = APS_Server + "/data/blockchain/plans?model="
 
 const useProductionList = () => {
   const [data, setData] = useState([])
 
+  let url = apiPlanUrl + getAnchorModel()
   useMount(() => {
-    fetch(`${apiPlanUrl}`).then(async (response) => {
+    fetch(`${url}`).then(async (response) => {
       if (response.ok) {
         let dataJson = await response.json()
-        let planList = dataJson.data.List
+        console.log(dataJson.content)
+        let planList = JSON.parse(dataJson.content)
+        console.log(planList)
         let data = []
         planList.forEach((item, index) => {
           let panInfo = {
-            PlanName : item.PlanName,
-            PlanStartTime : item.PlanStartTime,
-            PlanEndTime : item.PlanEndTime,
-            TaskNumber : item.TaskNumber,
-            CheckStatusName : item.CheckStatusName,
-            ProductCode : item.ProductCode,
-            key: item.ProductCode
+            PlanName : item.planName,
+            PlanStartTime : item.startAt,
+            PlanEndTime : item.startAt + item.duration,
+            TaskNumber : item.taskList.length,
+            CheckStatusName : item.productQuantity,
+            Batch : item.batchSn,
+            PlanIndex : item.planIndex,
+            key: item.planId
           }
           data.push(panInfo)
         })
@@ -32,5 +38,5 @@ const useProductionList = () => {
   return {data, setData}
 }
 
-let ProdutionListContainer = createContainer(useProductionList)
-export default ProdutionListContainer
+let ProductionListContainer = createContainer(useProductionList)
+export default ProductionListContainer

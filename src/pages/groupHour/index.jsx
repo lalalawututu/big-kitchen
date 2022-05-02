@@ -1,11 +1,11 @@
 import React from 'react';
-import groupHourContainer from '../../container/groupHour';
 import { GroupHourPage } from '../../components/groupHour';
+import perfContainer from "../../container/performance";
 
 export const GroupHour = () => {
 	return (
-		<groupHourContainer.Provider>
+		<perfContainer.Provider>
 			<GroupHourPage />
-		</groupHourContainer.Provider>
+		</perfContainer.Provider>
 	)
 }

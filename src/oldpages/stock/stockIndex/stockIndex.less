@@ -1,0 +1,192 @@
+.stock-content {
+
+    //头部内容
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0 0.45rem;
+
+        .title {
+            font-size: 0.24rem;
+            font-weight: 400;
+            color: #333951;
+            line-height: 0.33rem;
+        }
+
+        .menu {
+            display: flex;
+            font-size: 0.2rem;
+            font-weight: 600;
+            color: #333951;
+
+            div {
+                margin-left: 0.2rem;
+            }
+        }
+    }
+
+    //头部内容
+    .ant-collapse-header{
+        height: 0.93rem;
+        padding: 0 0.5rem;
+        background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
+        box-shadow: 0px 0.36rem 0.36rem 0px rgba(183, 183, 241, 0.1);
+        border-radius: 0.4rem!important;
+        font-size: 0.24rem;
+        display: flex!important;
+        align-items: center !important;
+        margin-bottom: 0.1rem;
+    }
+    .ant-collapse-content-box,.ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box{
+        padding: 0;
+    }
+    .ant-collapse-header{
+        padding: 0 0.5rem 0 !important;
+    }
+    //图标右间距
+    .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
+        right: 0.5rem!important;
+        color: #5F57A4;
+        font-size: 0.15rem;
+    }
+
+    .produce-container {
+        padding: 0.3rem 0 0.05rem;
+        margin-bottom: 0rem;
+
+        .produce-plan-today {
+            padding: 0 0.2rem 0 0;
+        }
+
+        .progress-step {
+            margin-left: 0.2rem;
+        }
+
+        .txt-info {
+            margin-left: 0.2rem;
+            width: 50%;
+
+            p {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 0.1rem;
+                font-size: 0.14rem;
+                color: #9598A8;
+            }
+        }
+    }
+
+    // 查看原料信息按钮
+    .lookInfo {
+        height: 0.49rem;
+        padding: 0 0.33rem;
+        background: #6C6CE5;
+        border-radius: 0.16rem;
+        color: #FFFFFF;
+        font-size: 0.18rem;
+    }
+
+    /* 进度调样式重置 */
+    .collapseHeader ul .my-progress .ant-progress-inner {
+        border-radius: unset !important;
+    }
+
+    .collapseHeader ul .my-progress .ant-progress-bg {
+        height: 15px !important;
+        border-radius: unset !important;
+    }
+
+}
+
+//新的表格样式
+.table_new {
+
+    .ant-table {
+        background: transparent;
+        box-shadow: 0 0.36rem 0.36rem 0 rgba(183, 183, 241, 0.1);
+        border-radius: 0.4rem;
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0 .11rem;
+        }
+    }
+
+    .ant-table-thead {
+        border: 1px solid #E5E5F0;
+
+        tr {
+            th {
+                padding: .22rem .08rem !important;
+                text-align: center;
+                color: #9598A8;
+                // font-weight: 600;
+                font-size: 0.2rem;
+            }
+
+            th:first-of-type {
+                border-radius: 0.4rem 0 0 0.4rem !important;
+            }
+
+            th:last-of-type {
+                border: none;
+                border-radius: 0 .4rem .4rem 0 !important;
+            }
+        }
+    }
+
+    .ant-table-tbody {
+        tr {
+            box-shadow: 0 .36rem .36rem 0 rgba(183, 183, 241, 0.1);
+
+            td {
+                font-size: 0.22rem;
+                // font-weight: 600;
+                color: #333951;
+                text-align: center;
+                padding: .39rem 0 !important;
+                background: linear-gradient(135deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
+                border-image: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)) 0.01 0.01;
+            }
+
+            td:first-of-type {
+                border-radius: .4rem 0 0 .4rem;
+            }
+
+            td:last-of-type {
+                border: none;
+                border-radius: 0 .4rem .4rem 0;
+            }
+
+            span {
+                font-size: .2rem;
+                color: #9598A8;
+                display: block;
+            }
+
+            strong {
+                font-size: .22rem;
+                color: #333951;
+                font-weight: 600;
+            }
+
+            .cyan {
+                color: #24B5D0;
+            }
+
+            .purple {
+                color: #625EE4;
+            }
+
+            .red {
+                color: #FF4B4B;
+            }
+        }
+    }
+
+    .common-btn-bg {
+        width: .76rem;
+        height: .54rem;
+    }
+}

@@ -1,0 +1,48 @@
+@import '~antd/dist/antd.less';
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 1600px;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p{
+  margin-bottom: 0px;
+}
+.Tab_link a{
+    margin-right: 10px;
+    font-size: 18px;
+    color: blue;
+}
+
+h3 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 38px;
+  color: green;
+}
+.Tab_link div{
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+//修复react-bootstorp样式对ant分页组件样式的影响
+.ant-pagination .anticon{
+  vertical-align: 0.2em;
+}

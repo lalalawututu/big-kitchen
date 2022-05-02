@@ -1,0 +1,61 @@
+.stock-list {
+
+    .from-box{
+        background: whitesmoke;
+        padding: 20px;
+
+        .from-lable{
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+
+            &>p{
+                width: 130px;
+                margin-right: 20px;
+                font-size: 17px;
+                color: dimgrey;
+            }
+
+            &:first-child .ant-radio-button-wrapper, &:nth-of-type(2) .ant-radio-button-wrapper{
+                width: 90px;
+                margin-right: 10px;
+                text-align: center;
+            }
+            
+            &:last-child .ant-radio-button-wrapper{
+                margin-right: 10px;
+            }
+
+            .small-input{
+                width: 150px;
+                &+span{
+                    margin: 0px 10px;
+                }
+            }
+        }
+    }
+
+    .page-box{
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .crumbs{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid lightgray;
+        button{
+            margin-left: 10px;
+        }
+        .crumbs-href{
+            cursor: pointer;
+            &:hover{
+                color: #1890FF;
+            }
+        }
+    }
+}

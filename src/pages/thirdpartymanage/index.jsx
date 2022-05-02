@@ -1,11 +1,11 @@
 import React from 'react';
-import ThirdPartyManageContainer from '../../container/thirdpartymanage';
+import ThirdPartyMangeContainer from '../../container/thirdpartymange';
 import { ThirdPartyManagePage } from '../../components/thirdpartymanage';
 
 export const ThirdPartyManage = () => {
 	return (
-		<ThirdPartyManageContainer.Provider>
+		<ThirdPartyMangeContainer.Provider>
 			<ThirdPartyManagePage />
-		</ThirdPartyManageContainer.Provider>
+		</ThirdPartyMangeContainer.Provider>
 	)
 }
