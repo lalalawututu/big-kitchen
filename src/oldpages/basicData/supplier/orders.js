@@ -2,9 +2,8 @@ import React from 'react'
 import { Table, Button, Input, Space } from 'antd';
 import './index.less'
 import SupplierContainer from '../../../container/basicData/supplier/index'
-import { SearchOutlined, DiffOutlined } from '@ant-design/icons';
+import { SearchBanner } from '../../../components/commonSearch'
 import history from '../../../history'
-const { Search } = Input;
 
 //表格
 function TableFun() {
@@ -47,16 +46,7 @@ function SearchFun() {
     }
     return (
         <div className="search-container">
-            <Search
-                placeholder="供货商名称"
-                value={supplier.searchKey || ''}
-                onChange={(evt) =>
-                    supplier.searchInfo(evt.target.value)
-                }
-                onSearch={supplier.searchSupplierOrder}
-                prefix={<SearchOutlined />}
-                allowClear
-                enterButton="搜索" size="middle" />
+            <SearchBanner initialData={supplier.iniOrdersData} setData={supplier.setOrdersData} param={'SUPPLYORDER'}/>
         </div>
     )
 }

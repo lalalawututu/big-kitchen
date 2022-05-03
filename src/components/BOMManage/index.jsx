@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import materialsManageContainer from '../../container/materialsManage'
-import { SearchBanner } from '../../pages/commonSearch/index'
+import { SearchBanner } from '../../components/commonSearch/index'
 import { Table, Button, Space, Modal } from 'antd'
 import { DiffOutlined } from '@ant-design/icons'
 import history from '../../history'

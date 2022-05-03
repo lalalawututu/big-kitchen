@@ -7,8 +7,10 @@ const getPOrdersUrl = APS_Server + "/data/blockchain/porder"
 const getDataFromBlockchain = Sync_Server + "/data/blockchain?model="
 
 const useSupplier = () => {
+    const [iniTableData, setIniTableData] = useState([]);  //表格数据
     const [tableData, setTableData] = useState([]);  //表格数据
     const [priceData, setPriceData] = useState([]);  //表格数据
+    const [iniOrdersData, setIniOrdersData] = useState([]);  //表格数据
     const [ordersData, setOrdersData] = useState([]);  //表格数据
     const [searchKey, setSearchKey] = useState(''); //搜索供货商姓名
     const fmt_time = ((t) => { return t.getMonth() + ':' + t.getDay()})
@@ -49,6 +51,7 @@ const useSupplier = () => {
                     data.push(panInfo)
                 })
 
+                setIniTableData(data)
                 setTableData(data)
             }
         })
@@ -129,6 +132,7 @@ const useSupplier = () => {
                     })
                 })
 
+                setIniOrdersData(data)
                 setOrdersData(data)
             }
         })
@@ -152,7 +156,7 @@ const useSupplier = () => {
         getOrdersData();
     }
 
-    return { tableData, searchKey, priceData, ordersData, searchInfo, searchSupplier, searchDemandPrice, searchSupplierOrder }
+    return { tableData, searchKey, priceData, ordersData, iniTableData, iniOrdersData, searchInfo, searchSupplier, searchDemandPrice, searchSupplierOrder, setOrdersData, setTableData }
 }
 
 let SupplierContainer = createContainer(useSupplier)

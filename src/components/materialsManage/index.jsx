@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import materialsManageContainer from '../../container/materialsManage'
-import { SearchBanner } from '../../pages/materialsearchbanner/index'
+import { SearchBanner } from '../../components/commonSearch'
 import { Table, Button, Space, Modal } from 'antd'
 import { DiffOutlined } from '@ant-design/icons'
 import history from '../../history'
@@ -80,7 +80,7 @@ export const MaterialsListPage = () => {
   return (
     <div className="container">
       <div className="search-container flex" style={{margin: 0}}>
-        <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
+        <SearchBanner initialData={materialList.initialData} setData={materialList.setData} param={'SKU'}/>
         <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>
       </div>
 

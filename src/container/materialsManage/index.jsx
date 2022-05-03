@@ -33,6 +33,7 @@ const useList = () => {
           data.push(panInfo)
         })
         setData(data)
+        console.log(data)
         setInitialData(data)
       }
     })
@@ -76,7 +77,7 @@ const useList = () => {
         let bom = Object.entries(data).map((value) => value[1]).reduce((arr,cur)=>arr.concat(cur))
         setIniBoms(bom)
         setBoms(bom)
-
+        console.log(bom)
       }
     })
   }
