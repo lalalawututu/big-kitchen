@@ -72,7 +72,7 @@ export const BOMListPage = () => {
       key: 'action',
       render: (text, record) => (
         <Space size="middle">
-          <Button className="common-btn-bg" onClick={() => detail(text)}>查看</Button>
+          <Button className="common-btn-bg" onClick={() => detail(text)}>图片</Button>
         </Space>
       ),
     },
@@ -96,11 +96,11 @@ export const BOMListPage = () => {
         footer={[]}
         onCancel={handleOk}>
         <div className="detail-list">
-          <p><span>物料名称</span>{materialDetail.materialName}</p>
-          <p><span>类型</span>{materialDetail.type}</p>
-          <p><span>规格</span>{materialDetail.Unit}</p>
-          <p><span>供货商</span>{materialDetail.supplier}</p>
-          <p><span>品牌</span>{materialDetail.brand}</p>
+          {/*<p><span>物料名称</span>{materialDetail.materialName}</p>*/}
+          {/*<p><span>类型</span>{materialDetail.type}</p>*/}
+          {/*<p><span>规格</span>{materialDetail.Unit}</p>*/}
+          {/*<p><span>供货商</span>{materialDetail.supplier}</p>*/}
+          {/*<p><span>品牌</span>{materialDetail.brand}</p>*/}
           <div>
             <p><span>原料照片</span></p>
             <img className="img" src={materialDetail.imgurl} alt="" />

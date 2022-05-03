@@ -145,12 +145,12 @@ export const SimErp = () => {
 
   return (
     <div className="container">
-      <Layout className="site-layout-background menu-list">
+      <Layout className="menu-list menu-lists">
         {
           manager.customer ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">客户签约</h3>
                       <div className="time-import">
@@ -167,7 +167,7 @@ export const SimErp = () => {
           manager.supplier ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">供应商入住</h3>
                     </div>
@@ -180,7 +180,7 @@ export const SimErp = () => {
           manager.purchase ?
             <Layout className="site-layout" style={{ marginLeft: margin_left }}>
               <Content className="sider-content">
-                <div className="site-layout-background">
+                <div className="common-long-table">
                   <div className="flex-between">
                     <h3 className="content-title">采购单</h3>
                     <div className="time-import">
@@ -196,7 +196,7 @@ export const SimErp = () => {
           manager.orders ?
             <Layout className="site-layout" style={{ marginLeft: margin_left }}>
               <Content className="sider-content">
-                <div className="site-layout-background">
+                <div className="common-long-table">
                   <div className="flex-between">
                     <h3 className="content-title">销售订单</h3>
                   </div>
