@@ -9,6 +9,7 @@ const useList = () => {
   const [initialData, setInitialData] = useState([]);
   const [data, setData] = useState([])
   const [boms, setBoms] = useState([])
+  const [initialBoms, setIniBoms] = useState([])
 
   useMount(() => {
     let url = getDataFromBlockchain + "sku"
@@ -72,14 +73,14 @@ const useList = () => {
             }
           })
         })
-        console.log(data)
         let bom = Object.entries(data).map((value) => value[1]).reduce((arr,cur)=>arr.concat(cur))
-        console.log(bom)
+        setIniBoms(bom)
         setBoms(bom)
+
       }
     })
   }
-  return {data, boms, initialData, setData, setBoms}
+  return {data, initialBoms, boms, initialData, setData, setBoms}
 }
 
 let materialsManageContainer = createContainer(useList)
