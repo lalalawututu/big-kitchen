@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Button, Input, Space } from 'antd';
 import './index.less'
 import SupplierContainer from '../../../container/basicData/supplier/index'
-import { SearchBanner } from '../../../components/commonSearch'
+import { SearchBanner } from '../../../components/searchContentOr'
 import history from '../../../history'
 
 //表格
@@ -66,7 +66,7 @@ function SearchFun() {
     }
     return (
         <div className="search-container">
-            <SearchBanner initialData={supplier.iniTableData} setData={supplier.setTableData} param={'SUPPLYESTIMATE'}/>
+            <SearchBanner initialData={supplier.iniTableData} setData={supplier.setTableData} searchKeys={['supplier_name', 'linkman']}/>
         </div>
     )
 }

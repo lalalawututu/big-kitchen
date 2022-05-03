@@ -3,18 +3,18 @@ import { useState, useEffect } from "react";
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useDebounce } from '../../utils';
-import { searchContent } from '../../utils/searchBusiness';
+import { searchContentOr } from '../../utils/searchContentOr';
 import './index.less';
 
 const { Search } = Input;
 
-export const SearchBanner = ({ initialData, setData, param }) => {
+export const SearchBanner = ({ initialData, setData, searchKeys }) => {
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounce(inputValue, 2000);
 
 	const search = () => {
 		if (inputValue !== '') {
-			searchContent(inputValue, initialData, param, setData);
+			searchContentOr(inputValue, initialData, searchKeys, setData);
 		} else {
 			setData(initialData);
 		}
@@ -22,7 +22,7 @@ export const SearchBanner = ({ initialData, setData, param }) => {
 
 	useEffect(() => {
 		if (inputValue !== '') {
-			searchContent(inputValue, initialData, param, setData);
+			searchContentOr(inputValue, initialData, searchKeys, setData);
 		} else {
 			setData(initialData);
 		}
