@@ -81,7 +81,7 @@ export const MaterialsListPage = () => {
     <div className="container">
       <div className="search-container flex" style={{margin: 0}}>
         <SearchBanner initialData={materialList.initialData} setData={materialList.setData} />
-        <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>
+        {/*<Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>*/}
       </div>
 
       <div className="common-long-table">

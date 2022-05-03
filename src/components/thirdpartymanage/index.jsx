@@ -299,7 +299,7 @@ export const ThirdPartyManagePage = () => {
           manager.customer ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="site-layout-background common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">客户列表</h3>
                       <div className="time-import">
@@ -316,7 +316,7 @@ export const ThirdPartyManagePage = () => {
           manager.supplier ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="site-layout-background common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">供应商列表</h3>
                       <div className="time-import">
@@ -333,7 +333,7 @@ export const ThirdPartyManagePage = () => {
           manager.purchase ?
             <Layout className="site-layout" style={{ marginLeft: margin_left }}>
               <Content className="sider-content">
-                <div className="site-layout-background">
+                <div className="site-layout-background common-long-table">
                   <div className="flex-between">
                     <h3 className="content-title">报价单</h3>
                   </div>
@@ -346,7 +346,7 @@ export const ThirdPartyManagePage = () => {
           manager.orders ?
             <Layout className="site-layout" style={{ marginLeft: margin_left }}>
               <Content className="sider-content">
-                <div className="site-layout-background">
+                <div className="site-layout-background common-long-table">
                   <div className="flex-between">
                     <h3 className="content-title">销售订单</h3>
                     <div className="time-import">
@@ -363,7 +363,7 @@ export const ThirdPartyManagePage = () => {
           manager.people ?
             <Layout className="site-layout" style={{ marginLeft: margin_left }}>
               <Content className="sider-content">
-                <div className="site-layout-background">
+                <div className="site-layout-background common-long-table">
                   <div className="flex-between">
                     <h3 className="content-title">员工信息</h3>
                     <div className="time-import">
@@ -380,7 +380,7 @@ export const ThirdPartyManagePage = () => {
           manager.sku ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="site-layout-background common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">SKU</h3>
                       <div className="time-import">
@@ -397,7 +397,7 @@ export const ThirdPartyManagePage = () => {
           manager.demand ?
               <Layout className="site-layout" style={{ marginLeft: margin_left }}>
                 <Content className="sider-content">
-                  <div className="site-layout-background">
+                  <div className="site-layout-background common-long-table">
                     <div className="flex-between">
                       <h3 className="content-title">生产需求</h3>
                     </div>
