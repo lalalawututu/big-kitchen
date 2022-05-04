@@ -517,11 +517,11 @@ export const MinePage = () => {
            centered
            visible={mine.loading}
            okText="确定"
-           className="add-mask"
+           className="add-mask loading-mask"
            footer={[]}
            onCancel={() => {mine.setLoading(false)}}>
-        <div className="detail-list">
-            <img className="img" src="http://123.57.137.181:8090/Img/loading.gif" alt="loading..."/>
+        <div className="loading">
+            <img src={require('../../style/img/loading.gif')} alt="loading..."/>
         </div>
     </Modal>
     </div>
