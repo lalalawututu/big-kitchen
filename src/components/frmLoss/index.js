@@ -1,69 +1,51 @@
-import React from 'react'
-import { Form, Input, Button, Select, Space, Typography } from 'antd';
-import FrmLoss from '@/container/frmLoss';
-const { Option } = Select;
-const { Title } = Typography;
+import { Table, Input,Tag,DatePicker,Button } from 'antd';
+import FrmLoss from '../../container/frmLoss';
+import './index.less'
+const { Search } = Input;
 
-//form表单
-function FormFun() {
-  const [form] = Form.useForm()
-
-  //保存报损
-  const saveForm = () => {
-    form.validateFields().then(values => {
-      //   workshop.onFinish(values)
-    })
-  }
-
+//搜索
+function SearchFun() {
   return (
-    <div className='work-create-information materials-create-box'>
-      <div className='creator-content shadow'>
-        <Form
-          className='creator-form'
-          layout='inline'
-          initialValues={{}}
-          autoComplete="off"
-          form={form}
-        >
-          <Form.Item label="商品批号" name="WorkShopName" >
-            <Input className='field-input' />
-          </Form.Item>
-
-          <Form.Item name="Floor" label="所属仓库">
-            <Select
-              placeholder="请选择"
-              allowClear
-              className='field-select'
-              dropdownClassName='field-select-dropdown'
-              dropdownMatchSelectWidth={false}
-            >
-              {/* <Option value="一层">一层</Option>
-              <Option value="二层">二层</Option>
-              <Option value="三层">三层</Option> */}
-            </Select>
-          </Form.Item>
-
-          <Form.Item label="商品名称" name="Area" >
-            <Input className='field-input' />
-          </Form.Item>
-        </Form>
+    <div>
+      <div className='tags-wrap'>
+        <div className='title'>按天查询</div>
+        <div className='flex'>
+          <Tag className='active'>今天</Tag>
+          <Tag className=''>昨天</Tag>
+          <DatePicker className='field-date' />
+          <Button type="primary" className='btn'>确定</Button>
+        </div>
       </div>
-      <div className='creator-content shadow module-form'>
-        <Title className='content-title' level={4}>报损原因</Title>
-      </div>
-      <Space className='buttons btn'>
-        <Button className='chen-button shadow'>取消</Button>
-        <Button className='chen-button shadow primary' onClick={saveForm}>保存</Button>
-      </Space>
     </div>
-  );
+  )
 }
 
-
-export default function add() {
+//表格
+function TableFun() {
+  let frmLoss = FrmLoss.useContainer();
+  const columns = [
+    { title: '订单号', dataIndex: 'lossCode', key: 'lossCode', ellipsis: true, align: 'center' },
+    { title: '客户', dataIndex: 'customer', key: 'customer', ellipsis: true, align: 'center' },
+    { title: '菜品', dataIndex: 'food', key: 'food', ellipsis: true, align: 'center' },
+    { title: '数量', dataIndex: 'number', key: 'number', ellipsis: true, align: 'center' },
+    { title: '报损原因', dataIndex: 'lossReason', key: 'lossReason', ellipsis: true, align: 'center' },
+  ]
   return (
-    <div className='supplierIndex'>
-      <FormFun />
+    <div className='tableList_new'>
+      <Table
+        rowKey={record => record.id}
+        columns={columns}
+        dataSource={frmLoss.data}
+      />
+    </div>
+  )
+}
+
+export default function frmLoss() {
+  return (
+    <div className='distribution container frmLoss'>
+      <SearchFun />
+      <TableFun />
     </div >
   )
 }

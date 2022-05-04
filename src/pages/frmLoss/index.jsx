@@ -1,6 +1,6 @@
-import React from 'react'
+//报损管理
 import FrmLossIndex from '../../components/frmLoss/index'
-import frmLossContainer from '@/container/frmLoss'
+import frmLossContainer from '../../container/frmLoss'
 
 export default function FrmLoss() {
   return (

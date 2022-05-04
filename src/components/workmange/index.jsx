@@ -1,14 +1,29 @@
 import workMangeContainer from '../../container/workmange'
-import { Table, Button, Space } from 'antd'
+import { Table, Button, Space, Breadcrumb } from 'antd'
 import './index.less'
-import {SearchBanner} from "../searchbanner";
-import history from "../../history";
+import { SearchBanner } from "../searchbanner";
+
+//去添加工艺页面
+const workInfo = () => {
+  window.location = `/#/workcreate`
+}
+
+const CrumbList = () => {
+  return (
+    <div className='crumbHeader'>
+      <Breadcrumb separator="<">
+        <Breadcrumb.Item>基础信息维护</Breadcrumb.Item>
+        <Breadcrumb.Item style={{'color':'#333951'}}>工艺管理（适用于生产线）</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className='title' onClick={() => workInfo()} >添加工艺</div>
+    </div>
+  )
+}
 
 export const WorkMangePage = () => {
   let manage = workMangeContainer.useContainer()
   const workInfo = (text) => {
     window.location = `/#/workinformation/?id=${text.WorkmanshipId}`
-    // history.push("/#/workinformation/?id=" + text.WorkmanshipId);
   }
   const columns = [
     {
@@ -54,6 +69,7 @@ export const WorkMangePage = () => {
 
   return (
     <div className="container">
+      <CrumbList />
       <SearchBanner initialData={manage.initialData} setData={manage.setData} />
       <div className="table-no-header">
         <Table columns={columns} dataSource={manage.data} />

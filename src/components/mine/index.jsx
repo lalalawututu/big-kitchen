@@ -3,6 +3,7 @@ import {Row, Col, Space, Button, Progress, Collapse, Descriptions, Spin, Alert, 
 import { PoweroffOutlined } from '@ant-design/icons'
 import './index.less'
 
+import SupplementBoard from '../bulletinBoard/supplement'; //补单
 import ReceivingBoard from '../bulletinBoard/receiving'; //接货看板
 import WarehousingBoard from '../bulletinBoard/warehousing'; //入库看板
 import PickingBoard from '../bulletinBoard/picking'; //领料看板
@@ -31,11 +32,30 @@ export const MinePage = () => {
         window.location = `/#/unicardswipe`
     }
 
+    //补单模拟数据
+    let supplementList = [{
+        'supplementId':'999',
+        'goodsName':'土豆',
+        'batchNumber':'001',
+        'specifications':'筐',
+        'supplementNumber':'10',
+        'happenTime':'2022-02-21 09:00',
+        'reason':'土豆数量不足'
+    },{
+        'supplementId':'998',
+        'goodsName':'净土豆丝',
+        'batchNumber':'002',
+        'specifications':'筐',
+        'supplementNumber':'20',
+        'happenTime':'2022-02-21 09:00',
+        'reason':'净土豆丝产能不足'
+    }]
+
   //接货头部
   const genExtra = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-      <Descriptions.Item label="工单内容">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
+      <Descriptions.Item label="物料">{JSON.parse(item).TaskContent || ''}</Descriptions.Item>
       <Descriptions.Item label="规格">{JSON.parse(item).Specification || ''}</Descriptions.Item>
       <Descriptions.Item label="重量">{JSON.parse(item).Weight + JSON.parse(item).Unit || ''}</Descriptions.Item>
       <Descriptions.Item label="计划起止时间">
@@ -60,9 +80,9 @@ export const MinePage = () => {
   const genExtrasc = (item) => (
     <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
       <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-      <Descriptions.Item label="工单内容">{JSON.parse(item).Production || ''}</Descriptions.Item>
+      <Descriptions.Item label="产成品">{JSON.parse(item).Production || ''}</Descriptions.Item>
       <Descriptions.Item label="工序">{JSON.parse(item).Order|| ''}</Descriptions.Item>
-      <Descriptions.Item label="重量">{JSON.parse(item).OutputQuantity + JSON.parse(item).Unit || ''}</Descriptions.Item>
+      <Descriptions.Item label="计划产出">{JSON.parse(item).OutputQuantity + JSON.parse(item).Unit || ''}</Descriptions.Item>
       <Descriptions.Item label="计划起止时间">
             {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
       </Descriptions.Item>
@@ -72,9 +92,8 @@ export const MinePage = () => {
 
     //simple
     const genExtrasp = (item) => (
-        <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+        <Descriptions layout="vertical" size={'default'} column={4} className="des-box">
             <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
-            <Descriptions.Item label="工单内容">{JSON.parse(item).Production || ''}</Descriptions.Item>
             <Descriptions.Item label="计划起止时间">
                 {JSON.parse(item).PlanStartTime + ' - ' + JSON.parse(item).PlanEndTime}
             </Descriptions.Item>
@@ -98,12 +117,11 @@ export const MinePage = () => {
 
   // 包装头部
   const genExtrabz = (item) => (
-    <Descriptions layout="vertical" size={'default'} column={6} className="des-box">
-      <Descriptions.Item label="生产批次">{JSON.parse(item).batchNumber || ''}</Descriptions.Item>
-      <Descriptions.Item label="包装规格">{JSON.parse(item).Specification || ''}</Descriptions.Item>
-      <Descriptions.Item label="计划产量">{JSON.parse(item).PlanQuantity || ''}</Descriptions.Item>
-      <Descriptions.Item label="实际产量">{JSON.parse(item).ActualQuantity || ''}</Descriptions.Item>
-      <Descriptions.Item label="完成率">{JSON.parse(item).ActualQuantity ? ((JSON.parse(item).ActualQuantity / JSON.parse(item).PlanQuantity).toFixed(2)) * 100 + '%' : '-'}</Descriptions.Item>
+    <Descriptions layout="vertical" size={'default'} column={5} className="des-box">
+        <Descriptions.Item label="任务类型">{JSON.parse(item).TaskType || ''}</Descriptions.Item>
+      <Descriptions.Item label="包装规格">{JSON.parse(item).specUnit || ''}</Descriptions.Item>
+      <Descriptions.Item label="包装数量">{JSON.parse(item).specAmount || ''}</Descriptions.Item>
+      <Descriptions.Item label="完成率">{JSON.parse(item).rate + '%'}</Descriptions.Item>
       <Descriptions.Item label="状态">{JSON.parse(item).TaskStatus}</Descriptions.Item>
     </Descriptions>
   )
@@ -338,7 +356,7 @@ export const MinePage = () => {
               {
                   mine.model === 'packing' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtrall(`${JSON.stringify(item)}`)} key={item.taskId + '5'} showArrow={false}>
+                    <Panel header="" extra={genExtrabz(`${JSON.stringify(item)}`)} key={item.taskId + '5'} showArrow={false}>
                       <PackingBoard data={item} index={index} />
                     </Panel>
                   )
@@ -470,7 +488,7 @@ export const MinePage = () => {
               {
                   mine.model === 'reenter' && mine.taskList.map((item, index) => {
                   return (
-                    <Panel header="" extra={genExtra(`${JSON.stringify(item)}`)} key={item.taskId + '16'} showArrow={false}>
+                    <Panel header="" extra={genExtrall(`${JSON.stringify(item)}`)} key={item.taskId + '16'} showArrow={false}>
                       <ReturnWarehouseBoard data={item} index={index} />
                     </Panel>
                   )

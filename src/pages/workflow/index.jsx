@@ -54,7 +54,7 @@ const initialPanes = {
             ],
             "information": [
                 {title: '供应商评级', content: '/supplier/estimate', key: '4'},
-                {title: '供应商合同管理', content: '/BrandIndex', key: '4'},
+                {title: '供应商合同管理', content: '/supplier/contracts', key: '4'},
                 {title: '仓库监控', content: '/StockIndex', key: '5'},
                 {title: '仓库管理', content: '/StockList', key: '5'},
                 {title: '物料管理', content: '/MaterialIndex', key: '6'},
@@ -123,7 +123,7 @@ const initialPanes = {
                 {title: '消杀管理', content: '/OzoneKillIndex', key: '7'},
                 {title: '清洗管理', content: '/OzoneKillIndex', key: '7'},
                 {title: '岗位管理', content: '/peoplemanage', key: '6'},
-                {title: '晨检', content: 'Content of Tab 2', key: '7'},
+                {title: '晨检', content: '/MorningCheck', key: '7'},
             ],
             "board": [
                 {title: '领料看板', content: '/mine/picking', key: '30'},
@@ -207,7 +207,7 @@ const initialPanes = {
         department: '财务部',
         tasks: {
             "information": [
-                {title: '报损管理', content: 'Content of Tab 2', key: '6'},
+                {title: '报损管理', content: '/FrmLossIndex', key: '6'},
                 {title: '资产管理', content: '/AssetIndex', key: '5'},
                 {title: '设备耗材管理', content: '/materialsManage', key: '8'},
             ],
@@ -227,10 +227,11 @@ const initialPanes = {
             "information": [
                 {title: 'BOM管理', content: '/bom', key: '1'},
                 {title: 'SKU管理', content: '/sku', key: '1'},
+                {title: '工序管理', content: '/workprocedure', key: '2'},
                 {title: '工艺管理', content: '/craft', key: '2'},
             ],
             "board": [
-                {title: '补单看板', content: 'Content of Tab 1', key: '3'},
+                {title: '补单看板', content: '/mine/supplement', key: '3'},
             ],
         }
     },

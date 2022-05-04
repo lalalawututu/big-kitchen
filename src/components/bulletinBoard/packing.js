@@ -13,6 +13,7 @@ function Packing(props) {
         <div>
             <div className="product-info">
                 <Descriptions size={'default'} column={3} className="des-box">
+                    <Descriptions.Item label="生产批次">{item.batchNumber || ''}</Descriptions.Item>
                     <Descriptions.Item label="产成品">{item.skuCode}</Descriptions.Item>
                     <Descriptions.Item label="数量">{item.specAmount}</Descriptions.Item>
                     <Descriptions.Item label="规格">{item.specUnit}</Descriptions.Item>

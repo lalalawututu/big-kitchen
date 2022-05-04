@@ -26,7 +26,7 @@ export const ProduceManagePage = () => {
   }
 
   return (
-      <div className="container">
+      <div className="container produce-inner">
         <div className="produce-container">
           <div className="produce-plan-today">
             {/*<h2 className="common-title">今日生产计划执行概况</h2>*/}
@@ -127,7 +127,7 @@ export const ProduceManagePage = () => {
                         <Space align="start">
                           <div>
                             <h4>{computePercent(manage.status[plan.planId], plan.taskList.length)}%</h4>
-                            <b className="icon"> </b>
+                            <b className="icon icon-produce1"> </b>
                           </div>
                           <Progress
                               type="circle"
@@ -144,23 +144,29 @@ export const ProduceManagePage = () => {
                       </li>
                       <li>
                         <h4>超时任务</h4>
-                        <span className="number"><strong>{manage.status[plan.planId]?manage.status[plan.planId].overtime:0}</strong>个</span>
+                        <Space align="start">
+                          <b className="icon icon-produce2"> </b>
+                          <span className="number"><strong>{manage.status[plan.planId]?manage.status[plan.planId].overtime:0}</strong>个</span>
+                        </Space>
                       </li>
                       <li>
                         <h4>执行中</h4>
                         <Space align="start">
-                          <b className="icon"> </b>
+                          <b className="icon icon-produce3"> </b>
                           <span className="number"><strong>{manage.status[plan.planId]?manage.status[plan.planId].ontime:0}</strong>个</span>
                         </Space>
                       </li>
                       <li>
                         <h4>已完成</h4>
-                        <span className="number"><strong>{manage.status[plan.planId]?manage.status[plan.planId].complete:0}</strong>个</span>
+                        <Space align="start">
+                          <b className="icon icon-produce4"> </b>
+                          <span className="number"><strong>{manage.status[plan.planId]?manage.status[plan.planId].complete:0}</strong>个</span>
+                        </Space>
                       </li>
                     </ul>
                   </div>
                   <List className="list-card"
-                    grid={{gutter: 16, column: 4}}
+                    grid={{gutter: 16, column: 6}}
                     dataSource={manage.tasks[plan.planId]}
                     renderItem={item => (
                         <List.Item>

@@ -14,7 +14,7 @@ function Warehousing(props) {
             <Descriptions size={'default'} column={3} className="des-box">
                 <Descriptions.Item label="工单号">{item.taskId || ''}</Descriptions.Item>
                 <Descriptions.Item label="实际起止时间">
-                    {item.PlanStartTime + ' - ' + item.PlanEndTime}
+                    {item.ActualStartTime + ' - ' + item.ActualEndTime}
                 </Descriptions.Item>
                 <Descriptions.Item label="剩余时间">{item.leftSecs}</Descriptions.Item>
                 <Descriptions.Item label="批次号">{item.batchNumber || ''}</Descriptions.Item>

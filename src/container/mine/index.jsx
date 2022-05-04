@@ -23,6 +23,7 @@ const useMine = () => {
   const [btnDisabled] = useState(false)
   const [loading, setLoading] = useState(true)
   const [exception, setException] = useState(false)
+  const [inspResult, setInspResult] = useState(0)
   const [taskList, setTaskList] = useState([
     {
       'taskId': '0000',
@@ -93,8 +94,8 @@ const useMine = () => {
         setTaskList(planList2.map(function (item, index) {
           item.btn = {'content': item.status.finished ? '已完成' : '完工上报', flag: 0}
           item.info.duration = 3600000
-          let id = item.info.taskId
-          let batch = item.info.batchNumber
+          let id = item.info.taskId.replace(/(.{7}).+(.{7})/, "$1…$2")
+          let batch = item.info.batchNumber.replace(/(.{7}).+(.{7})/, "$1…$2")
           let s = new Date(item.info.startAt*1000)
           let e = new Date(item.info.startAt*1000 + item.info.duration)
           let ss = new Date(item.status.startAt*1000)
@@ -102,10 +103,11 @@ const useMine = () => {
           item.taskId = id
           item.TaskType = item.info.taskDescription
           item.TaskContent = item.detail ? item.detail[0].skuCode : item.skuCode
-          item.batchNumber = batch.substr(5, 10)
+          item.batchNumber = batch
           item.PlanStartTime = fmt_time(s)
           item.PlanEndTime = fmt_time(e)
-          item.ActualStartTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ss)
+          item.ActualStartTime = item.PlanStartTime
+          // item.ActualStartTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ss)
           item.ActualEndTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ee)
           item.Specification = '包'
           item.Unit = 'kg'
@@ -119,13 +121,13 @@ const useMine = () => {
           item.employee = employee
           item.ActualWeighing = item.status.processingAmount
           let weight =  0.6
-          if (model === 'receiving' || model === 'enterstock') {
+          if (model === 'receiving' || model === 'enter') {
             weight = item.detail.map((de) => de.quantity).reduce((arr, cur) => arr + cur)
           }else if (model === 'prod') {
             item.Production = item.outputSkuCode[0]
             item.OutputQuantity = item.outputSkuCode[1].toFixed(2)
             item.prodrate = (item.ActualWeighing / item.OutputQuantity).toFixed(2) * 100
-          }else if (model === 'picking'){
+          }else if (model === 'picking' || model === 'reenter'){
             weight = item.pickDetail.map((de)=>de.quantityNeed).reduce((arr,cur)=> arr + cur)
             item.PickDetail = item.pickDetail.map((detail)=>{
               detail.key = detail.skuCode
@@ -412,7 +414,9 @@ const useMine = () => {
   }
 
   return { loading, model, peopleInfo, taskList, time, btnDisabled, exception,
-    UnqualifiedNumber, addNumber, sbutractNumber, TaskSubmitClick, startTask, setLoading, showExceptionModal, setException}
+    UnqualifiedNumber, addNumber, sbutractNumber, TaskSubmitClick, startTask, setLoading, showExceptionModal, setException,
+    inspResult, setInspResult
+  }
 }
 
 let MineContainer = createContainer(useMine)
