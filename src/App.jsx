@@ -45,6 +45,7 @@ import Estimate from "./oldpages/basicData/supplier/estimate";
 import UniversiadeBarcode  from "./pages/UniversiadeBarcode";
 import UniversiadeMenu from "./pages/UniversiadeMenu";
 import { BOMManage } from "./pages/BOMManage";
+import BOMCreate from "./pages/BOMManage/bomCreate";
 
 import StockIndex from "./oldpages/stock/stockIndex/stockIndex";
 import StockList from "./oldpages/stock/stockList/stockList";
@@ -150,6 +151,7 @@ const App = () => {
                         <Route path="/craft" element={<div><Header /><WorkManage /></div>} />
                         <Route path="/workprocedure" element={<div><Header /><WorkProcedureManagePage /></div>} />
                         <Route path="/bom" element={<div><Header /><BOMManage /></div>} />
+                        <Route path="/bomCreate" element={<div><Header /><BOMCreate /></div>} />
                         <Route path="/unibarcode" element={<div><Header /><UniversiadeBarcode /></div>} />
                         <Route path="/unimenu" element={<div><Header /><UniversiadeMenu /></div>} />
                         <Route path="/peoplemanage" element={<div><Header /><PeopleManage /></div>} />
