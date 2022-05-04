@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Select, Space, Typography, Upload } from 'antd';
+import React, { useState } from 'react'
+import {Form, Input, Button, Select, Space, Typography, Upload} from 'antd';
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
+
 const { Option } = Select;
 const { Title } = Typography;
-
 //form表单
 function FormFun() {
     let navigate = useNavigate();
@@ -40,9 +40,8 @@ function FormFun() {
         setImgList(newImgList);
     };
 
-
     return (
-        <div className='work-create-information materials-create-box'>
+            <div className='work-create-information materials-create-box'>
             <div className='creator-content shadow'>
                 <Form
                     className='creator-form'
@@ -58,20 +57,17 @@ function FormFun() {
 
                     <Form.Item label="产成品" name="BrandName" >
                         <Select
-                            className='field-select'
-                            dropdownClassName='field-select-dropdown'
-                            dropdownMatchSelectWidth={false}
+                            style={{ width: 500 }}
+                            mode="single"
+                            edit
                             placeholder="请选择"
-                            allowClear
+                            filterOption={(inputValue, option) => {
+                                return option.key.includes(inputValue)
+                            }}
                         >
-                            <Option value="箱">箱</Option>
-                            <Option value="筐">筐</Option>
-                            <Option value="克">克</Option>
-                            <Option value="公斤">公斤</Option>
-                            <Option value="吨">吨</Option>
-                            <Option value="两">两</Option>
-                            <Option value="桶">桶</Option>
-                            <Option value="袋">袋</Option>
+                            {metarial.skuList.map((sku)=>
+                                <Option value={sku.sku_code} >{sku.materialName}</Option>
+                            )}
                         </Select>
                     </Form.Item>
 
@@ -86,12 +82,15 @@ function FormFun() {
                     <Select
                         style={{ width: 500 }}
                         mode="multiple"
-                        labelInValue
+                        placeholder="可选择多种原料"
                         tokenSeparators={[" ", ","]}
                         defaultvalue={[]}
+                        filterOption={(inputValue, option) => {
+                            return option.key.includes(inputValue)
+                        }}
                     >
                         {metarial.skuList.map((sku)=>
-                            <Option value={sku.sku_code} >{sku.materialName}</Option>
+                            <Option key={sku.materialName} value={sku.sku_code} >{sku.materialName}</Option>
                         )}
                     </Select>
                 </Form.Item>

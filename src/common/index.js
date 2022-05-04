@@ -14,6 +14,7 @@ export const WMS_Server = "http://123.57.137.181:8060"
 export const Cost_Server = "http://123.57.137.181:8050"
 export const Tracker_Server = "http://123.57.137.181:8040"
 export const SCADA_Server = "http://123.57.137.181:8030"
+export const Xfiles_Server = "http://123.57.137.181:8090"
 
 // export const Sync_Server = "http://localhost:8070"
 // export const APS_Server = "http://localhost:8020"
