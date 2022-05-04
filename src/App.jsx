@@ -23,7 +23,7 @@ import Cost from './pages/cost';
 // import { GroupAttendance } from './pages/groupAttendance';
 // import { GroupHour } from './pages/groupHour';
 // import { GroupYield } from './pages/groupYield';
-import { Performance } from './pages/performance';
+import { Perf } from './pages/perf';
 import { AssetAddEdits } from './pages/assetAddEdit';
 /* 基础数据模块-物料管理 */
 import MaterialIndex from "./pages/material/index";  //物料管理列表
@@ -45,7 +45,6 @@ import Estimate from "./oldpages/basicData/supplier/estimate";
 import UniversiadeBarcode  from "./pages/UniversiadeBarcode";
 import UniversiadeMenu from "./pages/UniversiadeMenu";
 import { BOMManage } from "./pages/BOMManage";
-import BOMCreate from "./pages/BOMManage/bomCreate";
 
 import StockIndex from "./oldpages/stock/stockIndex/stockIndex";
 import StockList from "./oldpages/stock/stockList/stockList";
@@ -151,7 +150,6 @@ const App = () => {
                         <Route path="/craft" element={<div><Header /><WorkManage /></div>} />
                         <Route path="/workprocedure" element={<div><Header /><WorkProcedureManagePage /></div>} />
                         <Route path="/bom" element={<div><Header /><BOMManage /></div>} />
-                        <Route path="/bomCreate" element={<div><Header /><BOMCreate /></div>} />
                         <Route path="/unibarcode" element={<div><Header /><UniversiadeBarcode /></div>} />
                         <Route path="/unimenu" element={<div><Header /><UniversiadeMenu /></div>} />
                         <Route path="/peoplemanage" element={<div><Header /><PeopleManage /></div>} />
@@ -175,7 +173,7 @@ const App = () => {
                         {/*<Route path="/groupAttendance" element={<div><Header /><GroupAttendance /></div>} />*/}
                         {/*<Route path="/groupHour" element={<div><Header /><GroupHour /></div>} />*/}
                         {/*<Route path="/groupYield" element={<div><Header /><GroupYield /></div>} />*/}
-                        <Route path="/perf" element={<div><Header /><Performance /></div>} />
+                        <Route path="/perf" element={<div><Header /><Perf /></div>} />
                         <Route path="/assetAddEdits" element={<div><Header /><AssetAddEdits /></div>} />
 
                         <Route path="/screen" element={<Screen />} />

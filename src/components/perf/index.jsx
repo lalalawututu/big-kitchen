@@ -1,5 +1,5 @@
 import {Table, Space, Button, Tag, DatePicker} from 'antd'
-import perfContainer from "../../container/performance";
+import perfContainer from "../../container/perf";
 import {SearchBanner} from "../searchbanner";
 
 //搜索
@@ -17,7 +17,7 @@ function SearchFun() {
   )
 }
 
-export const PerformancePage = () => {
+export const PerfPage = () => {
   let perfManage = perfContainer.useContainer()
   const Columns = [
     {
