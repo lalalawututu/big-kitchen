@@ -3,10 +3,12 @@ import materialsManageContainer from '../../container/materialsManage'
 import { SearchBanner } from '../../components/searchContentOr/index'
 import { Table, Button, Space, Modal } from 'antd'
 import { DiffOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom';
 import history from '../../history'
 import './index.less'
 
 export const BOMListPage = () => {
+  const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [materialDetail, setDetail] = useState({
     materialName: '',
@@ -81,7 +83,7 @@ export const BOMListPage = () => {
     <div className="container">
       <div className="search-container flex" style={{margin: 0}}>
         <SearchBanner initialData={materialList.initialBoms} setData={materialList.setBoms} searchKeys={['FinishSkuCode', 'BomName', 'Material']} />
-        <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => create()}>创建</Button>
+        <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => navigate('/bomCreate')}>创建</Button>
       </div>
 
       <div className="common-long-table">
