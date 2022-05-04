@@ -13,9 +13,12 @@ const CrumbList = () => {
     <div className='crumbHeader'>
       <Breadcrumb separator="<">
         <Breadcrumb.Item>基础信息维护</Breadcrumb.Item>
-        <Breadcrumb.Item style={{'color':'#333951'}}>工艺管理（适用于生产线）</Breadcrumb.Item>
+        <Breadcrumb.Item style={{ 'color': '#333951' }}>工艺管理（适用于生产线）</Breadcrumb.Item>
       </Breadcrumb>
-      <div className='title' onClick={() => workInfo()} >添加工艺</div>
+      <div className='optBtn' onClick={() => workInfo()}>
+        <div className='title'>添加工艺</div>
+        <img src={require('../../style/img/icon/icon-craftAdd.png')} alt="" />
+      </div>
     </div>
   )
 }
