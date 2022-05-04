@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
 import { createContainer } from "unstated-next";
 import { useMount } from '../../utils'
 import {Sync_Server} from "../../common";
+import {useState} from "react";
 
 const getDataFromBlockchain = Sync_Server + "/data/blockchain?model="
 
 const useBOM = () => {
+    const [skuList, setSkuList] = useState([]);
     useMount(() => {
         let url = getDataFromBlockchain + "sku"
         fetch(`${url}`).then(async (response) => {
@@ -27,12 +28,12 @@ const useBOM = () => {
                     }
                     data.push(panInfo)
                 })
-                console.log(data)
+                setSkuList(data)
             }
         })
     })
 
-    return {  }
+    return { skuList }
 }
 
 let BOMCreateContainer = createContainer(useBOM)

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Input, Button, Select, Space, Typography, Upload } from 'antd';
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,7 @@ function FormFun() {
                     autoComplete="off"
                 >
 
-                    <Form.Item label="物料名称" name="MaterialName" >
+                    <Form.Item label="BOM名称" name="MaterialName" >
                         <Input className='field-input' />
                     </Form.Item>
 
@@ -83,7 +83,17 @@ function FormFun() {
             </div>
             <div className='creator-content shadow'>
                 <Form.Item label="构成原料" name="BrandName" >
-                    <Input className='field-input' />
+                    <Select
+                        style={{ width: 500 }}
+                        mode="multiple"
+                        labelInValue
+                        tokenSeparators={[" ", ","]}
+                        defaultvalue={[]}
+                    >
+                        {metarial.skuList.map((sku)=>
+                            <Option value={sku.sku_code} >{sku.materialName}</Option>
+                        )}
+                    </Select>
                 </Form.Item>
             </div>
 

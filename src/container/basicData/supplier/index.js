@@ -4,7 +4,7 @@ import {APS_Server, Sync_Server} from "../../../common";
 
 const getPriceUrl = APS_Server + "/data/blockchain/price"
 const getPOrdersUrl = APS_Server + "/data/blockchain/porder"
-const getDataFromBlockchain = Sync_Server + "/data/blockchain?model="
+const getSupplierList = Sync_Server + "/data/blockchain?model=suppliers"
 
 const useSupplier = () => {
     const [iniTableData, setIniTableData] = useState([]);  //表格数据
@@ -24,7 +24,7 @@ const useSupplier = () => {
     //获取供应商管理列表数据
     function getTableData() {
         setTableData([]); //清空数据
-        let url = getDataFromBlockchain + "suppliers"
+        let url = getSupplierList + "suppliers"
         fetch(`${url}`).then(async (response) => {
             if (response.ok) {
                 let dataJson = await response.json()
