@@ -58,15 +58,14 @@ function FormFun() {
                     <Form.Item label="产成品" name="BrandName" >
                         <Select
                             style={{ width: 500 }}
-                            mode="single"
-                            edit
+                            showSearch
                             placeholder="请选择"
                             filterOption={(inputValue, option) => {
                                 return option.key.includes(inputValue)
                             }}
                         >
                             {metarial.skuList.map((sku)=>
-                                <Option value={sku.sku_code} >{sku.materialName}</Option>
+                                <Option key={sku.materialName} value={sku.sku_code} >{sku.materialName}</Option>
                             )}
                         </Select>
                     </Form.Item>
