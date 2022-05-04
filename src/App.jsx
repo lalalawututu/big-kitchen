@@ -20,9 +20,10 @@ import Screen from "./pages/screen";
 import { MaterialsManage } from './pages/materialsManage';
 import { MaterialsCreate } from './pages/materialsCreate';
 import Cost from './pages/cost';
-import { GroupAttendance } from './pages/groupAttendance';
-import { GroupHour } from './pages/groupHour';
-import { GroupYield } from './pages/groupYield';
+// import { GroupAttendance } from './pages/groupAttendance';
+// import { GroupHour } from './pages/groupHour';
+// import { GroupYield } from './pages/groupYield';
+import { Performance } from './pages/performance';
 import { AssetAddEdits } from './pages/assetAddEdit';
 /* 基础数据模块-物料管理 */
 import MaterialIndex from "./pages/material/index";  //物料管理列表
@@ -32,7 +33,10 @@ import MaterialDetail from "./pages/material/detail";  //物料管理详情
 import {StockScreen} from './pages/stockScreen';
 import {SwipeCardBoard} from './pages/swipeCard';
 
+//供应商合同管理
 import SupplierContractIndex from './pages/supplierContract'
+import SupplierContractAddEdit from './pages/supplierContract/addEdit'
+import SupplierContractDetail from './pages/supplierContract/detail'
 
 import WorkFlow from "./pages/workflow";
 import {SimErpPage} from "./pages/simerp";
@@ -166,9 +170,10 @@ const App = () => {
                         <Route path="/cost" element={<div><Header /><Cost /></div>} />
                         <Route path="/materialsManage" element={<div><Header /><MaterialsManage /></div>} />
                         <Route path="/materialsCreate" element={<div><Header /><MaterialsCreate /></div>} />
-                        <Route path="/groupAttendance" element={<div><Header /><GroupAttendance /></div>} />
-                        <Route path="/groupHour" element={<div><Header /><GroupHour /></div>} />
-                        <Route path="/groupYield" element={<div><Header /><GroupYield /></div>} />
+                        {/*<Route path="/groupAttendance" element={<div><Header /><GroupAttendance /></div>} />*/}
+                        {/*<Route path="/groupHour" element={<div><Header /><GroupHour /></div>} />*/}
+                        {/*<Route path="/groupYield" element={<div><Header /><GroupYield /></div>} />*/}
+                        <Route path="/perf" element={<div><Header /><Performance /></div>} />
                         <Route path="/assetAddEdits" element={<div><Header /><AssetAddEdits /></div>} />
 
                         <Route path="/screen" element={<Screen />} />
@@ -194,6 +199,8 @@ const App = () => {
                         <Route path="/supplier/price" element={<div><Header /><SupplierPrice /></div>} />
                         <Route path="/supplier/orders" element={<div><Header /><SupplierOrders /></div>} />
                         <Route path="/supplier/contracts" element={<div><Header /><SupplierContractIndex /></div>} />
+                        <Route path="/supplier/contractsAdd" element={<div><Header /><SupplierContractAddEdit /></div>} />
+                        <Route path="/supplier/contractsDetail" element={<div><Header /><SupplierContractDetail /></div>} />
                         <Route path="/supplierAdd" element={<div><Header /><SupplierAdd /></div>} />
                         <Route path="/supplierDetail" element={<div><Header /><SupplierDetail /></div>} />
                         <Route path="/PersonnelIndex" element={<div><Header /><PersonnelIndex /></div>} />

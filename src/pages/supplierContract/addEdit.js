@@ -67,7 +67,7 @@ function FormFun() {
                         <Input className='field-input' />
                     </Form.Item>
 
-                    <Form.Item label="品牌名称" name="BrandName" >
+                    <Form.Item label="品牌名称11111" name="BrandName" >
                         <Input className='field-input' />
                     </Form.Item>
 
@@ -132,9 +132,9 @@ function FormFun() {
 export default function add() {
     return (
         <div className='supplierIndex'>
-            <BrandContainer.Provider>
+            <SupplierUpdateContainer.Provider>
                 <FormFun />
-            </BrandContainer.Provider>
+            </SupplierUpdateContainer.Provider>
         </div >
     )
 }

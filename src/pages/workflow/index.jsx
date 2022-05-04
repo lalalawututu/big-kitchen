@@ -249,9 +249,10 @@ const initialPanes = {
         department: '企业管理事业部',
         tasks: {
             "prod": [
-                {title: '工时绩效考评', content: '/groupHour', key: '1'},
-                {title: '在岗绩效考评', content: '/groupAttendance', key: '2'},
-                {title: '产出绩效考评', content: '/groupYield', key: '3'},
+                {title: '绩效', content: '/perf', key: '1'},
+                // {title: '工时绩效考评', content: '/groupHour', key: '1'},
+                // {title: '在岗绩效考评', content: '/groupAttendance', key: '2'},
+                // {title: '产出绩效考评', content: '/groupYield', key: '3'},
             ],
             "screen": [
                 {title: '生产计划大屏', content: '/screen', key: '12'},

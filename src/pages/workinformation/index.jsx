@@ -52,7 +52,10 @@ const CrumbList = () => {
                 <Breadcrumb.Item href="/#/craft">工艺管理</Breadcrumb.Item>
                 <Breadcrumb.Item style={{ 'color': '#333951' }}>{work.craft.WorkmanshipName}（适用于生产线）</Breadcrumb.Item>
             </Breadcrumb>
-            <div className='title' onClick={() => workInfo(work.craft.WorkmanshipId)} >编辑</div>
+            <div className='optBtn' onClick={() => workInfo(work.craft.WorkmanshipId)} >
+                <div className='title'>编辑</div>
+                <img src={require('../../style/img/icon/icon-craftEdit.png')} alt="" style={{'width':'0.24rem','height':'0.24rem'}} />
+            </div>
         </div>
     )
 }

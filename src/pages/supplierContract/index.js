@@ -50,7 +50,7 @@ function SearchFun() {
                 prefix={<SearchOutlined />}
                 allowClear
                 enterButton="搜索" size="middle" />
-            <Button icon={<DiffOutlined />} className="common-add-btn" onClick={() => navigate('/BrandAddEdit')}>添加品牌</Button>
+            <Button icon={<DiffOutlined />} className="common-add-btn" onClick={() => navigate('/supplier/contractsAdd')}>添加品牌</Button>
         </div>
     )
 }

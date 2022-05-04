@@ -24,7 +24,7 @@ function TableFun() {
         },
     ]
     return (
-        <div className='common-long-table'>
+        <div className='tableList_new'>
             <Table
                 rowKey={record => record.WorkShopId}
                 columns={columns}
