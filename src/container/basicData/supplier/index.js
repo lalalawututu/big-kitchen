@@ -14,6 +14,7 @@ const useSupplier = () => {
     const [ordersData, setOrdersData] = useState([]);  //表格数据
     const [searchKey, setSearchKey] = useState(''); //搜索供货商姓名
     const fmt_time = ((t) => { return t.getMonth() + ':' + t.getDay()})
+    const [modalVisible, setModalVisible] = useState(false); //查看弹框
 
     useEffect(() => {
         getTableData(); //获取供应商管理列表数据
@@ -156,7 +157,7 @@ const useSupplier = () => {
         getOrdersData();
     }
 
-    return { tableData, searchKey, priceData, ordersData, iniTableData, iniOrdersData, searchInfo, searchSupplier, searchDemandPrice, searchSupplierOrder, setOrdersData, setTableData }
+    return { tableData, searchKey, priceData, ordersData, iniTableData, iniOrdersData, searchInfo, searchSupplier, searchDemandPrice, searchSupplierOrder, setOrdersData, setTableData, modalVisible, setModalVisible }
 }
 
 let SupplierContainer = createContainer(useSupplier)
