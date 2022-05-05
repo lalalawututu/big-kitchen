@@ -2,48 +2,98 @@ import React, { useState } from 'react'
 import {Form, Input, Button, Select, Space, Typography, Upload, message} from 'antd';
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
+import {Sync_Server} from "../../common";
 
 const { Option } = Select;
 const { Title } = Typography;
 //form表单
 function FormFun() {
     let navigate = useNavigate();
-    let metarial = BOMCreateContainer.useContainer();
+    let material = BOMCreateContainer.useContainer();
     const [form] = Form.useForm()
     const [imgList, setImgList] = useState([]);
+    const [filename, setFilename] = useState('');
+    const [bomname, setBomname] = useState('');
+    const [finishedSkuCode, setFinishedSkuCode] = useState('');
+    const [materials, setMaterials] = useState([]);
+    const [outputPercent, setOutputPercent] = useState('');
+    const [uploading, setUploading] = useState(0)
+
+
+    const add_materials = (acc, sku_code, quantity) => {
+        let material = { sku_code: sku_code, quantity: quantity}
+        acc.push(material)
+        setMaterials(acc)
+    }
 
     //上传新增bom信息
-    const saveForm = (imgList) => {
-        fetch('meta/upload', {
+    const saveForm = () => {
+        const formData = { 'bom_id': '', 'bom_picture': filename, 'bom_name': bomname,
+            'material': materials, 'finished_sku_code': finishedSkuCode, 'output_percent': outputPercent }
+        fetch(Sync_Server + '/meta/bom/bom_id/create', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify(imgList)
+            body: JSON.stringify(formData)
         }).then(async (response) => {
             let res = await response.json();
             console.log(res)
         })
     }
 
+    // 图片上传
+    const doImgUpload = (options) => {
+        const { onSuccess, onError, file, onProgress } = options;
+
+        const formData = new FormData();
+        formData.append('file', file)
+        // imgList.forEach(file => {
+        //     formData.append('files[]', file);
+        // });
+        setUploading(1)
+
+        fetch(Sync_Server + '/meta/upload', {
+            method: 'POST',
+            body: formData,
+        }).then(res => {
+            console.log(res)
+            res.json().then(val => setFilename(val.content))
+        }).then(() => {
+            // setImgList([])
+            message.success('upload successfully.');
+            onSuccess("done")
+        }).catch((e) => {
+            message.error('upload failed.');
+            onError(e)
+        }).finally(() => {
+            setUploading(2)
+            onProgress({ percent: 100 });
+        });
+
+    };
 
     const beforeUpload = (file) => {
-        if (file.type !== 'image/png') {
-            message.error(`${file.name} is not a png file`);
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('You can only upload JPG/PNG file!');
         }
-        return false;
+        return isJpgOrPng;
     }
 
     const onChange = (imgList) => {
+        console.log(imgList)
         setImgList(imgList.fileList)
     };
 
     const uploadButton = (
         <div>
-            <div style={{ marginTop: 8 }}>上传图片</div>
+            <div style={{ marginTop: 8 }}>
+                {uploading === 1 ? uploading === 2 ? '上传完成' : '正在上传' : '选择图片文件'}
+            </div>
         </div>
     );
-    
+
     return (
             <div className='work-create-information materials-create-box'>
             <div className='creator-content shadow'>
@@ -68,7 +118,7 @@ function FormFun() {
                                 return option.key.includes(inputValue)
                             }}
                         >
-                            {metarial.skuList.map((sku)=>
+                            {material.skuList.map((sku)=>
                                 <Option value={sku.sku_code} key={sku.materialName}>{sku.materialName}</Option>
                             )}
                         </Select>
@@ -92,7 +142,7 @@ function FormFun() {
                             return option.key.includes(inputValue)
                         }}
                     >
-                        {metarial.skuList.map((sku)=>
+                        {material.skuList.map((sku)=>
                             <Option key={sku.materialName} value={sku.sku_code} >{sku.materialName}</Option>
                         )}
                     </Select>
@@ -100,16 +150,18 @@ function FormFun() {
             </div>
 
             <div className='creator-content shadow module-form'>
-                <Title className='content-title' level={4}>原料图片</Title>
-                <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    listType='picture-card'
-                    fileList={imgList}
-                    beforeUpload={beforeUpload}
-                    onChange={onChange}
-                >
-                    {imgList.length > 5 ? null : uploadButton}
-                </Upload>
+                <Title className='content-title' level={4}>BOM图片</Title>
+                <Form>
+                    <Upload
+                        listType="picture-card"
+                        customRequest={doImgUpload}
+                        fileList={imgList}
+                        beforeUpload={beforeUpload}
+                        onChange={onChange}
+                    >
+                        {uploadButton}
+                    </Upload>
+                </Form>
             </div>
             <Space className='buttons btn'>
                 <Button className='chen-button shadow' onClick={() => navigate('/bom')}>取消</Button>
