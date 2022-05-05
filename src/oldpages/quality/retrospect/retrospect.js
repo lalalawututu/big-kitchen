@@ -140,51 +140,109 @@ function ModalDetail() {
 	console.log(retrospect)
 	return (
 		<Modal
-			className="add-mask"
+			className="container big-mask-container"
 			title="质检任务详情"
 			centered
-			width="800px"
+			width="12.4rem"
+			closable={false}
 			visible={retrospect.modalVisible}
 			onCancel={() => retrospect.setModalVisible(false)}
 			footer={[
 				<Button key="back" onClick={() => retrospect.setModalVisible(false)}>关闭</Button>
 			]}
 		>
-			<div className='work-information'>
-				<Descriptions size={'default'} column={2} className="descriptions-basic">
-					<Descriptions.Item label="执行状态">{retrospect.inspectorDetail.executionStatus === 0 ? '已完成' : retrospect.inspectorDetail.executionStatus === 1 ? '进行中' : '待执行'}</Descriptions.Item>
-					<Descriptions.Item label="是否超时">{retrospect.inspectorDetail.isTimeout === 0 ? '是' : '否'}</Descriptions.Item>
-					<Descriptions.Item label="任务编号">{retrospect.inspectorDetail.taskNumber}</Descriptions.Item>
-					<Descriptions.Item label="检验类型">{retrospect.inspectorDetail.testType}</Descriptions.Item>
-				</Descriptions>
-				<Descriptions size={'default'} column={1} className="descriptions-basic">
-					<Descriptions.Item label="检验内容">{retrospect.inspectorDetail.testContent}</Descriptions.Item>
-					<Descriptions.Item label="质检要求">{retrospect.inspectorDetail.testRequire}</Descriptions.Item>
-				</Descriptions>
-				<Descriptions size={'default'} column={2} className="descriptions-basic">
-					<Descriptions.Item label="任务执行开始时间">{retrospect.inspectorDetail.planStartTime}</Descriptions.Item>
-					<Descriptions.Item label="任务执行结束时间">{retrospect.inspectorDetail.planEndTime}</Descriptions.Item>
-					<Descriptions.Item label="任务执行开始时间">{retrospect.inspectorDetail.executionStartTime}</Descriptions.Item>
-					<Descriptions.Item label="任务执行结束时间">{retrospect.inspectorDetail.executionEndTime}</Descriptions.Item>
-				</Descriptions>
-				<Descriptions size={'default'} column={1} className="descriptions-basic">
-					<Descriptions.Item label="检验人">
-						{/* {
+			<div className='work-information big-container'>
+				<div className="item item-line flex-between">
+					<ul className="clearfix">
+						<li>
+							<span className="item-label">任务编号：</span>
+							<span className="item-content">{retrospect.inspectorDetail.taskNumber}</span>
+						</li>
+						<li>
+							<span className="item-label">检验类型：</span>
+							<span className="item-content">{retrospect.inspectorDetail.testType}</span>
+						</li>
+					</ul>
+					<div className="flex" style={{'marginBottom': '.28rem'}}>
+						<span className="item-label">检验人：</span>
+						<span className="item-content">
+							张三
+							<img className="headUrl" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.2qqtouxiang.com%2Fpic%2FTX8683_04.jpg&refer=http%3A%2F%2Fimg.2qqtouxiang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1654346127&t=f8b4037941e4488398089e2864aaaa2d" alt=""/>
+
+							{/* {
 							retrospect.inspectorDetail.inspectorList.map((item, index) => {
 								return (
 									<span className="inspector" key={index}> {item.inspectorName}</span>
 								)
 							})
-						} */}
-					</Descriptions.Item>
-				</Descriptions>
-				<Descriptions size={'default'} column={2} className="descriptions-basic">
-					<Descriptions.Item label="检验数量：">{retrospect.inspectorDetail.QuantityNumber}</Descriptions.Item>
-					<Descriptions.Item label="合格数量：">{retrospect.inspectorDetail.QualifiedNumber}</Descriptions.Item>
-				</Descriptions>
-				<Descriptions size={'default'} column={1} className="descriptions-basic">
-					<Descriptions.Item label="质检详情"></Descriptions.Item>
-				</Descriptions>
+							} */}
+						</span>
+					</div>
+				</div>
+
+				<div className="item flex-between">
+					<ul className="clearfix">
+						<li>
+							<span className="item-label">检验内容：</span>
+							<span className="item-content">{retrospect.inspectorDetail.testContent}</span>
+						</li>
+						<li>
+							<span className="item-label">质检要求：</span>
+							<span className="item-content">{retrospect.inspectorDetail.testRequire}</span>
+						</li>
+					</ul>
+					<div className="flex" style={{'marginBottom': '.28rem'}}>
+						<span className="item-type">
+							<b className="icon-type1"></b>
+							{retrospect.inspectorDetail.executionStatus === 0 ? '已完成' : retrospect.inspectorDetail.executionStatus === 1 ? '进行中' : '待执行'}
+						</span>
+						<span className="item-type">
+							<b className="icon-type2"></b>
+							{retrospect.inspectorDetail.isTimeout === 0 ? '已超时' : '未超时'}
+						</span>
+					</div>
+				</div>
+
+				<div className="item">
+					<ul className="clearfix">
+						<li>
+							<span className="item-label">任务执行开始时间：</span>
+							<span className="item-content">{retrospect.inspectorDetail.planStartTime}</span>
+						</li>
+						<li>
+							<span className="item-label">任务执行结束时间：</span>
+							<span className="item-content">{retrospect.inspectorDetail.planEndTime}</span>
+						</li>
+					</ul>
+					<ul className="clearfix">
+						<li>
+							<span className="item-label">任务执行开始时间：</span>
+							<span className="item-content">{retrospect.inspectorDetail.executionStartTime}</span>
+						</li>
+						<li>
+							<span className="item-label">任务执行结束时间：</span>
+							<span className="item-content">{retrospect.inspectorDetail.executionEndTime}</span>
+						</li>
+					</ul>
+				</div>
+
+				<div className="item">
+					<ul className="clearfix">
+						<li>
+							<span className="item-label">检验数量：</span>
+							<span className="item-content">{retrospect.inspectorDetail.QuantityNumber}</span>
+						</li>
+						<li>
+							<span className="item-label">合格数量：</span>
+							<span className="item-content">{retrospect.inspectorDetail.QualifiedNumber}</span>
+						</li>
+					</ul>
+				</div>
+
+				<div className="item">
+					<span className="item-label">质检详情：</span>
+					<p className="textarea"></p>
+				</div>
 			</div>
 		</Modal>
 	)

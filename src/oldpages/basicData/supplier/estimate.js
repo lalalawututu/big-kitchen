@@ -93,9 +93,10 @@ function ModalDetail() {
             title="供应商评级"
             visible={supplier.modalVisible}
             onCancel={() => supplier.setModalVisible(false)}
-            footer={[
-                <Button key="back" className="none-btn" onClick={() => supplier.setModalVisible(false)}>关闭</Button>
-            ]}
+            footer={null}
+            // footer={[
+            //     <Button key="back" className="none-btn" onClick={() => supplier.setModalVisible(false)}>关闭</Button>
+            // ]}
         >
             <div className='score-mask-container'>
                 <h4 className="name">成都承传设备有限公司</h4>
