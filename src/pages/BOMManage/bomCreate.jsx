@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Form, Input, Button, Select, Space, Typography, Upload} from 'antd';
+import {Form, Input, Button, Select, Space, Typography, Upload, message} from 'antd';
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
 
@@ -10,36 +10,40 @@ function FormFun() {
     let navigate = useNavigate();
     let metarial = BOMCreateContainer.useContainer();
     const [form] = Form.useForm()
+    const [imgList, setImgList] = useState([]);
 
-    //新增物料
-    const saveForm = () => {
-        form.validateFields().then(values => {
-            metarial.onFinish(values)
+    //上传新增bom信息
+    const saveForm = (imgList) => {
+        fetch('meta/upload', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(imgList)
+        }).then(async (response) => {
+            let res = await response.json();
+            console.log(res)
         })
     }
 
-    const [imgList, setImgList] = useState([]);
 
-    //预览图片功能
-    const onPreview = async file => {
-        let src = file.url;
-        if (!src) {
-            src = await new Promise(resolve => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file.originFileObj);
-                reader.onload = () => resolve(reader.result);
-            });
+    const beforeUpload = (file) => {
+        if (file.type !== 'image/png') {
+            message.error(`${file.name} is not a png file`);
         }
-        const image = new Image();
-        image.src = src;
-        const imgWindow = window.open(src);
-        imgWindow.document.write(image.outerHTML);
+        return false;
+    }
+
+    const onChange = (imgList) => {
+        setImgList(imgList.fileList)
     };
 
-    const onChange = ({ imgList: newImgList }) => {
-        setImgList(newImgList);
-    };
-
+    const uploadButton = (
+        <div>
+            <div style={{ marginTop: 8 }}>上传图片</div>
+        </div>
+    );
+    
     return (
             <div className='work-create-information materials-create-box'>
             <div className='creator-content shadow'>
@@ -66,7 +70,7 @@ function FormFun() {
                             }}
                         >
                             {metarial.skuList.map((sku)=>
-                                <Option value={sku.sku_code} >{sku.materialName}</Option>
+                                <Option value={sku.sku_code} key={sku.materialName}>{sku.materialName}</Option>
                             )}
                         </Select>
                     </Form.Item>
@@ -99,13 +103,13 @@ function FormFun() {
             <div className='creator-content shadow module-form'>
                 <Title className='content-title' level={4}>原料图片</Title>
                 <Upload
-                    action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     listType='picture-card'
                     fileList={imgList}
+                    beforeUpload={beforeUpload}
                     onChange={onChange}
-                    onPreview={onPreview}
                 >
-                    {imgList.length < 5 && '+ Upload'}
+                    {imgList.length > 5 ? null : uploadButton}
                 </Upload>
             </div>
             <Space className='buttons btn'>
