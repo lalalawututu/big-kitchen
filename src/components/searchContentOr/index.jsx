@@ -8,7 +8,7 @@ import './index.less';
 
 const { Search } = Input;
 
-export const SearchBanner = ({ initialData, setData, searchKeys }) => {
+export const SearchBanner = ({ initialData, setData, searchKeys, placeHolder='' }) => {
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInputValue = useDebounce(inputValue, 2000);
 
@@ -31,7 +31,7 @@ export const SearchBanner = ({ initialData, setData, searchKeys }) => {
 	return (
 		<div className="search-container">
 			<Search
-				placeholder="材料名称"
+				placeholder={placeHolder}
 				value={inputValue}
 				onChange={(evt) =>
 					setInputValue(evt.target.value)

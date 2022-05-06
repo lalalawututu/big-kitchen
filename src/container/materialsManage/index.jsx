@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createContainer } from "unstated-next"
 import { useMount } from '../../utils'
-import {Sync_Server} from "../../common";
+import {Sync_Server, Xfiles_Server} from "../../common";
 
 const getDataFromBlockchain = Sync_Server + "/data/blockchain?model="
 
@@ -33,7 +33,7 @@ const useList = () => {
           data.push(panInfo)
         })
         setData(data)
-        console.log(data)
+        // console.log(data)
         setInitialData(data)
       }
     })
@@ -41,43 +41,44 @@ const useList = () => {
   })
 
   const getBoms = () => {
-    let url = getDataFromBlockchain + "boms"
+    let url = Sync_Server + "/meta/bom"
     fetch(`${url}`).then(async (response) => {
       if (response.ok) {
         let dataJson = await response.json()
         // console.log(dataJson.content)
         let planList = JSON.parse(dataJson.content)
-        // console.log(planList)
+        console.log(planList)
         let data = {}
-        planList.bom.forEach((item, index) => {
+        planList.forEach((item, index) => {
           item.material.forEach((item2)=>{
-            if (data.hasOwnProperty(item.finishedSkuCode)) {
+            if (data.hasOwnProperty(item.finished_sku_code)) {
               let panInfo = {
-                key: item2.skuCode,
+                key: item2.sku_code,
                 FinishSkuCode: '',
                 BomName: '',
-                Material: item2.skuCode,
+                Material: item2.sku_code,
                 Quantity: item2.quantity,
                 Rate: '',
               }
-              data[item.finishedSkuCode].push(panInfo)
+              data[item.finished_sku_code].push(panInfo)
             }else {
               let panInfo = {
-                key: item2.skuCode,
-                FinishSkuCode: item.finishedSkuCode,
-                BomName: item.bomName,
-                Material: item2.skuCode,
+                key: item2.sku_code,
+                FinishSkuCode: item.finished_sku_code,
+                BomName: item.bom_name,
+                Material: item2.sku_code,
                 Quantity: item2.quantity,
-                Rate: '90%',
+                Rate: item.output_percent + '%',
+                imgUrl: Xfiles_Server + item.bom_picture
               }
-              data[item.finishedSkuCode] = [panInfo]
+              data[item.finished_sku_code] = [panInfo]
             }
           })
         })
         let bom = Object.entries(data).map((value) => value[1]).reduce((arr,cur)=>arr.concat(cur))
         setIniBoms(bom)
         setBoms(bom)
-        console.log(bom)
+        // console.log(bom)
       }
     })
   }

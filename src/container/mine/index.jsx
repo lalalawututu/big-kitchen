@@ -99,7 +99,7 @@ const useMine = () => {
           let s = new Date(item.info.startAt*1000)
           let e = new Date(item.info.startAt*1000 + item.info.duration)
           let ss = new Date(item.status.startAt*1000)
-          let ee = new Date(item.status.startAt*1000 + item.info.duration)
+          let ee = new Date(item.status.finishedAt)
           item.taskId = id
           item.TaskType = item.info.taskDescription
           item.TaskContent = item.detail ? item.detail[0].skuCode : item.skuCode
@@ -108,7 +108,7 @@ const useMine = () => {
           item.PlanEndTime = fmt_time(e)
           item.ActualStartTime = item.PlanStartTime
           // item.ActualStartTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ss)
-          item.ActualEndTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ee)
+          item.ActualEndTime = item.status.finishedAt === 0 ? '-- : --' : fmt_time(ee)
           item.Specification = '包'
           item.Unit = 'kg'
           item.Quantity = item.quantity
@@ -401,15 +401,17 @@ const useMine = () => {
     ))
   }
 
-  const addNumber = (item) => {
-    setTaskList(taskList.map((item) =>
-        ({ ...item, UnqualifiedNumber: item.UnqualifiedNumber + 1 })
+  //增加不合格数量-品控
+  const addNumber = (item,index) => {
+    setTaskList(taskList.map((item, i) =>
+        i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber + 1 } : item
     ))
   }
 
-  const sbutractNumber = (item) => {
-    setTaskList(taskList.map((item) =>
-        ({ ...item, UnqualifiedNumber: item.UnqualifiedNumber - 1 })
+  //减少不合格数量-品控
+  const sbutractNumber = (item,index) => {
+    setTaskList(taskList.map((item, i) =>
+        i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber - 1 } : item
     ))
   }
 

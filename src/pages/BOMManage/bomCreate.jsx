@@ -160,6 +160,7 @@ function FormFun() {
                 <Form.Item label="构成原料" name="BrandName" >
                     <Select
                         style={{ width: 500 }}
+                        showSearch
                         placeholder="请选择原料"
                         filterOption={(inputValue, option) => {
                             return option.key.includes(inputValue)

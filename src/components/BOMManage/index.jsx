@@ -16,7 +16,7 @@ export const BOMListPage = () => {
     Unit: '',
     supplier: '',
     brand: '',
-    imgurl: ''
+    imgUrl: ''
   })
   const create = () => {
     history.push(`/materialscreate`);
@@ -31,7 +31,7 @@ export const BOMListPage = () => {
       Unit: text.Unit,
       supplier: text.supplier,
       brand: text.brand,
-      imgurl: text.imgurl
+      imgUrl: text.imgUrl
     })
   }
   const handleOk = () => {
@@ -52,6 +52,12 @@ export const BOMListPage = () => {
     },
     {
       align: 'center',
+      title: '出成率',
+      dataIndex: 'Rate',
+      key: 'Rate'
+    },
+    {
+      align: 'center',
       title: '构成原料',
       dataIndex: 'Material',
       key: 'Material',
@@ -64,25 +70,21 @@ export const BOMListPage = () => {
     },
     {
       align: 'center',
-      title: '出成率',
-      dataIndex: 'Rate',
-      key: 'Rate'
-    },
-    {
-      align: 'center',
       title: '详情',
       key: 'action',
       render: (text, record) => (
-        <Space size="middle">
-          <Button className="common-btn-bg" onClick={() => detail(text)}>图片</Button>
-        </Space>
+          text.imgUrl ?
+                <Space size="middle">
+                  <Button className="common-btn-bg" onClick={() => detail(text)}>图片</Button>
+                </Space> : null
+
       ),
     },
   ]
   return (
     <div className="container">
       <div className="search-container flex" style={{margin: 0}}>
-        <SearchBanner initialData={materialList.initialBoms} setData={materialList.setBoms} searchKeys={['FinishSkuCode', 'BomName', 'Material']} />
+        <SearchBanner placeHolder="产成品 | BOM名称" initialData={materialList.initialBoms} setData={materialList.setBoms} searchKeys={['FinishSkuCode', 'BomName']} />
         <Button icon={<DiffOutlined/>} className="common-add-btn" onClick={() => navigate('/bomCreate')}>创建</Button>
       </div>
 
@@ -105,7 +107,7 @@ export const BOMListPage = () => {
           {/*<p><span>品牌</span>{materialDetail.brand}</p>*/}
           <div>
             <p><span>原料照片</span></p>
-            <img className="img" src={materialDetail.imgurl} alt="" />
+            <img className="img" src={materialDetail.imgUrl} alt="" />
           </div>
         </div>
       </Modal>
