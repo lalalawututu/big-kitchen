@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Form, Input, Button, Select, Space, Typography, Upload, message} from 'antd';
+import {Form, Input, Button, Select, Space, Typography, Upload, message, Tag} from 'antd';
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
 import {Sync_Server} from "../../common";
@@ -13,23 +13,20 @@ function FormFun() {
     const [form] = Form.useForm()
     const [imgList, setImgList] = useState([]);
     const [filename, setFilename] = useState('');
-    const [bomname, setBomname] = useState('');
-    const [finishedSkuCode, setFinishedSkuCode] = useState('');
-    const [materials, setMaterials] = useState([]);
-    const [outputPercent, setOutputPercent] = useState('');
+    const [bomname, setBomname] = useState(''); //BOM名称
+    const [finishedSkuCode, setFinishedSkuCode] = useState(''); //产成品
+    const [materials, setMaterials] = useState(''); // 材料
+    const [materialsName, setMaterialsName] = useState(''); // 材料
+    const [materialsNumber, setMaterialsNumber] = useState(''); // 材料数量
+    const [materialsList, setMaterialsList] = useState(''); // 材料列表
+    const [outputPercent, setOutputPercent] = useState(''); //出成率
     const [uploading, setUploading] = useState(0)
-
-
-    const add_materials = (acc, sku_code, quantity) => {
-        let material = { sku_code: sku_code, quantity: quantity}
-        acc.push(material)
-        setMaterials(acc)
-    }
+    const [materialsPostArr, setPostArr] = useState([]);
 
     //上传新增bom信息
     const saveForm = () => {
         const formData = { 'bom_id': '', 'bom_picture': filename, 'bom_name': bomname,
-            'material': materials, 'finished_sku_code': finishedSkuCode, 'output_percent': outputPercent }
+            'material': materialsPostArr, 'finished_sku_code': finishedSkuCode, 'output_percent': outputPercent }
         fetch(Sync_Server + '/meta/bom/bom_id/create', {
             method: 'post',
             headers: {
@@ -38,7 +35,7 @@ function FormFun() {
             body: JSON.stringify(formData)
         }).then(async (response) => {
             let res = await response.json();
-            console.log(res)
+            navigate('/bom')
         })
     }
 
@@ -86,6 +83,28 @@ function FormFun() {
         setImgList(imgList.fileList)
     };
 
+    const addMaterialList = () => {
+        let material = { sku_code: materialsName, quantity: materialsNumber};
+        setPostArr([...materialsPostArr, material]);
+    };
+
+    const modifyMaterialList = (item,i) => {
+        materialsPostArr.forEach(t => {
+            if(t.sku_code === item.sku_code && t.quantity === item.quantity) {
+                let arr1 = materialsPostArr.filter((item,index) => {
+                    return index !== i
+                });
+                console.log(arr1)
+                setPostArr(arr1);
+            };
+        });
+    };
+
+    const clickTag = (item, i) => {
+        console.log(item, i);
+        console.log(materialsPostArr);
+    };
+
     const uploadButton = (
         <div>
             <div style={{ marginTop: 8 }}>
@@ -106,7 +125,7 @@ function FormFun() {
                 >
 
                     <Form.Item label="BOM名称" name="MaterialName" >
-                        <Input className='field-input' />
+                        <Input className='field-input' onChange={(e) => setBomname(e.target.value)}/>
                     </Form.Item>
 
                     <Form.Item label="产成品" name="BrandName" >
@@ -117,6 +136,7 @@ function FormFun() {
                             filterOption={(inputValue, option) => {
                                 return option.key.includes(inputValue)
                             }}
+                            onChange={(val) => setFinishedSkuCode(val)}
                         >
                             {material.skuList.map((sku)=>
                                 <Option value={sku.sku_code} key={sku.materialName}>{sku.materialName}</Option>
@@ -125,28 +145,35 @@ function FormFun() {
                     </Form.Item>
 
                     <Form.Item label="出成率" name="SupplierName" >
-                        <Input className='field-input' />
+                        <Input className='field-input' onChange={(e) => setOutputPercent(e.target.value)}/>
                     </Form.Item>
 
                 </Form>
             </div>
             <div className='creator-content shadow'>
+                <div>
+                    {materialsPostArr.map((item, i) => <Tag closable onClick={() => clickTag(item,i)} onClose={() => modifyMaterialList(item,i)} key={item.sku_code}>{item.sku_code} {item.quantity}</Tag>)}
+                </div>
                 <Form.Item label="构成原料" name="BrandName" >
                     <Select
                         style={{ width: 500 }}
-                        mode="multiple"
-                        placeholder="可选择多种原料"
-                        tokenSeparators={[" ", ","]}
-                        defaultvalue={[]}
+                        placeholder="请选择原料"
                         filterOption={(inputValue, option) => {
                             return option.key.includes(inputValue)
                         }}
+                        onChange={(val) => setMaterialsName(val)}
                     >
                         {material.skuList.map((sku)=>
-                            <Option key={sku.materialName} value={sku.sku_code} >{sku.materialName}</Option>
+                            <Option key={sku.materialName} value={sku.materialName} >{sku.materialName}</Option>
                         )}
                     </Select>
                 </Form.Item>
+                <Form.Item label="原料数量" name="number" >
+                    <Input className='field-input'  onChange={(e) => setMaterialsNumber(e.target.value)}/>
+                </Form.Item>
+                <Space className='buttons btn'>
+                    <Button className='chen-button shadow primary' onClick={addMaterialList}>添加</Button>
+                </Space>
             </div>
 
             <div className='creator-content shadow module-form'>

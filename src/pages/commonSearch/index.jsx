@@ -31,7 +31,7 @@ export const SearchBanner = ({ initialData, setData, searchKeys }) => {
 	return (
 		<div className="search-container">
 			<Search
-				placeholder="材料名称"
+				placeholder="输入搜索词"
 				value={inputValue}
 				onChange={(evt) =>
 					setInputValue(evt.target.value)
