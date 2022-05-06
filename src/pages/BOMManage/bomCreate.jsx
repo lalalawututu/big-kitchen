@@ -151,8 +151,11 @@ function FormFun() {
                 </Form>
             </div>
             <div className='creator-content shadow'>
-                <div>
-                    {materialsPostArr.map((item, i) => <Tag closable onClick={() => clickTag(item,i)} onClose={() => modifyMaterialList(item,i)} key={item.sku_code}>{item.sku_code} {item.quantity}</Tag>)}
+                <div className="tags-type-box" style={{'marginBottom': '.3rem'}}>
+                    {
+                        materialsPostArr.map((item, i) =>
+                            <Tag closable onClick={() => clickTag(item,i)} onClose={() => modifyMaterialList(item,i)} key={item.sku_code}>{item.sku_code} {item.quantity}</Tag>)
+                    }
                 </div>
                 <Form.Item label="构成原料" name="BrandName" >
                     <Select
@@ -171,7 +174,7 @@ function FormFun() {
                 <Form.Item label="原料数量" name="number" >
                     <Input className='field-input'  onChange={(e) => setMaterialsNumber(e.target.value)}/>
                 </Form.Item>
-                <Space className='buttons btn'>
+                <Space className='buttons btn' style={{'margin': 0}}>
                     <Button className='chen-button shadow primary' onClick={addMaterialList}>添加</Button>
                 </Space>
             </div>
