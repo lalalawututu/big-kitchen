@@ -5,6 +5,7 @@ import From from "./from";
 
 const TabContent = props => {
     let materials = stockListContainer.useContainer()
+
     const columns = [
         {
             title: 'sku',
@@ -63,11 +64,11 @@ const TabContent = props => {
     ];
     return (
         <div className='common-long-table'  style={{ marginTop: '0.2rem' }}>
-            <From stocks={materials.stockInfo} />
+            <From data={materials.data} stocks={materials.stockInfo} setFilterArr={materials.setFilterArr}/>
             <Table
                 columns={columns}
-                dataSource={materials.data}
-                rowKey={dataSource => dataSource.key}
+                dataSource={materials.filterArr.length ===0 ? materials.data : materials.filterArr}
+                rowKey={record => record.id}
             />
         </div>
     )

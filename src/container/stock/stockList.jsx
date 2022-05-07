@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { createContainer } from "unstated-next"
-import { useMount } from '../../utils'
+import { useState } from 'react';
+import { createContainer } from "unstated-next";
+import { useMount } from '../../utils';
 import {WMS_Server} from "../../common";
 
 const useList = () => {
     const [data, setData] = useState([]); //表格数据
     const [searchStock, setSearchStock] = useState('all')
+    const [filterArr, setFilterArr] = useState([]); //筛选数组
     const [stockInfo, setStockInfo] = useState([
         {id:'all', title:'全部'},
         {id:'raw', title:'原料库'},
@@ -22,13 +23,11 @@ const useList = () => {
     useMount(() => {
         const data = []
         const apiWmsInstockUrl = WMS_Server + "/wms/instock/" + searchStock
-        console.log(apiWmsInstockUrl)
         fetch(`${apiWmsInstockUrl}`).then(async (response) => {
             if (response.ok) {
                 let dataJson = await response.json()
                 // console.log(dataJson.content)
                 let planList = JSON.parse(dataJson.content)
-                console.log(planList)
 
                 Object.values(planList).map((item)=>{
                     item.map((item2) => {
@@ -39,13 +38,12 @@ const useList = () => {
                         data.push(item2)
                     })
                 })
-                console.log(data)
                 setData(data)
             }
         })
     })
 
-    return { data, stockInfo }
+    return { data, stockInfo, filterArr, setFilterArr }
 }
 
 let stockListContainer = createContainer(useList)

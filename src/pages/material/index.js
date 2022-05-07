@@ -67,7 +67,7 @@ function SearchFun() {
                                 <CheckableTag
                                     key={tag}
                                     checked={material.selectedTags.indexOf(tag) > -1}
-                                    onChange={checked => material.handleChange(tag, checked)}
+                                    onChange={checked => material.handleChange(tag)}
                                 >
                                     {tag}
                                 </CheckableTag>

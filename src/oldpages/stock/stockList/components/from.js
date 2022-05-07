@@ -1,9 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Input, DatePicker, Button, Tag } from 'antd';
 import {getMyDate} from "../../../../common";
+import { searchContentAnd } from "../../../../utils/searchContentAnd";
+const { CheckableTag } = Tag;
 
 //头部查询栏
 function StatusFun(props) {
+    const [selectedTags, setSelectedTags] = useState(['全部']); //类型选择
+
+    //类型切换
+    const handleChange = (tag) => {
+        setSelectedTags(tag)
+        searchContentAnd(props.data, tag, props.setFilterArr)
+    }
+
     return (
         <div className='creator-content bg-fff'>
             <div className='wrap-line'>
@@ -12,7 +22,13 @@ function StatusFun(props) {
                     <div>
                         {
                             props.stocks.map(item => (
-                                <Tag className='active'>{item.title}</Tag>
+                                <CheckableTag
+                                    key={item.id}
+                                    checked={selectedTags.indexOf(item.title) > -1}
+                                    onChange={() => handleChange(item.title)}
+                                >
+                                    {item.title}
+                                </CheckableTag>
                             ))
                         }
                     </div>
@@ -80,7 +96,7 @@ class From extends Component {
     render() {
         return (
             <div className="distribution">
-                <StatusFun stocks={this.props.stocks} />
+                <StatusFun stocks={this.props.stocks} data={this.props.data} setFilterArr={this.props.setFilterArr}/>
             </div>
         )
     }
