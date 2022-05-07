@@ -1,20 +1,20 @@
-import {useState} from 'react';
-import {createContainer} from "unstated-next";
-import {getAnchorModel, useMount} from '../../utils';
-import {APS_Server, Sync_Server, Tracker_Server} from "../../common";
+import { useState } from 'react';
+import { createContainer } from "unstated-next";
+import { getAnchorModel, useMount } from '../../utils';
+import { APS_Server, Sync_Server, Tracker_Server } from "../../common";
 
 
 const useMine = () => {
 
-  const stockInfo= [
-    {id:'all', title:'全部'},
-    {id:'raw', title:'原料库'},
-    {id:'seasoning', title:'调料库'},
-    {id:'asset', title:'资产库'},
-    {id:'packing', title:'包材库'},
-    {id:'halfprod', title:'半成品库'},
-    {id:'consume', title:'耗材库'},
-    {id:'basket', title:'周转筐库'},
+  const stockInfo = [
+    { id: 'all', title: '全部' },
+    { id: 'raw', title: '原料库' },
+    { id: 'seasoning', title: '调料库' },
+    { id: 'asset', title: '资产库' },
+    { id: 'packing', title: '包材库' },
+    { id: 'halfprod', title: '半成品库' },
+    { id: 'consume', title: '耗材库' },
+    { id: 'basket', title: '周转筐库' },
     // {id:'production', title:'成品库'},
     // {id:'sample', title:'留样库'},
   ]; //表格数据
@@ -23,11 +23,10 @@ const useMine = () => {
   const [btnDisabled] = useState(false)
   const [loading, setLoading] = useState(true)
   const [exception, setException] = useState(false)
-  const [inspResult, setInspResult] = useState(0)
   const [taskList, setTaskList] = useState([
     {
       'taskId': '0000',
-      'btn': {'content': '完成上报', flag: 0}
+      'btn': { 'content': '完成上报', flag: 0 }
     }
   ])  //任务
   const [peopleInfo, setPeopleInfo] = useState([])  //人员信息
@@ -35,11 +34,11 @@ const useMine = () => {
   const apiTaskStartUrl = Tracker_Server + "/status/task/start?key="
   const apiTaskStatusGetUrl = Tracker_Server + "/status/task/get?key="
   const apiTaskSubmitUrl = Tracker_Server + "/status/task/submit?key="
-  const fmt_time = ((t) => { return t.getHours() + ':' + t.getMinutes()})
+  const fmt_time = ((t) => { return t.getHours() + ':' + t.getMinutes() })
   const model = getAnchorModel()
-  const now = new Date().getTime()/1000
+  const now = new Date().getTime() / 1000
 
-  useMount (() => {
+  useMount(() => {
     load_tasks()
   })
   const load_tasks = () => {
@@ -66,7 +65,7 @@ const useMine = () => {
         var employee = {};
         //获取人员基本信息
         let emp = planList[0].info.employees[0];
-        const apiGetEmployeeUrl = Sync_Server + "/data/employee/"+emp
+        const apiGetEmployeeUrl = Sync_Server + "/data/employee/" + emp
         let response2 = await fetch(`${apiGetEmployeeUrl}`);
         if (response2.ok) {
           let dataJson = await response2.json()
@@ -78,7 +77,7 @@ const useMine = () => {
         }
 
         //获取任务状态信息
-        let planList2 = await Promise.all(planList.map(async function(item, index){
+        let planList2 = await Promise.all(planList.map(async function (item, index) {
           let url2 = apiTaskStatusGetUrl + item.info.taskId
           let response = await fetch(`${url2}`)
           if (response.ok) {
@@ -92,13 +91,14 @@ const useMine = () => {
         }))
 
         setTaskList(planList2.map(function (item, index) {
-          item.btn = {'content': item.status.finished ? '已完成' : '完工上报', flag: 0}
+          item.btn = { 'content': item.status.finished ? '已完成' : '完工上报', flag: 0 }
           item.info.duration = 3600000
           let id = item.info.taskId.replace(/(.{7}).+(.{7})/, "$1…$2")
           let batch = item.info.batchNumber.replace(/(.{7}).+(.{7})/, "$1…$2")
-          let s = new Date(item.info.startAt*1000)
-          let e = new Date(item.info.startAt*1000 + item.info.duration)
-          let ss = new Date(item.status.startAt*1000)
+          let s = new Date(item.info.startAt * 1000)
+          let e = new Date(item.info.startAt * 1000 + item.info.duration)
+          let ss = new Date(item.status.startAt * 1000)
+          // let ee = new Date(item.status.startAt * 1000 + item.info.duration)
           let ee = new Date(item.status.finishedAt)
           item.taskId = id
           item.TaskType = item.info.taskDescription
@@ -108,45 +108,46 @@ const useMine = () => {
           item.PlanEndTime = fmt_time(e)
           item.ActualStartTime = item.PlanStartTime
           // item.ActualStartTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ss)
+          // item.ActualEndTime = item.status.startAt === 0 ? '-- : --' : fmt_time(ee)
           item.ActualEndTime = item.status.finishedAt === 0 ? '-- : --' : fmt_time(ee)
           item.Specification = '包'
           item.Unit = 'kg'
           item.Quantity = item.quantity
           item.TaskStatus = item.status.finished ? '已完成' : item.status.startAt === 0 ? '未开始' : '进行中'
-          item.leftSecs = item.status.startAt === 0 ? item.info.duration/1000/60 + '分钟' : (item.info.duration/1000 - (now - item.status.StartAt))/60 + '分钟'
+          item.leftSecs = item.status.startAt === 0 ? item.info.duration / 1000 / 60 + '分钟' : (item.info.duration / 1000 - (now - item.status.StartAt)) / 60 + '分钟'
           item.Driver = item.driver?.name
           item.DriverPhone = item.driver?.phone
           item.RecvCarNumber = item.driver?.carNo
           item.Supplier = item.supplierId
           item.employee = employee
           item.ActualWeighing = item.status.processingAmount
-          let weight =  0.6
+          let weight = 0.6
           if (model === 'receiving' || model === 'enter') {
             weight = item.detail.map((de) => de.quantity).reduce((arr, cur) => arr + cur)
-          }else if (model === 'prod') {
+          } else if (model === 'prod') {
             item.Production = item.outputSkuCode[0]
             item.OutputQuantity = item.outputSkuCode[1].toFixed(2)
             item.prodrate = (item.ActualWeighing / item.OutputQuantity).toFixed(2) * 100
-          }else if (model === 'picking' || model === 'reenter'){
-            weight = item.pickDetail.map((de)=>de.quantityNeed).reduce((arr,cur)=> arr + cur)
-            item.PickDetail = item.pickDetail.map((detail)=>{
+          } else if (model === 'picking' || model === 'reenter') {
+            weight = item.pickDetail.map((de) => de.quantityNeed).reduce((arr, cur) => arr + cur)
+            item.PickDetail = item.pickDetail.map((detail) => {
               detail.key = detail.skuCode
               detail.origWarehouse = detail.warehouse
-              stockInfo.filter(value=>value.id===detail.warehouse).map(item3=>{
+              stockInfo.filter(value => value.id === detail.warehouse).map(item3 => {
                 detail.warehouse = item3.title
               })
               detail.quantityPicking = item.status.processingAmount
               return detail
             })
-          }else if (model === 'packing'){
+          } else if (model === 'packing') {
             weight = item.specAmount
-          }else if (model === 'loadding'){
+          } else if (model === 'loadding') {
             weight = item.quantity
             item.LoadingCarNumber = item.carNumber
             item.DeliverPort = item.dock?.dockName
             item.CustomerName = item.dk
             item.CustomerAddress = item.dk_address
-          }else{
+          } else {
             weight = item.quantity
           }
           item.Weight = weight?.toFixed(2)
@@ -175,19 +176,33 @@ const useMine = () => {
           item.damageCount = item.damagedBasket
           item.awaitNumber = item.todayNeedBasket
           item.Station = item.info.station
-          item.StorageLocation = item.position??item.location??item.storageLocation??'0006'
-          item.StockPosition = item.position??item.location??item.storageLocation??'0006'
+          item.StorageLocation = item.position ?? item.location ?? item.storageLocation ?? '0006'
+          item.StockPosition = item.position ?? item.location ?? item.storageLocation ?? '0006'
           item.reasons = item.reason
           item.actions = item.action
           item.StorageRoomName = item.warehouse?.length === 0 ? 'raw' : item.warehouse
           item.Warehouse = item.warehouse?.length === 0 ? 'raw' : item.warehouse
           item.baskets = item.basket
-          item.ExceptionReasons = ['货位送到','仓库已满','检验超标','品控不合格','库存不足']
+          item.ExceptionReasons = ['货位送到', '仓库已满', '检验超标', '品控不合格', '库存不足']
+          if (model === 'recvctrl') {
+            //品控 不合格原因数据处理
+            var RequirementsNew = []
+            item.Requirements[0]?.split('，').map((ele, index) => {
+              var obj = {}
+              obj.name = ele;
+              obj.select = false;
+              RequirementsNew.push(obj)
+            })
+            item.Requirements = RequirementsNew
+          } else if (model === 'recvinsp') {
+            item.inspResult = 1; //检验检测看板添加质检指标，范围为1-100
+          }
           console.log(item)
           return item
         }))
         setLoading(false)
-    }})
+      }
+    })
   }
 
   const startTask = (taskId) => {
@@ -209,7 +224,7 @@ const useMine = () => {
   //上报
   const TaskSubmitClick = (item, index, flag) => {
     let datas = []
-    setLoading(true)
+    // setLoading(true)
     let data_index = model
     var data = {
       'taskId': item.info.taskId,
@@ -224,17 +239,32 @@ const useMine = () => {
     }
     if (model === 'recvinsp') {
       data_index = 'receiving/insp'
+      data.taskId = item.taskId
       data.skuCode = item.skuCode
       data.batch = item.batchNumber
       data.unqualifiedCause = item.inspectionContent
+      data.passed = flag; //合格：true 不合格:false
+      data.employeeId = item.employee.employee_id;
+      data.unqualifiedCause = ''; //不合格原因
+      data.inspectionResult = item.inspResult; //质检指标
       datas.push(data)
     }
     if (model === 'recvctrl') {
+      //不合格原因
+      var problemArr=[]
+      item.Requirements?.map((item,index)=>{
+        if(item.select === true){problemArr.push(item.name) }
+      })
       data_index = 'receiving/ctrl'
       data.skuCode = item.skuCode
       data.batch = item.batchNumber
-      data.unqualifiedQuantity = item.status.processingAmount
-      data.problems = item.inspectionRequirements
+      data.unqualifiedQuantity = item.UnqualifiedNumber
+      // data.problems = item.inspectionRequirements
+      data.taskId = item.taskId
+      data.employeeId = item.employee.employee_id;
+      data.problems=problemArr.join(',').split()
+      data.passed = flag; //合格：true 不合格:false
+
       datas.push(data)
     }
     if (model === 'inspection') {
@@ -380,6 +410,10 @@ const useMine = () => {
     }
     if (model === 'leader') {
     }
+
+    console.log(data,'7777')
+    console.log(item)
+    return false;
     let url = apiTaskSubmitUrl + data_index
     datas.forEach((data) => {
       fetch(url, {
@@ -397,27 +431,53 @@ const useMine = () => {
   //修改不合格数量-质检
   const UnqualifiedNumber = (e, item, index) => {
     setTaskList(taskList.map((item, i) =>
-        i === index ? { ...item, UnqualifiedNumber: e } : item
+      i === index ? { ...item, UnqualifiedNumber: e } : item
     ))
   }
 
   //增加不合格数量-品控
-  const addNumber = (item,index) => {
+  const addNumber = (item, index) => {
     setTaskList(taskList.map((item, i) =>
-        i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber + 1 } : item
+      i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber + 1 } : item
     ))
   }
 
   //减少不合格数量-品控
-  const sbutractNumber = (item,index) => {
+  const sbutractNumber = (item, index) => {
     setTaskList(taskList.map((item, i) =>
-        i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber - 1 } : item
+      i === index ? { ...item, UnqualifiedNumber: item.UnqualifiedNumber - 1 } : item
     ))
   }
 
-  return { loading, model, peopleInfo, taskList, time, btnDisabled, exception,
+  //选择不合格原因-品控
+  const unqualifiedReason = (item, itemIndex, index) => {
+    //item: 当前元素  itemIndex:点击的当前元素的下标 index:品控数据的下标
+    var flag = taskList[index].Requirements[itemIndex].select
+    taskList[index].Requirements[itemIndex].select = !flag
+
+    setTaskList(taskList.map((item, i) =>
+      i === index ? { ...item, Requirements: taskList[index].Requirements } : item
+    ))
+  }
+
+  //质检指标-检验检测
+  const recvinspInspResult = (item, index, flag) => {
+    //flag 1:减少 2：增加
+    if (flag === 1) {
+      setTaskList(taskList.map((item, i) =>
+        i === index ? { ...item, inspResult: item.inspResult - 1 } : item
+      ))
+    } else {
+      setTaskList(taskList.map((item, i) =>
+        i === index ? { ...item, inspResult: item.inspResult + 1 } : item
+      ))
+    }
+  }
+
+  return {
+    loading, model, peopleInfo, taskList, time, btnDisabled, exception,
     UnqualifiedNumber, addNumber, sbutractNumber, TaskSubmitClick, startTask, setLoading, showExceptionModal, setException,
-    inspResult, setInspResult
+    unqualifiedReason, recvinspInspResult
   }
 }
 

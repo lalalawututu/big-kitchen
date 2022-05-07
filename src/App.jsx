@@ -5,7 +5,9 @@ import {
 import './App.less';
 import Header from './components/header'
 import { WorkManage } from "./pages/workmanage";
-import {WorkProcedureManagePage} from "./pages/workproceduremanage";
+import {WorkProcedureManagePage} from "./pages/workproceduremanage"; //工序管理列表
+import WorkProcedureAddEdit from "./pages/workproceduremanage/addEdit"; //工序管理新增
+import WorkProcedureDetail from "./pages/workproceduremanage/detail"; //工序管理详情
 import { Mine } from "./pages/mine";
 import PeopleManage from "./components/peoplemanage";
 import ProduceManage from "./pages/producemanage";
@@ -31,12 +33,12 @@ import MaterialAddEdit from "./pages/material/addEdit";  //物料管理新增/�
 import MaterialDetail from "./pages/material/detail";  //物料管理详情
 
 import {StockScreen} from './pages/stockScreen';
+import {ScreenLogistics} from './pages/screenLogistics';
 import {SwipeCardBoard} from './pages/swipeCard';
 
 //供应商合同管理
 import SupplierContractIndex from './pages/supplierContract'
 import SupplierContractAddEdit from './pages/supplierContract/addEdit'
-import SupplierContractDetail from './pages/supplierContract/detail'
 
 import WorkFlow from "./pages/workflow";
 import {SimErpPage} from "./pages/simerp";
@@ -150,7 +152,8 @@ const App = () => {
                         <Route path='/home/*' element={<Homepage />} />
                         <Route path="/craft" element={<div><Header /><WorkManage /></div>} />
                         <Route path="/workprocedure" element={<div><Header /><WorkProcedureManagePage /></div>} />
-                        <Route path="/bom" element={<div><Header /><BOMManage /></div>} />
+                        <Route path="/workprocedureAddEdit" element={<div><Header /><WorkProcedureAddEdit /></div>} />
+                        <Route path="/workprocedureDetail" element={<div><Header /><WorkProcedureDetail /></div>} />                         <Route path="/bom" element={<div><Header /><BOMManage /></div>} />
                         <Route path="/bomCreate" element={<div><Header /><BOMCreate /></div>} />
                         <Route path="/unibarcode" element={<div><Header /><UniversiadeBarcode /></div>} />
                         <Route path="/unimenu" element={<div><Header /><UniversiadeMenu /></div>} />
@@ -180,6 +183,7 @@ const App = () => {
 
                         <Route path="/screen" element={<Screen />} />
                         <Route path="/stockScreen" element={<StockScreen />} />
+                        <Route path="/screenLogistics" element={<ScreenLogistics />} />
 
                         <Route path="/mine/*" element={<Mine />} />
                         <Route path="/unicardswipe" element={<SwipeCardBoard />} />
@@ -202,7 +206,6 @@ const App = () => {
                         <Route path="/supplier/orders" element={<div><Header /><SupplierOrders /></div>} />
                         <Route path="/supplier/contracts" element={<div><Header /><SupplierContractIndex /></div>} />
                         <Route path="/supplier/contractsAdd" element={<div><Header /><SupplierContractAddEdit /></div>} />
-                        <Route path="/supplier/contractsDetail" element={<div><Header /><SupplierContractDetail /></div>} />
                         <Route path="/supplierAdd" element={<div><Header /><SupplierAdd /></div>} />
                         <Route path="/supplierDetail" element={<div><Header /><SupplierDetail /></div>} />
                         <Route path="/PersonnelIndex" element={<div><Header /><PersonnelIndex /></div>} />

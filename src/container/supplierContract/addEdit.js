@@ -6,21 +6,46 @@ import { Sync_Server } from "../../common";
 const useSupplier = () => {
     let location = useLocation();
     let navigate = useNavigate();
-    let BrandId = location.state ? location.state.BrandId : '';
-    const [brandDetail, setBrandDetail] = useState([]);  //供应商详情内容
-    const [supplierList, setSupplierList] = useState([]); //供应商名称
+    let contractCode = location.state ? location.state.contractCode : ''; //合同id
+    const [contractDetail, setContractDetail] = useState([]);  //合同管理详情内容
+    const [supplierList, setSupplierList] = useState([]); //供应商数据
+    const [employeesList, setEmployeesList] = useState([]); //获取负责人数据
+    const [filename, setFilename] = useState('');
 
     useEffect(() => {
         getSuppliersList(); //获取供应商列表
-        getTableDetail(); //获取供应商管理列表数据
-    }, [BrandId])
+        getEmployees(); //获取负责人列表
+        getContractDetail(); //获取供应商合同管理详情内容
+    }, [contractCode])
 
-    //获取供应商管理列表数据
-    function getTableDetail() {
-        fetch('GetBrandView?BrandId=' + BrandId).then(async (response) => {
+    //获取供应商合同管理详情内容
+    function getContractDetail() {
+        if(!contractCode) return false;
+        let url = Sync_Server + "/meta/contract/contract_code/" + contractCode
+        fetch(`${url}`).then(async (response) => {
             if (response.ok) {
-                let res = await response.json();
-                setBrandDetail(res.data)
+                let dataJson = await response.json()
+                if (dataJson.code === '200') {
+                    let contractDetail = JSON.parse(dataJson.content);
+                    if (contractDetail.length) {
+                        setContractDetail(contractDetail[0])
+                        console.log(contractDetail,'contractDetailcontractDetail')
+                    }
+                }
+            }
+        })
+    }
+
+    //获取负责人数据
+    function getEmployees() {
+        const url = Sync_Server + "/data/blockchain?model=employees"
+        fetch(`${url}`).then(async (response) => {
+            if (response.ok) {
+                let dataJson = await response.json();
+                if (dataJson.code === '200') {
+                    let employees = JSON.parse(dataJson.content);
+                    setEmployeesList(employees)
+                }
             }
         })
     }
@@ -31,15 +56,35 @@ const useSupplier = () => {
         fetch(`${url}`).then(async (response) => {
             if (response.ok) {
                 let dataJson = await response.json()
-                let supplierList = JSON.parse(dataJson.content);
-                setSupplierList(supplierList.suppliers)
+                if (dataJson.code === '200') {
+                    let supplierList = JSON.parse(dataJson.content);
+                    setSupplierList(supplierList.suppliers)
+                }
             }
         })
     }
 
+    //保存操作
+    const onFinish = (values) => {
+        const res = {
+            ...values,
+            'sign_at':  values['sign_at']?values['sign_at'].format('YYYY-MM-DD'):'', //签订日期
+            'expired_at': values['expired_at']?values['expired_at'].format('YYYY-MM-DD'):'', //合同有效期
+        };
+        SaveOrUpdateContract(res);
+    };
+
     //保存接口
-    function SaveOrUpdateBrand(data) {
-        fetch('SaveOrUpdateBrand', {
+    function SaveOrUpdateContract(data) {
+        var url = ''
+        if (contractDetail.contract_code) {
+            url = Sync_Server + "/meta/contract/contract_code/update"; //编辑
+        } else {
+            url = Sync_Server + "/meta/contract/contract_code/create"; //新增
+        }
+
+        data['filename'] = filename; //文件名
+        fetch(url, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -47,33 +92,49 @@ const useSupplier = () => {
             body: JSON.stringify(data)
         }).then(async (response) => {
             let res = await response.json();
-            if (res.data.Code === '200') {
-                navigate('/BrandIndex')
+            if (res.code === '200') {
+                navigate('/supplier/contracts')
             }
         })
     }
 
-    //保存操作
-    const onFinish = (values) => {
-        SaveOrUpdateBrand(values);
-    };
-
-    //删除接口
-    function DelBrandById() {
-        fetch('DelBrandById', {
+    //删除合同接口
+    function DelContract() {
+        const url = Sync_Server + "/meta/contract/contract_code/delete"
+        fetch(url, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({ 'BrandId': BrandId })
+            body: JSON.stringify(contractDetail)
         }).then(async (response) => {
             let res = await response.json();
-            if (res.data.Code === '200') {
-                navigate('/BrandIndex')
+            if (res.code === '200') {
+                navigate('/supplier/contracts')
             }
         })
     }
-    return { supplierList,onFinish, DelBrandById, brandDetail }
+
+    function beforeFileUpload(file) {
+        console.log(file, 'beforeFileUpload')
+        fileUpload(file)
+    }
+    //文件上传
+    function fileUpload(options) {
+        const { onSuccess, onError, file, onProgress } = options;
+
+        const formData = new FormData();
+        formData.append('file', file)
+
+        fetch(Sync_Server + '/meta/upload', {
+            method: 'POST',
+            body: formData,
+        }).then(res => {
+            res.json().then(val => setFilename(val.content))
+        })
+    }
+
+    return { supplierList, employeesList, contractDetail, onFinish, DelContract, beforeFileUpload, fileUpload }
 }
 
 let SupplierUpdateContainer = createContainer(useSupplier)

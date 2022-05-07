@@ -76,19 +76,37 @@
                 order: 2;
                 margin-left: 0.5rem;
                 span.ant-upload {
-                    display: none;
+                    // display: none;
+                    width: 1rem;
+                    height: 1.5rem;
+                    position: relative;
+                    color: #ffffff;
+                }
+                span.ant-upload:after {
+                    content: '添加附件';
+                    color: #000000D9;
+                    width: 1rem;
+                    height: 1.5rem;
+                    margin: 0 auto;
+                    box-sizing: border-box;
+                    padding-top: 1.3rem;
+                    text-align: center;
+                    background: url(../../style/img/commonCreate/add-file.png) no-repeat 0 0;
+                    background-size: 100%;
+                    position: absolute;
+                    left: 0;
                 }
             }
             &:after {
-                content: '添加附件';
-                width: 1rem;
-                height: 1.5rem;
-                margin: 0 auto;
-                box-sizing: border-box;
-                padding-top: 1.3rem;
-                text-align: center;
-                background: url(../../style/img/commonCreate/add-file.png) no-repeat 0 0;
-                background-size: 100%;
+                // content: '添加附件';
+                // width: 1rem;
+                // height: 1.5rem;
+                // margin: 0 auto;
+                // box-sizing: border-box;
+                // padding-top: 1.3rem;
+                // text-align: center;
+                // background: url(../../style/img/commonCreate/add-file.png) no-repeat 0 0;
+                // background-size: 100%;
             }
         }
 

@@ -1,8 +1,23 @@
-import workMangeContainer from '../../container/workmange'
-import { Table, Button, Space } from 'antd'
-import './index.less'
+import workMangeContainer from '../../container/workproceduremanage'
+import { Table, Button, Space,Breadcrumb } from 'antd'
 import {SearchBanner} from "../searchbanner";
-import history from "../../history";
+import './index.less'
+
+//面包屑
+const CrumbList = () => {
+  return (
+    <div className='crumbHeader'>
+      <Breadcrumb separator=">">
+        <Breadcrumb.Item>基础信息维护</Breadcrumb.Item>
+        <Breadcrumb.Item style={{ 'color': '#333951' }}>工序管理</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className='optBtn' onClick={() => window.location = `/#/workprocedureAddEdit`}>
+        <div className='title'>添加工序</div>
+        <img src={require('../../style/img/icon/icon-craftAdd.png')} alt="" />
+      </div>
+    </div>
+  )
+}
 
 export const WorkProcedureManage = () => {
   let manage = workMangeContainer.useContainer()
@@ -54,6 +69,7 @@ export const WorkProcedureManage = () => {
 
   return (
     <div className="container">
+      <CrumbList />
       <SearchBanner initialData={manage.initialData} setData={manage.setData} />
       <div className="table-no-header">
         <Table columns={columns} dataSource={manage.data} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Row, Col, Space, Button, Table, Tabs, Form, Input, Select, Modal, InputNumber, Cascader } from 'antd';
 import { CheckSquareOutlined, DeleteOutlined, PlusCircleFilled } from '@ant-design/icons';
 import './index.less';
@@ -15,21 +15,27 @@ function onChangeTab(value) {
 }
 
 const WorkCreate = () => {
-    let work = WorkCreateContainer.useContainer()
+    const [activeKey, setActiveKey] = useState({});
+    const [isModalTab, setIsModalTab] = useState(false);
+
+    let work = WorkCreateContainer.useContainer();
+    console.log(work,'work')
     let newTabIndex = 0;
     let state = {
-        activeKey: work.initialPanes[0].key,
+        activeKey: work.initialPanes ? work.initialPanes[0].key : '',
         panes: work.initialPanes,
     };
-    const onChange = activeKey => {
-        this.setState({ activeKey });
+    const onTabsChange = activeKey => {
+        console.log(activeKey, 'Inchange')
+        setActiveKey(activeKey)
+        // this.setState({ activeKey });
     };
-    const onEdit = (targetKey, action) => {
-        console.log(targetKey,action)
-        if(action === 'add'){ //创建
-            this.setState({ isModalTab: true });
+    const onTabsEdit = (targetKey, action) => {
+        console.log(targetKey, action, '88888')
+        if (action === 'add') { //创建
+            setIsModalTab(true)
         }
-        this[action](targetKey); //增加Tab
+        // this[action](targetKey); //增加Tab
     };
     const add = () => {
         const { panes } = this.state;
@@ -64,11 +70,12 @@ const WorkCreate = () => {
         });
     };
 
-    const { panes } = this.state;
+    // const { panes } = this.state;
+    const { panes } = '';
     const onFinishFailed = () => {
     };
     const handleOkTab = () => {
-        this.setState({ isModalTab: false });
+        setIsModalTab(false);
     };
 
     const showModal = () => {
@@ -78,17 +85,17 @@ const WorkCreate = () => {
         this.setState({ isModalVisible: false });
     };
     const handleCancel = () => {
-        this.setState({ isModalTab: false });
+        setIsModalTab(false);
         this.setState({ isModalVisible: false });
     };
 
     return (
         <div className="work-create-information">
             <Form
-                ref={this.formRef}
+                // ref={this.formRef}
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={this.work.onFinish}
+                // onFinish={this.work.onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
@@ -153,14 +160,15 @@ const WorkCreate = () => {
             <Form
                 name="basic"
                 initialValues={{ remember: true }}
-                onFinish={this.work.onFinish}
+                // onFinish={this.work.onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <div className="process-container">
-                    <h2 className="common-title">工艺流程</h2>
-                    <Tabs defaultActiveKey="1" type="editable-card" onChange={this.onChange} onEdit={this.onEdit} className="tabs-list">
-                        {panes.map(pane => (
+                    <h2 className="common-title">工艺流程11</h2>
+                    {/* <Tabs defaultActiveKey="1" type="editable-card" onChange={this.onChange} onEdit={this.onEdit} className="tabs-list"> */}
+                    <Tabs defaultActiveKey="1" type="editable-card" onChange={onTabsChange} onEdit={onTabsEdit} className="tabs-list">
+                        {panes && panes.map(pane => (
                             <TabPane key={pane.key} closable={pane.closable}
                                 tab={
                                     <span>{pane.title}</span>
@@ -310,30 +318,32 @@ const WorkCreate = () => {
 
             {/* 添加tab弹框 */}
             <Modal title="选择"
-                   width={600}
-                   centered
-                   visible={this.state.isModalTab}
-                   okText="确定"
-                   cancelText="取消"
-                   className="add-mask"
-                   onOk={handleOkTab} onCancel={handleCancel}>
+                width={600}
+                centered
+                visible={isModalTab}
+                okText="确定"
+                cancelText="取消"
+                className="add-mask"
+                onOk={handleOkTab} onCancel={handleCancel}>
                 <div className="cascader-tabs-box">
                     <h6>选择：</h6>
-                    <Cascader options={this.work.optionsTab} onChange={onChangeTab} changeOnSelect className="cascader-list" />
+                    {/* <Cascader options={this.work.optionsTab} onChange={onChangeTab} changeOnSelect className="cascader-list" /> */}
+                    <Cascader onChange={onChangeTab} changeOnSelect className="cascader-list" />
                 </div>
             </Modal>
 
             {/* 添加人员弹框 */}
             <Modal title="添加人员"
-                   width={600}
-                   centered
-                   visible={this.state.isModalVisible}
-                   onCancel={handleCancel}
-                   className="add-mask add-mask-footer">
+                width={600}
+                centered
+                //    visible={this.state.isModalVisible}
+                visible={false}
+                onCancel={handleCancel}
+                className="add-mask add-mask-footer">
                 <Form
                     name="basic"
                     initialValues={{ remember: true }}
-                    onFinish={this.work.onFinish}
+                    // onFinish={this.work.onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
@@ -359,7 +369,7 @@ const WorkCreate = () => {
                         <InputNumber min={1} defaultValue={1} onChange={onChangeNumber} />
                     </Form.Item>
 
-                    <div className="ant-modal-footer" style={{display: 'flex'}}>
+                    <div className="ant-modal-footer" style={{ display: 'flex' }}>
                         <Button className="ant-btn" onClick={handleCancel}><span>取 消</span></Button>
                         <Button className="ant-btn ant-btn-primary" htmlType="submit" onClick={handleOk}><span>确 定</span></Button>
                     </div>

@@ -11,7 +11,7 @@ const workInfo = () => {
 const CrumbList = () => {
   return (
     <div className='crumbHeader'>
-      <Breadcrumb separator="<">
+      <Breadcrumb separator=">">
         <Breadcrumb.Item>基础信息维护</Breadcrumb.Item>
         <Breadcrumb.Item style={{ 'color': '#333951' }}>工艺管理（适用于生产线）</Breadcrumb.Item>
       </Breadcrumb>

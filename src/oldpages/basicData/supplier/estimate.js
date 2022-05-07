@@ -131,10 +131,6 @@ export default function Estimate() {
                     <Breadcrumb separator="<">
                         <Breadcrumb.Item style={{ 'color': '#333951' }}>供应商评级</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div className='optBtn'>
-                        <div className='title'>添加资产</div>
-                        <img src={require('../../../style/img/icon/icon-craftAdd.png')} alt="" />
-                    </div>
                 </div>
                 <SearchFun />
                 <TableFun />

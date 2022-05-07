@@ -117,7 +117,7 @@ export const WorkInfo = () => {
                                                     }]
                                                 } scroll={{ y: 330 }} pagination={false} className="table-scroll">
                                                     {/*<Column title="设备编号" dataIndex="EquipmentId" key="EquipmentId" />*/}
-                                                    <Column title="设备名称" dataIndex="EquipmentName" key="EquipmentName" />
+                                                    {/* <Column title="设备名称" dataIndex="EquipmentName" key="EquipmentName" /> */}
                                                     <Column title="设备类型" dataIndex="EquipmentCategory" key="EquipmentCategory" />
                                                     {/*<Column title="品牌" dataIndex="Brand" key="Brand" />*/}
                                                 </Table>

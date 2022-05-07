@@ -59,6 +59,7 @@ const initialPanes = {
                 {title: '仓库管理', content: '/StockList', key: '5'},
                 {title: '物料管理', content: '/MaterialIndex', key: '6'},
                 {title: '周转筐管理', content: '/TurnoverBasketIndex', key: '19'},
+                {title: '配送口管理', content: '/TurnoverBasketIndex', key: '19'},
                 {title: '品牌管理', content: '/BrandIndex', key: '18'},
             ],
             "prod": [
@@ -103,7 +104,7 @@ const initialPanes = {
                 {title: '报损看板', content: '/mine/exception', key: '10'},
             ],
             "screen": [
-                {title: '物流配送大屏', content: '/screen', key: '11'},
+                {title: '物流配送大屏', content: '/screenLogistics', key: '11'},
                 {title: '物流配送移动端', content: '/screen', key: '14'},
             ]
         }
