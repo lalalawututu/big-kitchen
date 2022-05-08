@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import materialsManageContainer from '../../container/materialsManage'
 import { SearchBanner } from '../../components/searchContentOr/index'
-import { Table, Button, Space, Modal } from 'antd'
+import { Table, Button, Space, Modal, message } from 'antd'
 import { DiffOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom';
 import history from '../../history'
@@ -18,9 +18,7 @@ export const BOMListPage = () => {
     brand: '',
     imgUrl: ''
   })
-  const create = () => {
-    history.push(`/materialscreate`);
-  }
+
   let materialList = materialsManageContainer.useContainer()
   const detail = (text) => {
     setIsModalVisible(true)
@@ -33,6 +31,13 @@ export const BOMListPage = () => {
       brand: text.brand,
       imgUrl: text.imgUrl
     })
+  }
+  const modify = (text) => {
+    if(text.BomID !== '') {
+      navigate('/bomModify',{state:{BomID: text.BomID, imgUrl: text.imgUrl}})
+    } else {
+      message.warning('该条目无id值不能修改');
+    }
   }
   const handleOk = () => {
     setIsModalVisible(false)
@@ -75,6 +80,7 @@ export const BOMListPage = () => {
       render: (text, record) => (
           text.imgUrl ?
                 <Space size="middle">
+                  <Button className="common-btn-bg" onClick={() => modify(text)}>修改</Button>
                   <Button className="common-btn-bg" onClick={() => detail(text)}>图片</Button>
                 </Space> : null
 

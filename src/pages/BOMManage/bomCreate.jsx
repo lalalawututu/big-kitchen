@@ -3,6 +3,7 @@ import {Form, Input, Button, Select, Space, Typography, Upload, message, Tag} fr
 import BOMCreateContainer from '../../container/bom/bomCreate'
 import { useNavigate } from 'react-router-dom';
 import {Sync_Server} from "../../common";
+import { DeleteOutlined} from '@ant-design/icons';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -79,7 +80,6 @@ function FormFun() {
     }
 
     const onChange = (imgList) => {
-        console.log(imgList)
         setImgList(imgList.fileList)
     };
 
@@ -98,11 +98,6 @@ function FormFun() {
                 setPostArr(arr1);
             };
         });
-    };
-
-    const clickTag = (item, i) => {
-        console.log(item, i);
-        console.log(materialsPostArr);
     };
 
     const uploadButton = (
@@ -154,7 +149,7 @@ function FormFun() {
                 <div className="tags-type-box" style={{'marginBottom': '.3rem'}}>
                     {
                         materialsPostArr.map((item, i) =>
-                            <Tag closable onClick={() => clickTag(item,i)} onClose={() => modifyMaterialList(item,i)} key={item.sku_code}>{item.sku_code} {item.quantity}</Tag>)
+                            <Tag closable onClose={() => modifyMaterialList(item,i)} key={item.sku_code}>{item.sku_code} {item.quantity}</Tag>)
                     }
                 </div>
                 <Form.Item label="构成原料" name="BrandName" >
@@ -197,6 +192,7 @@ function FormFun() {
             <Space className='buttons btn'>
                 <Button className='chen-button shadow' onClick={() => navigate('/bom')}>取消</Button>
                 <Button className='chen-button shadow primary' onClick={saveForm}>保存</Button>
+                <DeleteOutlined />
             </Space>
         </div>
     );

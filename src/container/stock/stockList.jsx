@@ -38,6 +38,7 @@ const useList = () => {
                         data.push(item2)
                     })
                 })
+                console.log(data)
                 setData(data)
             }
         })
