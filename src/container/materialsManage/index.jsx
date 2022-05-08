@@ -47,7 +47,6 @@ const useList = () => {
         let dataJson = await response.json()
         // console.log(dataJson.content)
         let planList = JSON.parse(dataJson.content)
-        console.log(planList)
         let data = {}
         planList.forEach((item, index) => {
           item.material.forEach((item2)=>{
@@ -56,6 +55,7 @@ const useList = () => {
                 key: item2.sku_code,
                 FinishSkuCode: '',
                 BomName: '',
+                BomID: '',
                 Material: item2.sku_code,
                 Quantity: item2.quantity,
                 Rate: '',
@@ -66,6 +66,7 @@ const useList = () => {
                 key: item2.sku_code,
                 FinishSkuCode: item.finished_sku_code,
                 BomName: item.bom_name,
+                BomID: item.bom_id,
                 Material: item2.sku_code,
                 Quantity: item2.quantity,
                 Rate: item.output_percent + '%',
