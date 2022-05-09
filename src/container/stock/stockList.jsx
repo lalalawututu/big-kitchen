@@ -23,12 +23,12 @@ const useList = () => {
     useMount(() => {
         const data = []
         const apiWmsInstockUrl = WMS_Server + "/wms/instock/" + searchStock
+        const apiWmsInstockSettingUrl = WMS_Server + "/wms/stock/safety/" + searchStock
+        const apiWmsInstockExpieUrl = WMS_Server + "/wms/stock/expire"
         fetch(`${apiWmsInstockUrl}`).then(async (response) => {
             if (response.ok) {
                 let dataJson = await response.json()
-                // console.log(dataJson.content)
                 let planList = JSON.parse(dataJson.content)
-
                 Object.values(planList).map((item)=>{
                     item.map((item2) => {
                         stockInfo.filter(value=>value.id===item2.stockName).map(item3=>{
@@ -38,9 +38,15 @@ const useList = () => {
                         data.push(item2)
                     })
                 })
-                console.log(data)
                 setData(data)
             }
+        })
+        fetch(`${apiWmsInstockExpieUrl}`).then(async res => {
+            if(res.ok) {
+                let dataJson = await res.json()
+                console.log(dataJson)
+            }
+            
         })
     })
 
